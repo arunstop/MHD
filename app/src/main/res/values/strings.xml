@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MHD</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!--google auth client id-->
+    <string name="client_id">52023918840-usq2mt0bjs6jkrncin52gno943csjasf.apps.googleusercontent.com</string>
+</resources>
