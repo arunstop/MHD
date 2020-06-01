@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/colorPrimaryDark"
-    tools:context=".LaunchActivity">
+    android:background="@drawable/bg_gradient"
+    tools:context=".LoginActivity">
 
     <LinearLayout
         android:gravity="center"

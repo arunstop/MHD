@@ -2,6 +2,7 @@ package com.arunseto.mhd;
 
 import android.os.Bundle;
 
+import com.arunseto.mhd.storage.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -16,6 +17,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private boolean doubleBackToExitPressedOnce;
+    private Session session;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    mTextMessage.setText(session.getUser().getEmail());
                     return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        session = Session.getInstance(this);
     }
 
 

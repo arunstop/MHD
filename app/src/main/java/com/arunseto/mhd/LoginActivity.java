@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.arunseto.mhd.models.ListUser;
+import com.arunseto.mhd.storage.Session;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -20,18 +22,21 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class LaunchActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private GoogleSignInClient googleSignInClient;
     private Button btnLogin, btnLogout;
     private Context context;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        context = LaunchActivity.this;
+        session = Session.getInstance(this);
+
+        context = LoginActivity.this;
         btnLogin = findViewById(R.id.btnLogin);
         btnLogout = findViewById(R.id.btnLogout);
 
@@ -80,11 +85,12 @@ public class LaunchActivity extends AppCompatActivity {
                         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                         GoogleSignInAccount account = task.getResult(ApiException.class);
 
+                        session.saveUser(new ListUser("test@test.com","test"));
                         startActivity(new Intent(context, MainActivity.class));
 //                        finish();
                     } catch (ApiException e) {
                         // The ApiException status code indicates the detailed failure reason.
-                        Log.w("Google Login", "signInResult:failed code=" + e.getStatusCode());
+                        Log.w("Google LoginActivity", "signInResult:failed code=" + e.getStatusCode());
                         Toast.makeText(this, "Sign In failed, error code = " + e.getMessage() + "", Toast.LENGTH_SHORT).show();
                     }
                     break;
