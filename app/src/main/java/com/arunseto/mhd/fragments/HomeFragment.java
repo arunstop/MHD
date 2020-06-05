@@ -39,42 +39,9 @@ public class HomeFragment extends Fragment {
         context = getActivity();
         session = Session.getInstance(context);
 
-        Button btnLogout = view.findViewById(R.id.btnLogout);
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.client_id))
-                .requestEmail()
-                .build();
-        googleSignInClient = GoogleSignIn.getClient(context, gso);
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logoutGoogle();
-            }
-        });
-
 
         return view;
     }
 
-    private void logoutGoogle() {
-        /*
-          Sign-out is initiated by simply calling the googleSignInClient.signOut API. We add a
-          listener which will be invoked once the sign out is the successful
-           */
-        googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                //On Succesfull signout we navigate the user back to LoginActivity
-                session.clear();
-                Toast.makeText(context, "Log out success", Toast.LENGTH_SHORT).show();
-                Log.w("Google Logout", "NICE");
-                startActivity(new Intent(context, LoginActivity.class));
-                getActivity().finish();
 
-            }
-        });
-
-    }
 }
