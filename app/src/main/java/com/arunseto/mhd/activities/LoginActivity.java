@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAPI;
-import com.arunseto.mhd.models.ListUser;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.storage.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
     private Session session;
     private LoadingDialog loadingDialog;
     private GoogleAPI googleAPI;
-
 
 
     @Override
@@ -73,9 +72,16 @@ public class LoginActivity extends AppCompatActivity {
                         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                         GoogleSignInAccount account = task.getResult(ApiException.class);
 
-                        session.saveUser(new ListUser("test@test.com","test"));
+//                        Toast.makeText(context, account.getGivenName()+"", Toast.LENGTH_SHORT).show();
+                        session.saveUser(
+                                new User(account.getEmail(),
+                                        "",
+                                        account.getGivenName(),
+                                        account.getFamilyName(),
+                                        account.getPhotoUrl().toString())
+                        );
                         startActivity(new Intent(context, MainActivity.class));
-//                        finish();
+                        finish();
                     } catch (ApiException e) {
                         // The ApiException status code indicates the detailed failure reason.
                         Log.w("Google LoginActivity", "signInResult:failed code=" + e.getStatusCode());

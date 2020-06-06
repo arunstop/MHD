@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,9 +23,11 @@ import com.arunseto.mhd.activities.LoginActivity;
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAPI;
 import com.arunseto.mhd.storage.Session;
+import com.arunseto.mhd.ui.OptionDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
 
 
 public class SettingsFragment extends Fragment {
@@ -34,14 +37,28 @@ public class SettingsFragment extends Fragment {
     private Context context;
     private Session session;
     private GoogleAPI googleAPI;
+    private TextView tvName, tvEmail;
+    private ImageView ivProfilePhoto;
+    private OptionDialog optionDialog;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view =  inflater.inflate(R.layout.fragment_settings, container, false);
+
+        view = inflater.inflate(R.layout.fragment_settings, container, false);
         context = getActivity();
         session = Session.getInstance(context);
         googleAPI = GoogleAPI.getInstance(context);
+
+        tvName = view.findViewById(R.id.tvName);
+        tvEmail = view.findViewById(R.id.tvEmail);
+        ivProfilePhoto = view.findViewById(R.id.ivProfilePhoto);
+
+        tvName.setText(session.getUser().getFname().toUpperCase() + " " + session.getUser().getLname().toUpperCase());
+        tvEmail.setText(session.getUser().getEmail());
+        if (!session.getUser().getPhotoUrl().isEmpty()) {
+            Picasso.with(context).load(session.getUser().getPhotoUrl()).centerInside().fit().into(ivProfilePhoto);
+        }
 
         Button btnLogout = view.findViewById(R.id.btnLogout);
 
@@ -55,7 +72,7 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
-    private void logoutGoogle() {
+    private void execLogout() {
         /*
           Sign-out is initiated by simply calling the googleSignInClient.signOut API. We add a
           listener which will be invoked once the sign out is the successful
@@ -77,36 +94,20 @@ public class SettingsFragment extends Fragment {
 
     public void commitLogout() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View layoutLogout = getLayoutInflater().inflate(R.layout.template_dialog_confirmation, null);
-        // yes == log out
-        // no == cancel
-        Button btnYes = layoutLogout.findViewById(R.id.btnYes);
-        Button btnNo = layoutLogout.findViewById(R.id.btnNo);
-        TextView tvTitle = layoutLogout.findViewById(R.id.tvTitle);
-        builder.setView(layoutLogout);
-
-        final AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();// to resize alert dialogMoreMenu, this command line should be below the alert.show()
-        dialog.getWindow().setLayout(600, ViewGroup.LayoutParams.WRAP_CONTENT);// here i have fragment height 30% of window's height you can set it as per your requirement
-
-
-        tvTitle.setText("Apakah Anda yakin ingin keluar akun ?");
-        btnYes.setText("KELUAR");
-        btnNo.setText("BATAL");
-        btnYes.setOnClickListener(new View.OnClickListener() {
+        optionDialog = new OptionDialog(context, "Apakah Anda yakin ingin keluar akun ?", "KELUAR", "BATAL");
+        optionDialog.show();
+        optionDialog.getBtnYes().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
-                logoutGoogle();
+                optionDialog.dismiss();
+                execLogout();
             }
         });
 
-        btnNo.setOnClickListener(new View.OnClickListener() {
+        optionDialog.getBtnNo().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                optionDialog.dismiss();
             }
         });
 

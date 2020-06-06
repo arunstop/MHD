@@ -15,7 +15,6 @@ public class LoadingDialog extends Dialog {
     public LoadingDialog(Context context) {
         super(context);
         this.context = context;
-
     }
 
     @Override

@@ -48,8 +48,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="12dp"
                 android:drawableStart="@drawable/ic_more_vert_black_24dp"
-                android:gravity="end"
-                android:onClick="navBack" />
+                android:gravity="end" />
         </RelativeLayout>
 
 

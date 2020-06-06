@@ -28,7 +28,8 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:padding="6dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:id="@+id/llBtnLogin"
                 style="@style/ButtonTransparent"
                 android:layout_width="match_parent"

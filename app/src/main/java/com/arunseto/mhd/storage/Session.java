@@ -3,7 +3,7 @@ package com.arunseto.mhd.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.arunseto.mhd.models.ListUser;
+import com.arunseto.mhd.models.User;
 
 
 /**
@@ -27,12 +27,16 @@ public class Session {
         return mInstance;
     }
 
-    public void saveUser(ListUser user) {
+    public void saveUser(User user) {
         SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = session.edit();
 
         editor.putString("email", user.getEmail());
         editor.putString("password", user.getPassword());
+        editor.putString("fname", user.getFname());
+        editor.putString("lname", user.getLname());
+        editor.putString("photoUrl", user.getPhotoUrl());
+
 
 
         editor.apply();
@@ -45,11 +49,14 @@ public class Session {
         return session.getString("email", null) != null;
     }
 
-    public ListUser getUser() {
+    public User getUser() {
         SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return new ListUser(
+        return new User(
                 session.getString("email", null),
-                session.getString("password", null)
+                session.getString("password", null),
+                session.getString("fname", null),
+                session.getString("lname", null),
+                session.getString("photoUrl", null)
         );
     }
 

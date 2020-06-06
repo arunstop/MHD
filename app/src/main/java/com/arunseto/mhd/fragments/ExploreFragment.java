@@ -1,6 +1,8 @@
 package com.arunseto.mhd.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,20 +76,22 @@ public class ExploreFragment extends Fragment {
 
                         tvArticleTitle.setText(na.getTitle());
                         tvArticleContent.setText(na.getContent());
-                        tvArticleExtra.setText(na.getSource().getName() + " - " + na.getPublishedAt().substring(0,10));
+                        tvArticleExtra.setText(na.getSource().getName() + " - " + na.getPublishedAt().substring(0, 10));
 
                         vArticle.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                getFragmentManager().beginTransaction().replace(flContentSub,
-                                        new ArticleFragment(na)).addToBackStack("1").commit();
+//                                getFragmentManager().beginTransaction().replace(flContentSub,
+//                                        new ArticleFragment(na)).addToBackStack("1").commit();
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(na.getUrl()));
+                                startActivity(i);
                             }
                         });
 
                         if (!na.getUrlToImage().isEmpty()) {
                             Picasso.with(context).load(na.getUrlToImage()).fit().into(ivArticleImage);
                         }
-
 
 
                         i++;
