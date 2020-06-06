@@ -32,17 +32,17 @@ public class SplashActivity extends AppCompatActivity {
 
         session = Session.getInstance(this);
 
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
-
-        progressBar.setProgress(20);
-        progressBar.setMax(50);
+//        progressBar = findViewById(R.id.progressBar);
+//        progressBar.setVisibility(View.VISIBLE);
+//
+//        progressBar.setProgress(20);
+//        progressBar.setMax(50);
 
         handler = new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {
-                progressBar.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.GONE);
                 timer.cancel();
             }
         };

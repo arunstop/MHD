@@ -87,26 +87,31 @@ public class MainActivity extends AppCompatActivity {
                 .show();
 
     }
+//
+//    @Override
+//    public void onBackPressed() {
+//        if (doubleBackToExitPressedOnce) {
+//            super.onBackPressed();
+//            return;
+//        }
+//
+//        this.doubleBackToExitPressedOnce = true;
+//        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+//        //snack bar
+//        Snackbar.make(findViewById(android.R.id.content), "Please click BACK again to exit", Snackbar.LENGTH_LONG).show();
+//
+//        new Handler().postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                doubleBackToExitPressedOnce = false;
+//            }
+//        }, 2000);
+//    }
 
-    @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-        //snack bar
-        Snackbar.make(findViewById(android.R.id.content), "Please click BACK again to exit", Snackbar.LENGTH_LONG).show();
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
+    // back for level 2 fragment
+    public void navBack(View view){
+        super.onBackPressed();
     }
 
 }

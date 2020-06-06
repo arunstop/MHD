@@ -22,9 +22,7 @@ import com.arunseto.mhd.activities.LoginActivity;
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAPI;
 import com.arunseto.mhd.storage.Session;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 

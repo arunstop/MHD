@@ -2,9 +2,7 @@ package com.arunseto.mhd.api;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 
-import com.arunseto.mhd.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -12,6 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 public class GoogleAPI {
 //    private String idToken = Resources.getSystem().getString(R.string.client_id);
+    private String idToken = "52023918840-usq2mt0bjs6jkrncin52gno943csjasf.apps.googleusercontent.com";
     private static GoogleAPI mInstance;
     private Context context;
     GoogleSignInOptions gso;

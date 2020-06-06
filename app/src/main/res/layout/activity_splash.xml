@@ -10,16 +10,16 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:src="@drawable/icon" />-->
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:layout_alignParentBottom="true"
-        android:max="100"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/colorTransparent"
-        android:indeterminateTint="@color/colorAccent" />
+    <!--<ProgressBar-->
+        <!--android:id="@+id/progressBar"-->
+        <!--style="?android:attr/progressBarStyleHorizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:indeterminate="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:max="100"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:backgroundTint="@color/colorTransparent"-->
+        <!--android:indeterminateTint="@color/colorAccent" />-->
 
 </RelativeLayout>

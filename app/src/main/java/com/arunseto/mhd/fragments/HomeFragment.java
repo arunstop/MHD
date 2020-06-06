@@ -16,7 +16,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public class HomeFragment extends Fragment {
 
-    private GoogleSignInClient googleSignInClient;
     private View view;
     private Context context;
     private Session session;
