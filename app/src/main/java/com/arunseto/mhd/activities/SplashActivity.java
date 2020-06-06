@@ -1,4 +1,4 @@
-package com.arunseto.mhd;
+package com.arunseto.mhd.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.arunseto.mhd.R;
 import com.arunseto.mhd.storage.Session;
 
 import java.util.Timer;
@@ -61,7 +62,7 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    //check the user logged in
+                    //check the user logged getIntent
                     if (session.isLoggedIn()) {
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));
 //                        startActivity(new Intent(SplashActivity.this, InitializeActivity.class));

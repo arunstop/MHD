@@ -1,7 +1,8 @@
-package com.arunseto.mhd;
+package com.arunseto.mhd.activities;
 
 import android.os.Bundle;
 
+import com.arunseto.mhd.R;
 import com.arunseto.mhd.fragments.DiagnoseFragment;
 import com.arunseto.mhd.fragments.ExploreFragment;
 import com.arunseto.mhd.fragments.HomeFragment;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce;
     private Session session;
     private int flContent;
+    private TextView tvToolbar;
+    private BottomNavigationView bnvNav;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -33,18 +36,22 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    tvToolbar.setText(item.getTitle());
                     getSupportFragmentManager().beginTransaction().replace(flContent,
                             new HomeFragment()).addToBackStack("1").commit();
                     return true;
                 case R.id.navigation_diagnose:
+                    tvToolbar.setText(item.getTitle());
                     getSupportFragmentManager().beginTransaction().replace(flContent,
                             new DiagnoseFragment()).addToBackStack("1").commit();
                     return true;
                 case R.id.navigation_explore:
+                    tvToolbar.setText(item.getTitle());
                     getSupportFragmentManager().beginTransaction().replace(flContent,
                             new ExploreFragment()).addToBackStack("1").commit();
                     return true;
                 case R.id.navigation_settings:
+                    tvToolbar.setText(item.getTitle());
                     getSupportFragmentManager().beginTransaction().replace(flContent,
                             new SettingsFragment()).addToBackStack("1").commit();
                     return true;
@@ -60,10 +67,12 @@ public class MainActivity extends AppCompatActivity {
 
         flContent = R.id.flContent;
         session = Session.getInstance(this);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navView.setSelectedItemId(R.id.navigation_home);
+        bnvNav = findViewById(R.id.nav_view);
+        tvToolbar = findViewById(R.id.tvToolbar);
+
+        bnvNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        bnvNav.setSelectedItemId(R.id.navigation_home);
 
         // snackbar color
         Snackbar snackbar =

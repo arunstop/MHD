@@ -1,6 +1,5 @@
-package com.arunseto.mhd;
+package com.arunseto.mhd.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -9,45 +8,44 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.arunseto.mhd.R;
+import com.arunseto.mhd.api.GoogleAPI;
 import com.arunseto.mhd.models.ListUser;
 import com.arunseto.mhd.storage.Session;
+import com.arunseto.mhd.ui.LoadingDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private GoogleSignInClient googleSignInClient;
-    private Button btnLogin, btnLogout;
+
+    private LinearLayout llBtnLogin;
     private Context context;
     private Session session;
+    private LoadingDialog loadingDialog;
+    private GoogleAPI googleAPI;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launch);
+        setContentView(R.layout.activity_login);
 
-        session = Session.getInstance(this);
-
+        loadingDialog = new LoadingDialog(this);
         context = LoginActivity.this;
-        btnLogin = findViewById(R.id.btnLogin);
-        btnLogout = findViewById(R.id.btnLogout);
+        session = Session.getInstance(this);
+        googleAPI = GoogleAPI.getInstance(this);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.client_id))
-                .requestEmail()
-                .build();
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
+        llBtnLogin = findViewById(R.id.llBtnLogin);
 
-        //btnLogin to log in to google account
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        //btnLogin to log getIntent to google account
+        llBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loginGoogle();
@@ -55,26 +53,16 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //btnLogout to log out google account
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    logoutGoogle();
-                } catch (Exception e) {
-                    Log.w("Google Logout", "signInResult:failed code=" + e.getMessage());
-                }
-            }
-        });
     }
 
     // google login
     private void loginGoogle() {
-        startActivityForResult(googleSignInClient.getSignInIntent(), 101);
+        loadingDialog.show();
+        startActivityForResult(googleAPI.getIntent(), 101);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
@@ -95,27 +83,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     break;
             }
+            loadingDialog.dismiss();
         } else {
             Toast.makeText(context, "Sign In failed", Toast.LENGTH_SHORT).show();
+            loadingDialog.dismiss();
         }
-
-    }
-
-    private void logoutGoogle() {
-        /*
-          Sign-out is initiated by simply calling the googleSignInClient.signOut API. We add a
-          listener which will be invoked once the sign out is the successful
-           */
-        googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                //On Succesfull signout we navigate the user back to LoginActivity
-                Toast.makeText(context, "Log out success", Toast.LENGTH_SHORT).show();
-                Log.w("Google Logout", "NICE");
-
-            }
-        });
-
     }
 
 
