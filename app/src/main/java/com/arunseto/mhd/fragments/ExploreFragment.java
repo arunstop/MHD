@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.activities.ArticleActivity;
 import com.arunseto.mhd.api.NewsClient;
 import com.arunseto.mhd.models.News;
 import com.arunseto.mhd.models.NewsArticle;
@@ -81,11 +82,19 @@ public class ExploreFragment extends Fragment {
                         vArticle.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                //Open article  thru fragment
 //                                getFragmentManager().beginTransaction().replace(flContentSub,
 //                                        new ArticleFragment(na)).addToBackStack("1").commit();
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse(na.getUrl()));
-                                startActivity(i);
+
+                                //Opening url in Browser
+//                                Intent i = new Intent(Intent.ACTION_VIEW);
+//                                i.setData(Uri.parse(na.getUrl()));
+//                                startActivity(i);
+
+                                //Open url in dedicated browser
+                                Intent iArticle = new Intent(context, ArticleActivity.class);
+                                iArticle.putExtra("articleUrl", na.getUrl());
+                                startActivity(iArticle);
                             }
                         });
 

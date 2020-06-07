@@ -12,7 +12,9 @@
     <Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+
+        android:background="@drawable/des_round_corner_bottom"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:gravity="center_vertical">
 
         <RelativeLayout
@@ -41,10 +43,11 @@
                 android:textStyle="bold" />
 
             <Button
-                android:layout_alignParentEnd="true"
+                android:id="@+id/btnMore"
                 style="@style/ButtonTransparent"
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="12dp"
                 android:drawableStart="@drawable/ic_more_vert_black_24dp"
@@ -55,22 +58,25 @@
     </Toolbar>
 
     <ScrollView
-        android:padding="12dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="12dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tvArticleTitle"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorBlack"
-                android:text="Title\ntitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Title\ntitle"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,26 +86,46 @@
 
                 <ImageView
                     android:id="@+id/ivArticleImage"
-                    android:src="@drawable/google_logo"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp" />
+                    android:layout_height="300dp"
+                    android:src="@drawable/google_logo" />
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:background="@drawable/bg_textline"
                 android:id="@+id/tvArticleExtra"
-                android:textSize="12sp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_textline"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvArticleContent"
-                android:textSize="12sp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="12sp" />
 
         </LinearLayout>
     </ScrollView>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <WebView
+            android:id="@+id/wvArticle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </WebView>
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/skvLoading"
+            style="@style/SpinKitView.Large.FadingCircle"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            app:SpinKit_Color="@color/colorPrimaryDark" />
+    </RelativeLayout>
 
 </LinearLayout>
