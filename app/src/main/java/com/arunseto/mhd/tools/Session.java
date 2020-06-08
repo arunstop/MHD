@@ -1,4 +1,4 @@
-package com.arunseto.mhd.storage;
+package com.arunseto.mhd.tools;
 
 import android.content.Context;
 import android.content.SharedPreferences;

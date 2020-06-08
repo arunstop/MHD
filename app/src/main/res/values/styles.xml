@@ -36,4 +36,5 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:background">@drawable/bg_round_corner_border</item>
     </style>
+
 </resources>

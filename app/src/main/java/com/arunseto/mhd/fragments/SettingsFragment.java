@@ -1,10 +1,7 @@
 package com.arunseto.mhd.fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +19,8 @@ import androidx.fragment.app.Fragment;
 import com.arunseto.mhd.activities.LoginActivity;
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAPI;
-import com.arunseto.mhd.storage.Session;
+import com.arunseto.mhd.tools.GlobalTools;
+import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.OptionDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,15 +38,17 @@ public class SettingsFragment extends Fragment {
     private TextView tvName, tvEmail;
     private ImageView ivProfilePhoto;
     private OptionDialog optionDialog;
+    private GlobalTools gt;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_settings, container, false);
-        context = getActivity();
-        session = Session.getInstance(context);
-        googleAPI = GoogleAPI.getInstance(context);
+        gt = new GlobalTools(getActivity());
+        context = gt.getContext();
+        session = gt.getSession();
+        googleAPI = gt.getGoogleAPI();
 
         tvName = view.findViewById(R.id.tvName);
         tvEmail = view.findViewById(R.id.tvEmail);
@@ -94,7 +94,10 @@ public class SettingsFragment extends Fragment {
 
     public void commitLogout() {
 
-        optionDialog = new OptionDialog(context, "Apakah Anda yakin ingin keluar akun ?", "KELUAR", "BATAL");
+        optionDialog = new OptionDialog(context);
+        optionDialog.setTitle("Apakah Anda yakin ingin keluar akun ?");
+        optionDialog.setYLabel("KELUAR");
+        optionDialog.setNLabel("BATAL");
         optionDialog.show();
         optionDialog.getBtnYes().setOnClickListener(new View.OnClickListener() {
             @Override

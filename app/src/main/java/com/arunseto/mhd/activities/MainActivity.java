@@ -7,7 +7,7 @@ import com.arunseto.mhd.fragments.DiagnoseFragment;
 import com.arunseto.mhd.fragments.ExploreFragment;
 import com.arunseto.mhd.fragments.HomeFragment;
 import com.arunseto.mhd.fragments.SettingsFragment;
-import com.arunseto.mhd.storage.Session;
+import com.arunseto.mhd.tools.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -15,11 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
@@ -79,12 +77,13 @@ public class MainActivity extends AppCompatActivity {
         Snackbar.make(findViewById(android.R.id.content), "Welcome back!", Snackbar.LENGTH_LONG);
         View snackbarView = snackbar.getView();
         snackbarView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
-//        snackbar.show();
+        snackbar.show();
+
         //snackbar color alternative
-        Snackbar.make(findViewById(android.R.id.content), "Welcome back!", Snackbar.LENGTH_SHORT)
-                .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
-                .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
-                .show();
+//        Snackbar.make(findViewById(android.R.id.content), "Welcome back!", Snackbar.LENGTH_INDEFINITE)
+//                .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+//                .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
+//                .show();
 
     }
 //

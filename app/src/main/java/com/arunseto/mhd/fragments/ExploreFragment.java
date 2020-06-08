@@ -2,7 +2,6 @@ package com.arunseto.mhd.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,9 @@ import com.arunseto.mhd.activities.ArticleActivity;
 import com.arunseto.mhd.api.NewsClient;
 import com.arunseto.mhd.models.News;
 import com.arunseto.mhd.models.NewsArticle;
-import com.arunseto.mhd.storage.Session;
+import com.arunseto.mhd.tools.GlobalTools;
+import com.arunseto.mhd.tools.Session;
+import com.arunseto.mhd.ui.LoadingDialog;
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.squareup.picasso.Picasso;
 
@@ -37,17 +38,25 @@ public class ExploreFragment extends Fragment {
     private int flContentSub;
     private LinearLayout llNewsList;
     private SpinKitView skvLoading;
+    private LoadingDialog loadingDialog;
+    private GlobalTools gt;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_explore, container, false);
-        context = getActivity();
-        session = Session.getInstance(context);
-        flContentSub = R.id.flContentSub;
+
+        gt = new GlobalTools(getActivity());
+        context = gt.getContext();
+        session = gt.getSession();
+        flContentSub = gt.getContentSub();
+
         llNewsList = view.findViewById(R.id.llNewsList);
         skvLoading = view.findViewById(R.id.skvLoading);
+        loadingDialog = new LoadingDialog(context);
+
 
         loadNews();
 
@@ -82,6 +91,7 @@ public class ExploreFragment extends Fragment {
                         vArticle.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                loadingDialog.show();
                                 //Open article  thru fragment
 //                                getFragmentManager().beginTransaction().replace(flContentSub,
 //                                        new ArticleFragment(na)).addToBackStack("1").commit();
@@ -95,6 +105,7 @@ public class ExploreFragment extends Fragment {
                                 Intent iArticle = new Intent(context, ArticleActivity.class);
                                 iArticle.putExtra("articleUrl", na.getUrl());
                                 startActivity(iArticle);
+                                loadingDialog.dismiss();
                             }
                         });
 

@@ -2,23 +2,19 @@ package com.arunseto.mhd.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.models.NewsArticle;
-import com.arunseto.mhd.storage.Session;
-import com.squareup.picasso.Picasso;
+import com.arunseto.mhd.tools.GlobalTools;
+import com.arunseto.mhd.tools.Session;
 
 
 public class ArticleFragment extends Fragment {
@@ -28,6 +24,7 @@ public class ArticleFragment extends Fragment {
     private Session session;
     private NewsArticle na;
     private WebView wvArticle;
+    private GlobalTools gt;
 
     public ArticleFragment(NewsArticle na) {
         this.na = na;
@@ -37,10 +34,11 @@ public class ArticleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_article, container, false);
+        view = inflater.inflate(R.layout.activity_article, container, false);
 
-        context = getActivity();
-        session = Session.getInstance(context);
+        gt = new GlobalTools(getActivity());
+        context = gt.getContext();
+        session = gt.getSession();
 
         wvArticle = view.findViewById(R.id.wvArticle);
 

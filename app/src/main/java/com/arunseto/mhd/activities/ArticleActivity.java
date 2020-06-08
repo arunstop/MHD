@@ -15,7 +15,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.arunseto.mhd.R;
-import com.arunseto.mhd.storage.Session;
+import com.arunseto.mhd.tools.Session;
 import com.github.ybq.android.spinkit.SpinKitView;
 
 public class ArticleActivity extends AppCompatActivity {
@@ -31,7 +31,7 @@ public class ArticleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_article);
+        setContentView(R.layout.activity_article);
         context = this;
 
         session = Session.getInstance(context);

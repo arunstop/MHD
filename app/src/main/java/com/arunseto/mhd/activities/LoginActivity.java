@@ -14,7 +14,8 @@ import android.widget.Toast;
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAPI;
 import com.arunseto.mhd.models.User;
-import com.arunseto.mhd.storage.Session;
+import com.arunseto.mhd.tools.GlobalTools;
+import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,8 +28,11 @@ public class LoginActivity extends AppCompatActivity {
     private LinearLayout llBtnLogin;
     private Context context;
     private Session session;
-    private LoadingDialog loadingDialog;
+    private int flContent,flContentSub;
+    private GlobalTools gt;
     private GoogleAPI googleAPI;
+
+    private LoadingDialog loadingDialog;
 
 
     @Override
@@ -36,10 +40,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loadingDialog = new LoadingDialog(this);
-        context = LoginActivity.this;
-        session = Session.getInstance(this);
-        googleAPI = GoogleAPI.getInstance(this);
+        loadingDialog = new LoadingDialog(LoginActivity.this);
+        gt = new GlobalTools(LoginActivity.this);
+
+        context = gt.getContext();
+        session = gt.getSession();
+        flContent = gt.getContent();
+        flContentSub = gt.getContentSub();
+        googleAPI = gt.getGoogleAPI();
 
         llBtnLogin = findViewById(R.id.llBtnLogin);
 

@@ -19,12 +19,12 @@ public class OptionDialog extends AlertDialog {
     private Button btnYes, btnNo;
     private TextView tvTitle;
 
-    public OptionDialog(Context context, String title, String yLabel, String nLabel) {
+    public OptionDialog(Context context) {
         super(context);
         this.context = context;
-        this.title = title;
-        this.yLabel = yLabel;
-        this.nLabel = nLabel;
+        this.title = "";
+        this.yLabel = "YES";
+        this.nLabel = "NO";
     }
 
     @Override
@@ -56,6 +56,19 @@ public class OptionDialog extends AlertDialog {
 
     public Button getBtnNo() {
         return btnNo;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setYLabel(String yLabel) {
+        this.yLabel = yLabel;
+    }
+
+    public void setNLabel(String nLabel) {
+        this.nLabel = nLabel;
     }
 
     @Override
