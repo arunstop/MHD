@@ -21,7 +21,7 @@ public class LoadingDialog extends Dialog {
     public void show() {
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_progress);
+        dialog.setContentView(R.layout.template_dialog_progress);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setCancelable(false);
         dialog.show();

@@ -8,7 +8,7 @@
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/spin_kit"
-        style="@style/SpinKitView.Large.DoubleBounce"
+        style="@style/SpinKitView.Large.FadingCircle"
         android:layout_width="240dp"
         android:layout_height="240dp"
         app:SpinKit_Color="@color/colorPrimaryLighter" />

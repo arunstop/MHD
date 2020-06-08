@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.widget.ProgressBar;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 
 import java.util.Timer;
@@ -21,6 +22,7 @@ public class SplashActivity extends AppCompatActivity {
     private Runnable runnable;
     private Timer timer;
     private Session session;
+    private GlobalTools gt;
 
     private int i = 0;
 
@@ -29,7 +31,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        session = Session.getInstance(this);
+        gt = new GlobalTools(this);
+        session = gt.getSession();
 
 //        progressBar = findViewById(R.id.progressBar);
 //        progressBar.setVisibility(View.VISIBLE);

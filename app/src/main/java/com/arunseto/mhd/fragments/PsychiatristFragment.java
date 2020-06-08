@@ -47,7 +47,7 @@ public class PsychiatristFragment extends Fragment {
                 public void onClick(View view) {
                     getFragmentManager()
                             .beginTransaction()
-                            .replace(flContentSub, new PsychiatristFragment()).addToBackStack("1")
+                            .replace(flContentSub, new PsychiatristProfileFragment()).addToBackStack("1")
                             .commit();
                 }
             });

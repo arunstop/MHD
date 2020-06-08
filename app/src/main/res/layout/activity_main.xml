@@ -18,24 +18,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Toolbar
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/des_round_corner_bottom"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/tvToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Settings"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </Toolbar>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

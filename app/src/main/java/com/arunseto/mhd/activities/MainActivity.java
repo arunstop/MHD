@@ -34,22 +34,18 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    tvToolbar.setText(item.getTitle());
                     getSupportFragmentManager().beginTransaction().replace(flContent,
                             new HomeFragment()).addToBackStack("1").commit();
                     return true;
                 case R.id.navigation_diagnose:
-                    tvToolbar.setText(item.getTitle());
                     getSupportFragmentManager().beginTransaction().replace(flContent,
                             new DiagnoseFragment()).addToBackStack("1").commit();
                     return true;
                 case R.id.navigation_explore:
-                    tvToolbar.setText(item.getTitle());
                     getSupportFragmentManager().beginTransaction().replace(flContent,
                             new ExploreFragment()).addToBackStack("1").commit();
                     return true;
                 case R.id.navigation_settings:
-                    tvToolbar.setText(item.getTitle());
                     getSupportFragmentManager().beginTransaction().replace(flContent,
                             new SettingsFragment()).addToBackStack("1").commit();
                     return true;
@@ -73,17 +69,17 @@ public class MainActivity extends AppCompatActivity {
         bnvNav.setSelectedItemId(R.id.navigation_home);
 
         // snackbar color
-        Snackbar snackbar =
-        Snackbar.make(findViewById(android.R.id.content), "Welcome back!", Snackbar.LENGTH_LONG);
-        View snackbarView = snackbar.getView();
-        snackbarView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        snackbar.show();
+//        Snackbar snackbar =
+//        Snackbar.make(findViewById(android.R.id.content), "Welcome back!", Snackbar.LENGTH_LONG);
+//        View snackbarView = snackbar.getView();
+//        snackbarView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+//        snackbar.show();
 
         //snackbar color alternative
-//        Snackbar.make(findViewById(android.R.id.content), "Welcome back!", Snackbar.LENGTH_INDEFINITE)
-//                .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
-//                .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
-//                .show();
+        Snackbar.make(findViewById(android.R.id.content), "Welcome back! "+session.getUser().getFname(), Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+                .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
+                .show();
 
     }
 //
