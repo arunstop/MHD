@@ -22,10 +22,11 @@ import com.arunseto.mhd.api.GoogleAPI;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.OptionDialog;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.squareup.picasso.Picasso;
 
 
 public class SettingsFragment extends Fragment {
@@ -47,7 +48,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_settings, container, false);
-         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
 
@@ -63,7 +64,8 @@ public class SettingsFragment extends Fragment {
         tvName.setText(session.getUser().getFname().toUpperCase() + " " + session.getUser().getLname().toUpperCase());
         tvEmail.setText(session.getUser().getEmail());
         if (!session.getUser().getPhotoUrl().isEmpty()) {
-            Picasso.with(context).load(session.getUser().getPhotoUrl()).centerInside().fit().into(ivProfilePhoto);
+//            Glide.with(context).load(session.getUser().getPhotoUrl()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivProfilePhoto);
+            gt.loadImgUrl(session.getUser().getPhotoUrl(), ivProfilePhoto);
         }
 
         btnAbout = view.findViewById(R.id.btnAbout);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,8 @@ import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.OptionDialog;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 
 public class PsychiatristProfileFragment extends Fragment {
@@ -32,6 +35,7 @@ public class PsychiatristProfileFragment extends Fragment {
     private Psychiatrist psychiatrist;
     private TextView tvPsyName, tvPsyNo, tvPsyAddress, tvPsyExtra;
     private ImageView ivPsyImg;
+    private Button btnPsyImg;
 
     public PsychiatristProfileFragment(Psychiatrist psychiatrist) {
         this.psychiatrist = psychiatrist;
@@ -58,16 +62,25 @@ public class PsychiatristProfileFragment extends Fragment {
         tvPsyAddress = view.findViewById(R.id.tvPsyAddress);
         tvPsyExtra = view.findViewById(R.id.tvPsyExtra);
         ivPsyImg = view.findViewById(R.id.ivPsyImg);
+        btnPsyImg= view.findViewById(R.id.btnPsyImg);
 
         tvPsyName.setText(psychiatrist.getName());
         tvPsyNo.setText(psychiatrist.getNumber());
         tvPsyAddress.setText(psychiatrist.getAddress());
         tvPsyExtra.setText(psychiatrist.getExtra());
         if (psychiatrist.getImg().equals("f")){
-            ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_femdoc));
+            gt.loadImgUrl(getString(R.string.img_url), ivPsyImg);
         }else{
             ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_jrr));
         }
+        btnPsyImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gt.navigateFragment(getFragmentManager(), gt.getContentSub(), new PsychiatristProfileImgFragment(getString(R.string.img_url)));
+            }
+        });
+
+
 
 
         return view;

@@ -23,8 +23,8 @@ import com.arunseto.mhd.models.NewsArticle;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
+import com.bumptech.glide.Glide;
 import com.github.ybq.android.spinkit.SpinKitView;
-import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -118,7 +118,8 @@ public class ExploreFragment extends Fragment {
                         });
 
                         if (!na.getUrlToImage().isEmpty()) {
-                            Picasso.with(context).load(na.getUrlToImage()).fit().into(ivArticleImage);
+//                            Glide.with(context).load(na.getUrlToImage()).centerCrop().into(ivArticleImage);
+                            gt.loadImgUrl(na.getUrlToImage(), ivArticleImage);
                         }
 
 

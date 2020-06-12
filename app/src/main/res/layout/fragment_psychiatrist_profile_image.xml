@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
     android:orientation="vertical">
 
     <Toolbar
@@ -25,7 +25,7 @@
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                android:drawableStart="@drawable/ic_back_30dp"
+                android:drawableStart="@drawable/ic_close_30dp"
                 android:onClick="navBack" />
 
             <TextView
@@ -34,21 +34,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/btnBack"
-                android:text="About MHD"
+                android:text=""
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btnMore"
-                style="@style/ButtonTransparent"
-                android:layout_width="24dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="12dp"
-                android:drawableStart="@drawable/ic_more_vert_black_24dp"
-                android:gravity="end" />
         </RelativeLayout>
     </Toolbar>
 
@@ -57,29 +46,42 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:padding="12dp"
-            android:layout_width="match_parent"
+            android:layout_marginBottom="30dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:padding="12dp"
             android:orientation="vertical">
             <androidx.cardview.widget.CardView
+                android:id="@+id/cvProfilePic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="90dp">
+                app:cardBackgroundColor="@color/colorAccent"
+                app:cardCornerRadius="156dp"
+                app:contentPadding="6dp">
 
-                <ImageView
-                    android:id="@+id/ivProfilePhoto"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    android:backgroundTint="@color/colorWhite"
-                    android:src="@drawable/google_logo" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="150dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:scaleType="centerCrop"
+                            android:id="@+id/ivPsyImg"
+                            android:layout_width="300dp"
+                            android:layout_height="300dp"
+                            android:contentDescription="KEKW"
+                            android:src="@drawable/dummy_femdoc" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
-            <TextView
-                android:text="@string/lipsum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+
         </LinearLayout>
     </ScrollView>
 
