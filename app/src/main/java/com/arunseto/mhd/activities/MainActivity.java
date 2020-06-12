@@ -17,9 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
@@ -42,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
         bnvNav = findViewById(R.id.nav_view);
         tvToolbar = findViewById(R.id.tvToolbar);
 
+        getSupportFragmentManager().beginTransaction().replace(flContent,
+                new HomeFragment()).commit();
         bnvNav.setOnNavigationItemSelectedListener(bnvListener());
-        bnvNav.setSelectedItemId(R.id.navigation_home);
+
 
         // snackbar color
 //        Snackbar snackbar =
@@ -60,29 +64,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public BottomNavigationView.OnNavigationItemSelectedListener bnvListener(){
+    public BottomNavigationView.OnNavigationItemSelectedListener bnvListener() {
         return new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
-                        gt.navigateFragment(getSupportFragmentManager(),
+                        gt.navigateFragmentMain(getSupportFragmentManager(),
                                 gt.getContent(),
                                 new HomeFragment());
                         return true;
                     case R.id.navigation_diagnose:
-                        gt.navigateFragment(getSupportFragmentManager(),
+                        gt.navigateFragmentMain(getSupportFragmentManager(),
                                 gt.getContent(),
                                 new DiagnoseFragment());
                         return true;
                     case R.id.navigation_explore:
-                        gt.navigateFragment(getSupportFragmentManager(),
+                        gt.navigateFragmentMain(getSupportFragmentManager(),
                                 gt.getContent(),
                                 new ExploreFragment());
                         return true;
                     case R.id.navigation_settings:
-                        gt.navigateFragment(getSupportFragmentManager(),
+                        gt.navigateFragmentMain(getSupportFragmentManager(),
                                 gt.getContent(),
                                 new SettingsFragment());
                         return true;
@@ -97,26 +101,32 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    //
-//    @Override
-//    public void onBackPressed() {
-//        if (doubleBackToExitPressedOnce) {
-//            super.onBackPressed();
-//            return;
-//        }
-//
-//        this.doubleBackToExitPressedOnce = true;
-//        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-//        //snack bar
-//        Snackbar.make(findViewById(android.R.id.content), "Please click BACK again to exit", Snackbar.LENGTH_LONG).show();
-//
-//        new Handler().postDelayed(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                doubleBackToExitPressedOnce = false;
-//            }
-//        }, 2000);
-//    }
 
+    @Override
+    public void onBackPressed() {
+        //checking if fragment has stacks or not
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            //if fragment has stack 0, user will be asked to click back twice to exit
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_LONG).show();
+            //snack bar
+//        Snackbar.make(findViewById(android.R.id.content), "Please click BACK again to exit", Snackbar.LENGTH_LONG).show();
+
+            //giving user 3 seconds to click back again
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 3000);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

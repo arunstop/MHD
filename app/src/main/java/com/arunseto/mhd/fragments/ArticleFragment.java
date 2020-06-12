@@ -20,6 +20,7 @@ import com.arunseto.mhd.tools.Session;
 public class ArticleFragment extends Fragment {
 
     private View view;
+    private LayoutInflater inflater;
     private Context context;
     private Session session;
     private NewsArticle na;
@@ -35,6 +36,8 @@ public class ArticleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.activity_article, container, false);
+         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        this.inflater = inflater;
 
         gt = new GlobalTools(getActivity());
         context = gt.getContext();

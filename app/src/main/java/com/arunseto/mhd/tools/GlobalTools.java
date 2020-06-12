@@ -49,6 +49,9 @@ public class GlobalTools {
         return new OptionDialog(context);
     }
 
+    public void navigateFragmentMain(FragmentManager fragmentManager, int content, Fragment fragment) {
+        fragmentManager.beginTransaction().replace(content, fragment).commit();
+    }
     public void navigateFragment(FragmentManager fragmentManager, int content, Fragment fragment) {
         fragmentManager.beginTransaction().replace(content, fragment).addToBackStack("1").commit();
     }

@@ -3,6 +3,7 @@ package com.arunseto.mhd.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import retrofit2.Response;
 public class ExploreFragment extends Fragment {
 
     private View view;
+    private LayoutInflater inflater;
     private Context context;
     private Session session;
     private int flContentSub;
@@ -41,12 +43,13 @@ public class ExploreFragment extends Fragment {
     private LoadingDialog loadingDialog;
     private GlobalTools gt;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_explore, container, false);
+         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        this.inflater = inflater;
 
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
@@ -57,8 +60,13 @@ public class ExploreFragment extends Fragment {
         skvLoading = view.findViewById(R.id.skvLoading);
         loadingDialog = new LoadingDialog(context);
 
-
         loadNews();
+//        try {
+//
+//        } catch (Exception e) {
+//            Log.e("fragment", "[Switching Fragment Too Fast] "+e.getMessage());
+//        }
+
 
         return view;
     }
@@ -77,7 +85,7 @@ public class ExploreFragment extends Fragment {
                     int i = 1;
                     for (final NewsArticle na : newsResult.getArticles()) {
                         // calling news template
-                        View vArticle = getLayoutInflater().inflate(R.layout.template_news, null);
+                        View vArticle = inflater.inflate(R.layout.template_news, null);
                         // declaring article content
                         TextView tvArticleTitle = vArticle.findViewById(R.id.tvArticleTitle);
                         TextView tvArticleContent = vArticle.findViewById(R.id.tvArticleContent);

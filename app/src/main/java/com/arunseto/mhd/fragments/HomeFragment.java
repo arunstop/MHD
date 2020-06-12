@@ -18,6 +18,7 @@ import com.arunseto.mhd.tools.Session;
 public class HomeFragment extends Fragment {
 
     private View view;
+    private LayoutInflater inflater;
     private Context context;
     private Session session;
     private TextView tvName, tvEmail;
@@ -28,6 +29,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
+         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        this.inflater = inflater;
+
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();

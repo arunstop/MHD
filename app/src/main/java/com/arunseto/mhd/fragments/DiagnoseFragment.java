@@ -17,6 +17,7 @@ import com.arunseto.mhd.tools.Session;
 
 public class DiagnoseFragment extends Fragment {
     private View view;
+    private LayoutInflater inflater;
     private Context context;
     private Session session;
     private LinearLayout llPsikiater;
@@ -29,6 +30,8 @@ public class DiagnoseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_diagnose, container, false);
+         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        this.inflater = inflater;
 
         gt = new GlobalTools(getActivity());
         context = gt.getContext();

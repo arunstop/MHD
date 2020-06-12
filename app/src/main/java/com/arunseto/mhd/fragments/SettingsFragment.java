@@ -32,6 +32,7 @@ public class SettingsFragment extends Fragment {
 
     private GoogleSignInClient googleSignInClient;
     private View view;
+    private LayoutInflater inflater;
     private Context context;
     private Session session;
     private GoogleAPI googleAPI;
@@ -46,6 +47,10 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_settings, container, false);
+         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        this.inflater = inflater;
+
+
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();

@@ -18,6 +18,7 @@ import com.arunseto.mhd.ui.OptionDialog;
 
 public class HelpFragment extends Fragment {
     private View view;
+    private LayoutInflater inflater;
     private Context context;
     private Session session;
     private int flContent,flContentSub;
@@ -30,6 +31,8 @@ public class HelpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_help, container, false);
+         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        this.inflater = inflater;
 
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
