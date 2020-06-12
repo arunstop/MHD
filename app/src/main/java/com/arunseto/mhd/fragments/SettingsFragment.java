@@ -39,6 +39,7 @@ public class SettingsFragment extends Fragment {
     private ImageView ivProfilePhoto;
     private OptionDialog optionDialog;
     private GlobalTools gt;
+    private Button btnAbout, btnHelp, btnLogout;
 
     @Nullable
     @Override
@@ -60,7 +61,27 @@ public class SettingsFragment extends Fragment {
             Picasso.with(context).load(session.getUser().getPhotoUrl()).centerInside().fit().into(ivProfilePhoto);
         }
 
-        Button btnLogout = view.findViewById(R.id.btnLogout);
+        btnAbout = view.findViewById(R.id.btnAbout);
+        btnHelp = view.findViewById(R.id.btnHelp);
+        btnLogout = view.findViewById(R.id.btnLogout);
+
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gt.navigateFragment(getFragmentManager(),
+                        gt.getContentSub(),
+                        new AboutFragment());
+            }
+        });
+
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gt.navigateFragment(getFragmentManager(),
+                        gt.getContentSub(),
+                        new HelpFragment());
+            }
+        });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

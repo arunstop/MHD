@@ -45,10 +45,7 @@ public class PsychiatristFragment extends Fragment {
             llPsy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    getFragmentManager()
-                            .beginTransaction()
-                            .replace(flContentSub, new PsychiatristProfileFragment()).addToBackStack("1")
-                            .commit();
+                    gt.navigateFragment(getFragmentManager(), gt.getContentSub(), new PsychiatristProfileFragment());
                 }
             });
 

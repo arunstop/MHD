@@ -5,8 +5,10 @@ import android.os.Bundle;
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.fragments.DiagnoseFragment;
 import com.arunseto.mhd.fragments.ExploreFragment;
+import com.arunseto.mhd.fragments.HelpFragment;
 import com.arunseto.mhd.fragments.HomeFragment;
 import com.arunseto.mhd.fragments.SettingsFragment;
+import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,33 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private int flContent;
     private TextView tvToolbar;
     private BottomNavigationView bnvNav;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    getSupportFragmentManager().beginTransaction().replace(flContent,
-                            new HomeFragment()).addToBackStack("1").commit();
-                    return true;
-                case R.id.navigation_diagnose:
-                    getSupportFragmentManager().beginTransaction().replace(flContent,
-                            new DiagnoseFragment()).addToBackStack("1").commit();
-                    return true;
-                case R.id.navigation_explore:
-                    getSupportFragmentManager().beginTransaction().replace(flContent,
-                            new ExploreFragment()).addToBackStack("1").commit();
-                    return true;
-                case R.id.navigation_settings:
-                    getSupportFragmentManager().beginTransaction().replace(flContent,
-                            new SettingsFragment()).addToBackStack("1").commit();
-                    return true;
-            }
-            return false;
-        }
-    };
+    private GlobalTools gt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +36,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         flContent = R.id.flContent;
-        session = Session.getInstance(this);
+        gt = new GlobalTools(this);
+        session = gt.getSession();
 
         bnvNav = findViewById(R.id.nav_view);
         tvToolbar = findViewById(R.id.tvToolbar);
 
-        bnvNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        bnvNav.setOnNavigationItemSelectedListener(bnvListener());
         bnvNav.setSelectedItemId(R.id.navigation_home);
 
         // snackbar color
@@ -76,13 +53,51 @@ public class MainActivity extends AppCompatActivity {
 //        snackbar.show();
 
         //snackbar color alternative
-        Snackbar.make(findViewById(android.R.id.content), "Welcome back! "+session.getUser().getFname(), Snackbar.LENGTH_SHORT)
+        Snackbar.make(findViewById(android.R.id.content), "Welcome back! " + session.getUser().getFname(), Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
                 .show();
 
     }
-//
+
+    public BottomNavigationView.OnNavigationItemSelectedListener bnvListener(){
+        return new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        gt.navigateFragment(getSupportFragmentManager(),
+                                gt.getContent(),
+                                new HomeFragment());
+                        return true;
+                    case R.id.navigation_diagnose:
+                        gt.navigateFragment(getSupportFragmentManager(),
+                                gt.getContent(),
+                                new DiagnoseFragment());
+                        return true;
+                    case R.id.navigation_explore:
+                        gt.navigateFragment(getSupportFragmentManager(),
+                                gt.getContent(),
+                                new ExploreFragment());
+                        return true;
+                    case R.id.navigation_settings:
+                        gt.navigateFragment(getSupportFragmentManager(),
+                                gt.getContent(),
+                                new SettingsFragment());
+                        return true;
+                }
+                return false;
+            }
+        };
+    }
+
+    // back for level 2 fragment
+    public void navBack(View view) {
+        super.onBackPressed();
+    }
+
+    //
 //    @Override
 //    public void onBackPressed() {
 //        if (doubleBackToExitPressedOnce) {
@@ -103,10 +118,5 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }, 2000);
 //    }
-
-    // back for level 2 fragment
-    public void navBack(View view){
-        super.onBackPressed();
-    }
 
 }

@@ -2,10 +2,14 @@ package com.arunseto.mhd.tools;
 
 import android.content.Context;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAPI;
+import com.arunseto.mhd.fragments.AboutFragment;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.OptionDialog;
 
@@ -43,5 +47,9 @@ public class GlobalTools {
 
     public OptionDialog getOptionDialog() {
         return new OptionDialog(context);
+    }
+
+    public void navigateFragment(FragmentManager fragmentManager, int content, Fragment fragment) {
+        fragmentManager.beginTransaction().replace(content, fragment).addToBackStack("1").commit();
     }
 }
