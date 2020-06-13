@@ -32,7 +32,7 @@
                     android:maxLines="2"
                     android:text="Psikiater Terdekat"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -41,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:ellipsize="end"
+                    android:textSize="12sp"
                     android:maxLines="2"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
 
@@ -50,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="Website.com - 2020-09-09"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
