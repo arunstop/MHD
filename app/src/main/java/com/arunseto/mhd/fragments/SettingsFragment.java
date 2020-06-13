@@ -22,8 +22,6 @@ import com.arunseto.mhd.api.GoogleAPI;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.OptionDialog;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -61,6 +59,9 @@ public class SettingsFragment extends Fragment {
         tvEmail = view.findViewById(R.id.tvEmail);
         ivProfilePhoto = view.findViewById(R.id.ivProfilePhoto);
 
+        String fName = session.getUser().getFname();
+        String fNameCap = fName.substring(0, 1) + fName.substring(1);
+
         tvName.setText(session.getUser().getFname().toUpperCase() + " " + session.getUser().getLname().toUpperCase());
         tvEmail.setText(session.getUser().getEmail());
         if (!session.getUser().getPhotoUrl().isEmpty()) {
@@ -76,7 +77,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 gt.navigateFragment(getFragmentManager(),
-                        gt.getContentSub(),
+                        gt.getContent(),
                         new AboutFragment());
             }
         });
@@ -85,7 +86,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 gt.navigateFragment(getFragmentManager(),
-                        gt.getContentSub(),
+                        gt.getContent(),
                         new HelpFragment());
             }
         });

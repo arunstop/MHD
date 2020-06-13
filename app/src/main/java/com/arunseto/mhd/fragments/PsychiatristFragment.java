@@ -28,7 +28,7 @@ public class PsychiatristFragment extends Fragment {
     private Context context;
     private Session session;
     private LinearLayout llPsychiatristList;
-    private int flContentSub;
+    private int flContent;
     private GlobalTools gt;
 
 
@@ -43,7 +43,7 @@ public class PsychiatristFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
-        flContentSub = gt.getContentSub();
+        flContent = gt.getContent();
 
         llPsychiatristList = view.findViewById(R.id.llPsychiatristList);
         llPsychiatristList.removeAllViews();
@@ -78,7 +78,7 @@ public class PsychiatristFragment extends Fragment {
             llPsy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    gt.navigateFragment(getFragmentManager(), gt.getContentSub(), new PsychiatristProfileFragment(psy));
+                    gt.navigateFragment(getFragmentManager(), gt.getContent(), new PsychiatristProfileFragment(psy));
                 }
             });
 

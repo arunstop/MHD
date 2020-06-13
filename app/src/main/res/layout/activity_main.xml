@@ -9,7 +9,7 @@
     tools:context=".activities.MainActivity">
 
     <FrameLayout
-        android:id="@+id/flContentSub"
+        android:id="@+id/flContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -23,7 +23,7 @@
                 android:layout_height="match_parent">
 
                 <FrameLayout
-                    android:id="@+id/flContent"
+                    android:id="@+id/flContentBnv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:animateLayoutChanges="true"

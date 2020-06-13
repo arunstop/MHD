@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.fragments.DiagnoseFragment;
 import com.arunseto.mhd.fragments.ExploreFragment;
-import com.arunseto.mhd.fragments.HelpFragment;
 import com.arunseto.mhd.fragments.HomeFragment;
 import com.arunseto.mhd.fragments.SettingsFragment;
 import com.arunseto.mhd.tools.GlobalTools;
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private boolean doubleBackToExitPressedOnce;
     private Session session;
-    private int flContent;
+    private int flContentBnv;
     private TextView tvToolbar;
     private BottomNavigationView bnvNav;
     private GlobalTools gt;
@@ -37,16 +36,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        flContent = R.id.flContent;
+
         gt = new GlobalTools(this);
         session = gt.getSession();
+        flContentBnv = gt.getContentBnv();
 
         bnvNav = findViewById(R.id.nav_view);
         tvToolbar = findViewById(R.id.tvToolbar);
 
-        getSupportFragmentManager().beginTransaction().replace(flContent,
-                new HomeFragment()).commit();
+//        gt.navigateFragmentBnv(getSupportFragmentManager(),
+//                gt.getContentBnv(),
+//                new HomeFragment());
         bnvNav.setOnNavigationItemSelectedListener(bnvListener());
+        bnvNav.setSelectedItemId(R.id.navigation_home);
 
 
         // snackbar color
@@ -57,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
 //        snackbar.show();
 
         //snackbar color alternative
-        Snackbar.make(findViewById(android.R.id.content), "Welcome back! " + session.getUser().getFname(), Snackbar.LENGTH_SHORT)
+        String fName = session.getUser().getFname();
+        String fNameCap = fName.substring(0, 1).toUpperCase() + fName.substring(1);
+        Snackbar.make(findViewById(android.R.id.content), "Welcome back! " + fNameCap, Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
                 .show();
@@ -71,23 +75,23 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
-                        gt.navigateFragmentMain(getSupportFragmentManager(),
-                                gt.getContent(),
+                        gt.navigateFragmentBnv(getSupportFragmentManager(),
+                                gt.getContentBnv(),
                                 new HomeFragment());
                         return true;
                     case R.id.navigation_diagnose:
-                        gt.navigateFragmentMain(getSupportFragmentManager(),
-                                gt.getContent(),
+                        gt.navigateFragmentBnv(getSupportFragmentManager(),
+                                gt.getContentBnv(),
                                 new DiagnoseFragment());
                         return true;
                     case R.id.navigation_explore:
-                        gt.navigateFragmentMain(getSupportFragmentManager(),
-                                gt.getContent(),
+                        gt.navigateFragmentBnv(getSupportFragmentManager(),
+                                gt.getContentBnv(),
                                 new ExploreFragment());
                         return true;
                     case R.id.navigation_settings:
-                        gt.navigateFragmentMain(getSupportFragmentManager(),
-                                gt.getContent(),
+                        gt.navigateFragmentBnv(getSupportFragmentManager(),
+                                gt.getContentBnv(),
                                 new SettingsFragment());
                         return true;
                 }

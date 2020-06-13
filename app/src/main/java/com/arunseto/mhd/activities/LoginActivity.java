@@ -8,11 +8,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAPI;
+import com.arunseto.mhd.fragments.DiagnoseFragment;
+import com.arunseto.mhd.fragments.RegisterFragment;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
@@ -25,14 +28,14 @@ import com.google.android.gms.tasks.Task;
 public class LoginActivity extends AppCompatActivity {
 
 
-    private LinearLayout llBtnLogin;
+    private GlobalTools gt;
     private Context context;
     private Session session;
-    private int flContent,flContentSub;
-    private GlobalTools gt;
+    private int flContentBnv, flContent;
     private GoogleAPI googleAPI;
-
     private LoadingDialog loadingDialog;
+    private LinearLayout llBtnLoginGoogle;
+    private Button btnLogin, btnNavRegister;
 
 
     @Override
@@ -45,17 +48,33 @@ public class LoginActivity extends AppCompatActivity {
 
         context = gt.getContext();
         session = gt.getSession();
+        flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
-        flContentSub = gt.getContentSub();
         googleAPI = gt.getGoogleAPI();
 
-        llBtnLogin = findViewById(R.id.llBtnLogin);
+        llBtnLoginGoogle = findViewById(R.id.llBtnLoginGoogle);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnNavRegister = findViewById(R.id.btnNavRegister);
 
         //btnLogin to log getIntent to google account
-        llBtnLogin.setOnClickListener(new View.OnClickListener() {
+        llBtnLoginGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loginGoogle();
+            }
+        });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnNavRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gt.navigateFragment(getSupportFragmentManager(), gt.getContent(), new RegisterFragment());
             }
         });
 
@@ -102,6 +121,9 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(context, "Sign In failed", Toast.LENGTH_SHORT).show();
             loadingDialog.dismiss();
         }
+    }
+    public void navBack(View view) {
+        super.onBackPressed();
     }
 
 

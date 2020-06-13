@@ -51,7 +51,7 @@ public class ArticleFragment extends Fragment {
 //        ImageView ivArticleImage = view.findViewById(R.id.ivArticleImage);
 //
 //        tvArticleTitle.setText(na.getTitle());
-//        tvArticleContent.setText(na.getContent());
+//        tvArticleContent.setText(na.getContentBnv());
 //        tvArticleExtra.setText(na.getSource().getName() + " - " + na.getPublishedAt().substring(0, 10));
 
 //        if (!na.getUrlToImage().isEmpty()) {

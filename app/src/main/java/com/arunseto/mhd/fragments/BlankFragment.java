@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -25,7 +24,7 @@ public class BlankFragment extends Fragment {
 
     private Context context;
     private Session session;
-    private int flContent, flContentSub;
+    private int flContentBnv, flContent;
     private GlobalTools gt;
     private OptionDialog optionDialog;
     private LoadingDialog loadingDialog;
@@ -41,8 +40,8 @@ public class BlankFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
-        flContentSub = gt.getContentSub();
         loadingDialog = gt.getLoadingDialog();
         optionDialog = gt.getOptionDialog();
 

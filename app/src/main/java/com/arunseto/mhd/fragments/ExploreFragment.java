@@ -3,7 +3,6 @@ package com.arunseto.mhd.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import com.arunseto.mhd.models.NewsArticle;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
-import com.bumptech.glide.Glide;
 import com.github.ybq.android.spinkit.SpinKitView;
 
 import retrofit2.Call;
@@ -37,7 +35,7 @@ public class ExploreFragment extends Fragment {
     private LayoutInflater inflater;
     private Context context;
     private Session session;
-    private int flContentSub;
+    private int flContent;
     private LinearLayout llNewsList;
     private SpinKitView skvLoading;
     private LoadingDialog loadingDialog;
@@ -54,7 +52,7 @@ public class ExploreFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
-        flContentSub = gt.getContentSub();
+        flContent = gt.getContent();
 
         llNewsList = view.findViewById(R.id.llNewsList);
         skvLoading = view.findViewById(R.id.skvLoading);
@@ -101,7 +99,7 @@ public class ExploreFragment extends Fragment {
                             public void onClick(View view) {
                                 loadingDialog.show();
                                 //Open article  thru fragment
-//                                getFragmentManager().beginTransaction().replace(flContentSub,
+//                                getFragmentManager().beginTransaction().replace(flContent,
 //                                        new ArticleFragment(na)).addToBackStack("1").commit();
 
                                 //Opening url in Browser

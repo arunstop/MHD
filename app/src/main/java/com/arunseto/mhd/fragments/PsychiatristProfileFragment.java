@@ -1,11 +1,14 @@
 package com.arunseto.mhd.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,8 +22,6 @@ import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.OptionDialog;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 
 public class PsychiatristProfileFragment extends Fragment {
@@ -28,7 +29,7 @@ public class PsychiatristProfileFragment extends Fragment {
     private LayoutInflater inflater;
     private Context context;
     private Session session;
-    private int flContent,flContentSub;
+    private int flContentBnv,flContent;
     private GlobalTools gt;
     private OptionDialog optionDialog;
     private LoadingDialog loadingDialog;
@@ -36,6 +37,7 @@ public class PsychiatristProfileFragment extends Fragment {
     private TextView tvPsyName, tvPsyNo, tvPsyAddress, tvPsyExtra;
     private ImageView ivPsyImg;
     private Button btnPsyImg;
+    private ImageButton btnPsyAddress;
 
     public PsychiatristProfileFragment(Psychiatrist psychiatrist) {
         this.psychiatrist = psychiatrist;
@@ -52,8 +54,8 @@ public class PsychiatristProfileFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
-        flContentSub = gt.getContentSub();
         loadingDialog = gt.getLoadingDialog();
         optionDialog = gt.getOptionDialog();
 
@@ -63,11 +65,13 @@ public class PsychiatristProfileFragment extends Fragment {
         tvPsyExtra = view.findViewById(R.id.tvPsyExtra);
         ivPsyImg = view.findViewById(R.id.ivPsyImg);
         btnPsyImg= view.findViewById(R.id.btnPsyImg);
+        btnPsyAddress= view.findViewById(R.id.btnPsyAddress);
 
         tvPsyName.setText(psychiatrist.getName());
         tvPsyNo.setText(psychiatrist.getNumber());
         tvPsyAddress.setText(psychiatrist.getAddress());
         tvPsyExtra.setText(psychiatrist.getExtra());
+
         if (psychiatrist.getImg().equals("f")){
             gt.loadImgUrl(getString(R.string.img_url), ivPsyImg);
         }else{
@@ -76,10 +80,17 @@ public class PsychiatristProfileFragment extends Fragment {
         btnPsyImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(), gt.getContentSub(), new PsychiatristProfileImgFragment(getString(R.string.img_url)));
+                gt.navigateFragment(getFragmentManager(), gt.getContent(), new PsychiatristProfileImgFragment(getString(R.string.img_url)));
             }
         });
 
+        btnPsyAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iGoogleMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query="+psychiatrist.getAddress()+""));
+                startActivity(iGoogleMap);
+            }
+        });
 
 
 

@@ -21,7 +21,7 @@ public class DiagnoseFragment extends Fragment {
     private Context context;
     private Session session;
     private LinearLayout llPsikiater;
-    private int flContentSub;
+    private int flContent;
     private GlobalTools gt;
 
 
@@ -36,13 +36,13 @@ public class DiagnoseFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
-        flContentSub = gt.getContentSub();
+        flContent = gt.getContent();
 
         llPsikiater = view.findViewById(R.id.llNavPsychiatrist);
         llPsikiater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(),flContentSub, new PsychiatristFragment());
+                gt.navigateFragment(getFragmentManager(),flContent, new PsychiatristFragment());
             }
         });
 

@@ -10,7 +10,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorBackground">#fafafa</color>
     <color name="colorDarkBackground">#aaaaaa</color>
-    <color name="colorDark">#000000</color>
+    <color name="colorDark">#2C2C2C</color>
     <color name="colorDarkTransparent">#99000000</color>
     <color name="colorDanger">#d75072</color>
     <color name="colorDangerLighter">#E6C4CC</color>

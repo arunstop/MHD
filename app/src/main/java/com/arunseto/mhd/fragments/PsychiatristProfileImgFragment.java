@@ -25,7 +25,7 @@ public class PsychiatristProfileImgFragment extends Fragment {
 
     private Context context;
     private Session session;
-    private int flContent, flContentSub;
+    private int flContentBnv, flContent;
     private GlobalTools gt;
     private OptionDialog optionDialog;
     private LoadingDialog loadingDialog;
@@ -47,13 +47,13 @@ public class PsychiatristProfileImgFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
-        flContentSub = gt.getContentSub();
         loadingDialog = gt.getLoadingDialog();
         optionDialog = gt.getOptionDialog();
 
         ivPsyImg = view.findViewById(R.id.ivPsyImg);
-        gt.loadImgUrl(imgUrl, ivPsyImg);
+        gt.loadImgUrlLarge(imgUrl, ivPsyImg);
 
         return view;
     }

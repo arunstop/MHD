@@ -21,7 +21,7 @@ public class AboutFragment extends Fragment {
     private LayoutInflater inflater;
     private Context context;
     private Session session;
-    private int flContent,flContentSub;
+    private int flContentBnv,flContent;
     private GlobalTools gt;
     private OptionDialog optionDialog;
     private LoadingDialog loadingDialog;
@@ -37,8 +37,8 @@ public class AboutFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
-        flContentSub = gt.getContentSub();
         loadingDialog = gt.getLoadingDialog();
         optionDialog = gt.getOptionDialog();
 

@@ -69,7 +69,7 @@
                             android:id="@+id/tvEmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/tvUsername"
+                            android:layout_below="@id/tvName"
                             android:text="user@name.com" />
                     </LinearLayout>
 

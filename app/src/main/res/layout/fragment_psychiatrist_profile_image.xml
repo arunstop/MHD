@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimaryDark"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical">
 
     <Toolbar
@@ -41,49 +41,33 @@
         </RelativeLayout>
     </Toolbar>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
 
         <LinearLayout
-            android:layout_marginBottom="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:padding="12dp"
+            android:layout_marginBottom="30dp"
             android:orientation="vertical">
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvProfilePic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="@color/colorAccent"
-                app:cardCornerRadius="156dp"
+                app:cardBackgroundColor="@color/colorPrimaryDark"
                 app:contentPadding="6dp">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="150dp">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:scaleType="centerCrop"
-                            android:id="@+id/ivPsyImg"
-                            android:layout_width="300dp"
-                            android:layout_height="300dp"
-                            android:contentDescription="KEKW"
-                            android:src="@drawable/dummy_femdoc" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/ivPsyImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/dummy_femdoc" />
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-    </ScrollView>
+
 
 
 </LinearLayout>

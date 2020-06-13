@@ -15,13 +15,16 @@ import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.OptionDialog;
 
+//This is the main prototype of fragmenting
 
-public class HelpFragment extends Fragment {
+public class RegisterFragment extends Fragment {
+
     private View view;
     private LayoutInflater inflater;
+
     private Context context;
     private Session session;
-    private int flContentBnv,flContent;
+    private int flContentBnv, flContent;
     private GlobalTools gt;
     private OptionDialog optionDialog;
     private LoadingDialog loadingDialog;
@@ -30,8 +33,8 @@ public class HelpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_help, container, false);
-         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        view = inflater.inflate(R.layout.fragment_register, container, false);
+        //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
         gt = new GlobalTools(getActivity());
