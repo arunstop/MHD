@@ -13,7 +13,7 @@ import com.arunseto.mhd.R;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
-import com.arunseto.mhd.ui.OptionDialog;
+import com.arunseto.mhd.ui.ConfirmationDialog;
 
 //This is the main prototype of fragmenting
 
@@ -26,7 +26,7 @@ public class RegisterFragment extends Fragment {
     private Session session;
     private int flContentBnv, flContent;
     private GlobalTools gt;
-    private OptionDialog optionDialog;
+    private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
 
     @Nullable
@@ -43,7 +43,7 @@ public class RegisterFragment extends Fragment {
         flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
         loadingDialog = gt.getLoadingDialog();
-        optionDialog = gt.getOptionDialog();
+        confirmationDialog = gt.getConfirmationDialog();
 
 
         return view;

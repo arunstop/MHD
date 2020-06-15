@@ -21,7 +21,7 @@ import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAPI;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
-import com.arunseto.mhd.ui.OptionDialog;
+import com.arunseto.mhd.ui.ConfirmationDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +37,7 @@ public class SettingsFragment extends Fragment {
     private GoogleAPI googleAPI;
     private TextView tvName, tvEmail;
     private ImageView ivProfilePhoto;
-    private OptionDialog optionDialog;
+    private ConfirmationDialog confirmationDialog;
     private GlobalTools gt;
     private Button btnAbout, btnHelp, btnLogout;
 
@@ -123,23 +123,25 @@ public class SettingsFragment extends Fragment {
 
     public void commitLogout() {
 
-        optionDialog = new OptionDialog(context);
-        optionDialog.setTitle("Apakah Anda yakin ingin keluar akun ?");
-        optionDialog.setYLabel("KELUAR");
-        optionDialog.setNLabel("BATAL");
-        optionDialog.show();
-        optionDialog.getBtnYes().setOnClickListener(new View.OnClickListener() {
+        confirmationDialog = new ConfirmationDialog(context);
+        confirmationDialog.setTitle("Apakah Anda yakin ingin keluar akun ?");
+        confirmationDialog.setYLabel("KELUAR");
+        confirmationDialog.setNLabel("BATAL");
+        confirmationDialog.show();
+        //getting button must be declared after .show()
+        //otherwise it's going to crash the app
+        confirmationDialog.getBtnYes().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                optionDialog.dismiss();
+                confirmationDialog.dismiss();
                 execLogout();
             }
         });
 
-        optionDialog.getBtnNo().setOnClickListener(new View.OnClickListener() {
+        confirmationDialog.getBtnNo().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                optionDialog.dismiss();
+                confirmationDialog.dismiss();
             }
         });
 

@@ -17,7 +17,7 @@ import com.arunseto.mhd.ui.ConfirmationDialog;
 
 //This is the main prototype of fragmenting
 
-public class BlankFragment extends Fragment {
+public class NoteFragment extends Fragment {
 
     private View view;
     private LayoutInflater inflater;
@@ -33,7 +33,7 @@ public class BlankFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_blank, container, false);
+        view = inflater.inflate(R.layout.fragment_note, container, false);
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 

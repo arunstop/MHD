@@ -12,17 +12,17 @@ import android.widget.TextView;
 
 import com.arunseto.mhd.R;
 
-public class OptionDialog extends AlertDialog {
+public class ConfirmationDialog extends AlertDialog {
     private Context context;
     private Dialog dialog;
     private String title, yLabel, nLabel;
     private Button btnYes, btnNo;
     private TextView tvTitle;
 
-    public OptionDialog(Context context) {
+    public ConfirmationDialog(Context context) {
         super(context);
         this.context = context;
-        this.title = "";
+        this.title = "Confirmation Dialog";
         this.yLabel = "YES";
         this.nLabel = "NO";
     }
@@ -46,6 +46,13 @@ public class OptionDialog extends AlertDialog {
         tvTitle.setText(title);
         btnYes.setText(yLabel);
         btnNo.setText(nLabel);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
 
         dialog.show();
     }

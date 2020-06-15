@@ -1,10 +1,17 @@
 package com.arunseto.mhd.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Psychiatrist {
+    @SerializedName("name")
     private String name;
+    @SerializedName("number")
     private String number;
+    @SerializedName("address")
     private String address;
+    @SerializedName("extra")
     private String extra;
+    @SerializedName("img")
     private String img;
 
 

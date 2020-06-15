@@ -7,6 +7,8 @@ import com.arunseto.mhd.fragments.DiagnoseFragment;
 import com.arunseto.mhd.fragments.ExploreFragment;
 import com.arunseto.mhd.fragments.HomeFragment;
 import com.arunseto.mhd.fragments.SettingsFragment;
+import com.arunseto.mhd.models.DummyListNote;
+import com.arunseto.mhd.models.Note;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,6 +23,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
@@ -49,6 +54,21 @@ public class MainActivity extends AppCompatActivity {
 //                new HomeFragment());
         bnvNav.setOnNavigationItemSelectedListener(bnvListener());
         bnvNav.setSelectedItemId(R.id.navigation_home);
+
+        List<Note> ln = new ArrayList<>();
+
+        ln.add(new Note("Feels Good Man 1", "Feels Good super Good Man", "12 May 2020"));
+        ln.add(new Note("Feels Good Man 2", "Feels Good super Good Man", "12 May 2020"));
+        ln.add(new Note("Feels Good Man 3", "Feels Good super Good Man", "12 May 2020"));
+        ln.add(new Note("Feels Good Man 4", "Feels Good super Good Man", "12 May 2020"));
+        ln.add(new Note("Feels Good Man 5", "Feels Good super Good Man", "12 May 2020"));
+        ln.add(new Note("Feels Good Man 6", "Feels Good super Good Man", "12 May 2020"));
+        ln.add(new Note("Feels Good Man 7", "Feels Good super Good Man", "12 May 2020"));
+        ln.add(new Note("Feels Good Man 8", "Feels Good super Good Man", "12 May 2020"));
+        ln.add(new Note("Feels Good Man 9", "Feels Good super Good Man", "12 May 2020"));
+
+        DummyListNote dln = DummyListNote.getInstance();
+        dln.setDln(ln);
 
 
         // snackbar color

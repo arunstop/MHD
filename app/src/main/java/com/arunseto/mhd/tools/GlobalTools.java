@@ -8,8 +8,9 @@ import androidx.fragment.app.FragmentManager;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAPI;
+import com.arunseto.mhd.models.Note;
 import com.arunseto.mhd.ui.LoadingDialog;
-import com.arunseto.mhd.ui.OptionDialog;
+import com.arunseto.mhd.ui.ConfirmationDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -45,8 +46,8 @@ public class GlobalTools {
         return new LoadingDialog(context);
     }
 
-    public OptionDialog getOptionDialog() {
-        return new OptionDialog(context);
+    public ConfirmationDialog getConfirmationDialog() {
+        return new ConfirmationDialog(context);
     }
 
     public void navigateFragmentBnv(FragmentManager fragmentManager, int content, Fragment fragment) {
@@ -66,4 +67,5 @@ public class GlobalTools {
         //so the images can be reused in the future, by calling the same image's url
         Glide.with(context).load(url).centerInside().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
     }
+
 }

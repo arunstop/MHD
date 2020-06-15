@@ -48,7 +48,7 @@ public class PsychiatristFragment extends Fragment {
         llPsychiatristList = view.findViewById(R.id.llPsychiatristList);
         llPsychiatristList.removeAllViews();
 
-        List<Psychiatrist> lp = new ArrayList<Psychiatrist>();
+        List<Psychiatrist> lp = new ArrayList<>();
         lp.add(new Psychiatrist("Dr. Muna Sihombing", "+62 823 999 890", "Jl. Mawar No 1, Malang", "08:00 - 19:00", "f"));
         lp.add(new Psychiatrist("Dr. Mariyo Kirk", "+62 822 123 642", "Jl. Kasih No 2, Batu", "08:00 - 19:00", "m"));
         lp.add(new Psychiatrist("Dr. Billy Suharja", "+62 811 656 576", "Jl. Ibu No 23, Malang", "08:00 - 19:00", "m"));
