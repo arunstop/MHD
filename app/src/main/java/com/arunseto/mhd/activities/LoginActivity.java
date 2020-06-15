@@ -9,12 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAPI;
-import com.arunseto.mhd.fragments.DiagnoseFragment;
 import com.arunseto.mhd.fragments.RegisterFragment;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoadingDialog loadingDialog;
     private LinearLayout llBtnLoginGoogle;
     private Button btnLogin, btnNavRegister;
+    private EditText etEmail, etPassword;
 
 
     @Override
@@ -52,22 +53,24 @@ public class LoginActivity extends AppCompatActivity {
         flContent = gt.getContent();
         googleAPI = gt.getGoogleAPI();
 
-        llBtnLoginGoogle = findViewById(R.id.llBtnLoginGoogle);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnNavRegister = findViewById(R.id.btnNavRegister);
+        llBtnLoginGoogle = findViewById(R.id.llBtnLoginGoogle);
 
         //btnLogin to log getIntent to google account
         llBtnLoginGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginGoogle();
+                actLoginGoogle();
             }
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                actLogin();
             }
         });
 
@@ -81,8 +84,34 @@ public class LoginActivity extends AppCompatActivity {
         //btnLogout to log out google account
     }
 
+    private void actLogin() {
+
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+        if (email.isEmpty()) {
+            etEmail.setError("Email tidak boleh kosong");
+            return;
+        }
+        if (!email.contains("@")) {
+            etEmail.setError("Email tidak sesuai format");
+            return;
+        }
+        if (password.isEmpty()) {
+            etPassword.setError("Password tidak boleh kosong");
+            return;
+        }
+        if (password.length() < 8) {
+            etPassword.setError("Password masih kurang dari 8 karakter");
+            return;
+        }
+
+        session.saveUser(new User(email, password, "Tester", "Tester", ""));
+        startActivity(new Intent(context, MainActivity.class));
+        finish();
+    }
+
     // google login
-    private void loginGoogle() {
+    private void actLoginGoogle() {
         loadingDialog.show();
         startActivityForResult(googleAPI.getIntent(), 101);
     }
@@ -122,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
             loadingDialog.dismiss();
         }
     }
+
     public void navBack(View view) {
         super.onBackPressed();
     }

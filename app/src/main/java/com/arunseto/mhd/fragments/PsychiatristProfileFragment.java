@@ -67,7 +67,7 @@ public class PsychiatristProfileFragment extends Fragment {
         btnPsyImg= view.findViewById(R.id.btnPsyImg);
         btnPsyAddress= view.findViewById(R.id.btnPsyAddress);
 
-        tvPsyName.setText(psychiatrist.getName());
+        tvPsyName.setText(gt.capEachWord(psychiatrist.getName()));
         tvPsyNo.setText(psychiatrist.getNumber());
         tvPsyAddress.setText(psychiatrist.getAddress());
         tvPsyExtra.setText(psychiatrist.getExtra());

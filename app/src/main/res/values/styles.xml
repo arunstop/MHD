@@ -13,6 +13,12 @@
         <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>
 
+    <!--Dialog Animation-->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_top_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_top_out</item>
+    </style>
+
     <!--//Button-->
     <style name="ButtonTransparent" parent="Widget.AppCompat.Button">
         <item name="android:textStyle">bold</item>

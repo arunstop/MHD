@@ -30,18 +30,19 @@ public class ConfirmationDialog extends AlertDialog {
     @Override
     public void show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View layoutLogout = getLayoutInflater().inflate(R.layout.template_dialog_confirmation, null);
+        View layout = getLayoutInflater().inflate(R.layout.template_dialog_confirmation, null);
         // yes == log out
         // no == cancel
-        btnYes = layoutLogout.findViewById(R.id.btnYes);
-        btnNo = layoutLogout.findViewById(R.id.btnNo);
-        tvTitle = layoutLogout.findViewById(R.id.tvTitle);
-        builder.setView(layoutLogout);
+        btnYes = layout.findViewById(R.id.btnYes);
+        btnNo = layout.findViewById(R.id.btnNo);
+        tvTitle = layout.findViewById(R.id.tvTitle);
+        builder.setView(layout);
 
         dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();// to resize alert dialogMoreMenu, this command line should be below the alert.show()
         dialog.getWindow().setLayout(600, ViewGroup.LayoutParams.WRAP_CONTENT);// here i have fragment height 30% of window's height you can set it as per your requirement
+        dialog.getWindow().setWindowAnimations(R.style.DialogAnimation);
 
         tvTitle.setText(title);
         btnYes.setText(yLabel);

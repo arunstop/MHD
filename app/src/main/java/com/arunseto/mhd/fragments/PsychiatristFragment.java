@@ -66,7 +66,7 @@ public class PsychiatristFragment extends Fragment {
             TextView tvPsyNo = vPsy.findViewById(R.id.tvPsyNo);
             ImageView ivPsyImg = vPsy.findViewById(R.id.ivPsyImg);
 
-            tvPsyName.setText(psy.getName());
+            tvPsyName.setText(gt.capEachWord(psy.getName()));
             tvPsyNo.setText(psy.getNumber());
             if (psy.getImg().equals("f")){
                 ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_femdoc));
@@ -82,7 +82,7 @@ public class PsychiatristFragment extends Fragment {
                 }
             });
 
-            llPsychiatristList.addView(vPsy);
+            gt.loadAnimateView(llPsychiatristList, vPsy);
         }
 
         return view;

@@ -2,6 +2,10 @@ package com.arunseto.mhd.models;
 
 import java.util.List;
 public class DummyListNote {
+    // this is an singleton class
+    // a class where
+    // 1. It can save the object and use it globally
+    // 2. Does not need a initialization
     private List<Note> dln;
     private static DummyListNote instance = null;
     protected DummyListNote() {

@@ -80,12 +80,11 @@ public class MainActivity extends AppCompatActivity {
 
         //snackbar color alternative
         String fName = session.getUser().getFname();
-        String fNameCap = fName.substring(0, 1).toUpperCase() + fName.substring(1);
-        Snackbar.make(findViewById(android.R.id.content), "Welcome back! " + fNameCap, Snackbar.LENGTH_SHORT)
+        Snackbar.make(findViewById(android.R.id.content), "Welcome back! " + gt.capEachWord(fName), Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
                 .show();
-
+        View view = findViewById(R.id.flContent);
     }
 
     public BottomNavigationView.OnNavigationItemSelectedListener bnvListener() {
@@ -98,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         gt.navigateFragmentBnv(getSupportFragmentManager(),
                                 gt.getContentBnv(),
                                 new HomeFragment());
+
                         return true;
                     case R.id.navigation_diagnose:
                         gt.navigateFragmentBnv(getSupportFragmentManager(),

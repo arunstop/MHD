@@ -12,6 +12,7 @@ public class News {
     @SerializedName("articles")
     List<NewsArticle> articles;
 
+
     public String getStatus() {
         return status;
     }

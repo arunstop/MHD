@@ -5,15 +5,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.models.DummyListNote;
+import com.arunseto.mhd.models.Note;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+
+import java.util.Calendar;
+import java.util.Date;
 
 //This is the main prototype of fragmenting
 
@@ -28,6 +36,8 @@ public class NoteFragment extends Fragment {
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
+    private Button btnNote;
+    private EditText etNote;
 
     @Nullable
     @Override
@@ -45,6 +55,21 @@ public class NoteFragment extends Fragment {
         loadingDialog = gt.getLoadingDialog();
         confirmationDialog = gt.getConfirmationDialog();
 
+        final DummyListNote dln = DummyListNote.getInstance();
+
+
+        btnNote = view.findViewById(R.id.btnNote);
+        etNote = view.findViewById(R.id.etNote);
+        final Date date = Calendar.getInstance().getTime();
+
+        btnNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dln.getDln().add(new Note("Test", etNote.getText().toString(), date.toString()));
+                Toast.makeText(context, "Sukses menambah catatan", Toast.LENGTH_SHORT).show();
+                getActivity().onBackPressed();
+            }
+        });
 
         return view;
     }

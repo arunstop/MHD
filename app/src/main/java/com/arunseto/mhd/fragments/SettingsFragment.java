@@ -59,10 +59,9 @@ public class SettingsFragment extends Fragment {
         tvEmail = view.findViewById(R.id.tvEmail);
         ivProfilePhoto = view.findViewById(R.id.ivProfilePhoto);
 
-        String fName = session.getUser().getFname();
-        String fNameCap = fName.substring(0, 1) + fName.substring(1);
-
-        tvName.setText(session.getUser().getFname().toUpperCase() + " " + session.getUser().getLname().toUpperCase());
+        String displayName = session.getUser().getFname() + " " + session.getUser().getLname();
+        displayName = gt.capEachWord(displayName);
+        tvName.setText(displayName);
         tvEmail.setText(session.getUser().getEmail());
         if (!session.getUser().getPhotoUrl().isEmpty()) {
 //            Glide.with(context).load(session.getUser().getPhotoUrl()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivProfilePhoto);

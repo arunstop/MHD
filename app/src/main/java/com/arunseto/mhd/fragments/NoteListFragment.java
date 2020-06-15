@@ -96,7 +96,7 @@ public class NoteListFragment extends Fragment {
                 }
             });
 
-            llNoteList.addView(vNote);
+            gt.loadAnimateView(llNoteList, vNote);
         }
 
 
