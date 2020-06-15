@@ -82,7 +82,7 @@ public class PsychiatristFragment extends Fragment {
                 }
             });
 
-            gt.loadAnimateView(llPsychiatristList, vPsy);
+            gt.addViewAnimated(llPsychiatristList, vPsy);
         }
 
         return view;

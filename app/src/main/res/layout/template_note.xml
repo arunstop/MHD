@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="Psikiater Terdekat"
+                    android:text="Note Title"
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />

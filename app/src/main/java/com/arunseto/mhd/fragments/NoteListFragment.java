@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -87,7 +89,7 @@ public class NoteListFragment extends Fragment {
                     confirmationDialog.getBtnYes().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            llNoteList.removeView(vNote);
+                            gt.removeViewAnimated(llNoteList, vNote);
                             ln.remove(note);
                             confirmationDialog.dismiss();
                         }
@@ -96,7 +98,7 @@ public class NoteListFragment extends Fragment {
                 }
             });
 
-            gt.loadAnimateView(llNoteList, vNote);
+            gt.addViewAnimated(llNoteList, vNote);
         }
 
 

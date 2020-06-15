@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -112,16 +111,28 @@ public class GlobalTools {
         return sBuilder.toString();
     }
 
-    public void loadAnimateView(final ViewGroup container, final View item) {
+    public void addViewAnimated(final ViewGroup container, final View item) {
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_slide_left_in);
+        item.startAnimation(animation);
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 container.addView(item);
-                Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_slide_left_in_);
-                item.startAnimation(animation);
             }
         }, animItemCounter * 100);
         animItemCounter++;
+    }
+
+    public void removeViewAnimated(final ViewGroup container, final View item) {
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+        item.startAnimation(animation);
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                container.removeView(item);
+            }
+        }, 400);
+
     }
 
 }

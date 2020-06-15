@@ -3,13 +3,9 @@ package com.arunseto.mhd.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -139,7 +135,7 @@ public class ExploreFragment extends Fragment {
                 gt.loadImgUrl(na.getUrlToImage(), ivArticleImage);
             }
 
-            gt.loadAnimateView(llNewsList, vArticle);
+            gt.addViewAnimated(llNewsList, vArticle);
         }
     }
 }
