@@ -1,0 +1,91 @@
+package com.arunseto.mhd.fragments;
+
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.arunseto.mhd.R;
+import com.arunseto.mhd.models.Psychiatrist;
+import com.arunseto.mhd.tools.GlobalTools;
+import com.arunseto.mhd.tools.Session;
+import com.arunseto.mhd.ui.ConfirmationDialog;
+import com.arunseto.mhd.ui.LoadingDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+//This is the main prototype of fragmenting
+
+public class PsychiatristProfileContactFragment extends BottomSheetDialogFragment {
+
+    private View view;
+    private LayoutInflater inflater;
+    private Context context;
+    private Session session;
+    private int flContentBnv, flContent;
+    private GlobalTools gt;
+    private ConfirmationDialog confirmationDialog;
+    private LoadingDialog loadingDialog;
+    private Button btnSaveToContact, btnCopyToClipboard;
+    private Psychiatrist psychiatrist;
+
+    public PsychiatristProfileContactFragment(Psychiatrist psychiatrist) {
+        this.psychiatrist = psychiatrist;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        view = inflater.inflate(R.layout.fragment_psychiatrist_profile_contact, container, false);
+        //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        this.inflater = inflater;
+
+        gt = new GlobalTools(getActivity());
+        context = gt.getContext();
+        session = gt.getSession();
+        flContentBnv = gt.getContentBnv();
+        flContent = gt.getContent();
+        loadingDialog = gt.getLoadingDialog();
+        confirmationDialog = gt.getConfirmationDialog();
+
+        btnSaveToContact = view.findViewById(R.id.btnSaveToContact);
+        btnCopyToClipboard = view.findViewById(R.id.btnCopyToClipboard);
+
+
+        //Saving to contact
+        btnSaveToContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Creates a new Intent to insert a contact
+                Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
+                // Sets the MIME type to match the Contacts Provider
+                intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+                intent.putExtra(ContactsContract.Intents.Insert.PHONE, psychiatrist.getNumber());
+                intent.putExtra(ContactsContract.Intents.Insert.NAME, psychiatrist.getName());
+
+                startActivity(intent);
+            }
+        });
+
+        btnCopyToClipboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Phone number", psychiatrist.getNumber());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return view;
+    }
+}

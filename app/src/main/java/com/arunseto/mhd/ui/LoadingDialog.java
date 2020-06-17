@@ -10,7 +10,6 @@ import com.arunseto.mhd.R;
 public class LoadingDialog extends Dialog {
 
     private Context context;
-    private Dialog dialog;
 
     public LoadingDialog(Context context) {
         super(context);
@@ -19,16 +18,15 @@ public class LoadingDialog extends Dialog {
 
     @Override
     public void show() {
-        dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.template_dialog_progress);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setCancelable(false);
-        dialog.show();
+        super.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        super.setContentView(R.layout.template_dialog_progress);
+        super.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        super.setCancelable(false);
+        super.show();
     }
 
     @Override
     public void dismiss() {
-        dialog.dismiss();
+        super.dismiss();
     }
 }

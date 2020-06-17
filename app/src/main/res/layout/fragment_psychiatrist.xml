@@ -19,7 +19,7 @@
 
             <Button
                 android:id="@+id/btnBack"
-                style="@style/ButtonTransparent"
+                style="@style/ButtonBack"
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
@@ -39,7 +39,7 @@
 
             <Button
                 android:id="@+id/btnMore"
-                style="@style/ButtonTransparent"
+                style="@style/ButtonBack"
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

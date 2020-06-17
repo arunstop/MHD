@@ -55,7 +55,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
-                    android:background="@drawable/des_round_corner_border_top"
+                    android:background="@drawable/des_round_corner_top_bordered"
                     android:backgroundTint="@color/colorDarkBackground"
                     app:labelVisibilityMode="labeled"
                     app:menu="@menu/bottom_nav_menu" />

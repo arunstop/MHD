@@ -101,6 +101,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void execLogout() {
+        gt.getLoadingDialog().show();
         /*
           Sign-out is initiated by simply calling the googleSignInClient.signOut API. We add a
           listener which will be invoked once the sign out is the successful
@@ -117,6 +118,7 @@ public class SettingsFragment extends Fragment {
 
             }
         });
+        gt.getLoadingDialog().dismiss();
 
     }
 

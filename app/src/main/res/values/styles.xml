@@ -7,9 +7,23 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--for rounded top corder bottomsheetdialog-->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+
     </style>
 
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
 
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/des_round_corner_top</item>
+    </style>
+
+    <style name="PopupMenu">
+        <item name="android:background">@drawable/bg_round_corner_border</item>
+        <item name="android:itemBackground">@drawable/bg_round_corner_border</item>
+    </style>
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_bg</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -24,7 +38,7 @@
         <item name="android:windowExitAnimation">@anim/slide_top_out</item>
     </style>
 
-    <!--//Button-->
+    <!--//Button Transparent-->
     <style name="ButtonTransparent" parent="Widget.AppCompat.Button">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
@@ -33,6 +47,16 @@
         <item name="android:background">@drawable/des_ripple</item>
         <!--alternative-->
         <!--<item name="android:background">?attr/selectableItemBackground</item>-->
+    </style>
+
+    <!--//Button Back-->
+    <style name="ButtonBack" parent="Widget.AppCompat.Button">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textAllCaps">false</item>
+
+        <!--alternative-->
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
     <!--/Button-->
 

@@ -15,6 +15,8 @@ import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+import com.github.chrisbanes.photoview.PhotoView;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 //This is the main prototype of fragmenting
 
@@ -29,8 +31,9 @@ public class PsychiatristProfileImgFragment extends Fragment {
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
-    private ImageView ivPsyImg;
+    private PhotoView ivPsyImg;
     private String imgUrl;
+    private PhotoViewAttacher pvaAttacher;
 
     public PsychiatristProfileImgFragment(String imgUrl) {
         this.imgUrl = imgUrl;

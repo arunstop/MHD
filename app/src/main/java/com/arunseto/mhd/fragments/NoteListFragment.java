@@ -3,14 +3,18 @@ package com.arunseto.mhd.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
@@ -20,6 +24,7 @@ import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+import com.arunseto.mhd.ui.PoppingMenu;
 
 import java.util.List;
 
@@ -37,6 +42,7 @@ public class NoteListFragment extends Fragment {
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
     private LinearLayout llNoteList;
+    private Button btnMore;
 
     @Nullable
     @Override
@@ -55,6 +61,33 @@ public class NoteListFragment extends Fragment {
         confirmationDialog = gt.getConfirmationDialog();
 
         llNoteList = view.findViewById(R.id.llNoteList);
+        btnMore = view.findViewById(R.id.btnMore);
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PoppingMenu poppingMenu = gt.getPoppingMenu(view);
+                poppingMenu.addItem("Buka di Browser");
+                poppingMenu.addItem("Bagikan");
+
+                poppingMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getOrder()) {
+                            case 0:
+                                Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
+                                return true;
+                            case 1:
+                                Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
+                                return true;
+                        }
+                        return false;
+                    }
+                });
+
+                poppingMenu.show();
+            }
+        });
+
         final DummyListNote dln = DummyListNote.getInstance();
         final List<Note> ln = dln.getDln();
 

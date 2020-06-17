@@ -1,6 +1,7 @@
 package com.arunseto.mhd.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +12,12 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
+import com.arunseto.mhd.ui.PoppingMenu;
 import com.github.ybq.android.spinkit.SpinKitView;
 
 public class ArticleActivity extends AppCompatActivity {
@@ -23,7 +25,7 @@ public class ArticleActivity extends AppCompatActivity {
     private Session session;
     private Bundle bundle;
     private String articleUrl;
-
+private GlobalTools gt;
     private WebView wvArticle;
     private SpinKitView skvLoading;
     private Button btnMore;
@@ -34,7 +36,8 @@ public class ArticleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article);
         context = this;
 
-        session = Session.getInstance(context);
+        gt = new GlobalTools(context);
+        session = gt.getSession();
         bundle = getIntent().getExtras();
         articleUrl = bundle.getString("articleUrl");
 
@@ -45,28 +48,27 @@ public class ArticleActivity extends AppCompatActivity {
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(context,view );
-                //add(groupId, itemId, order, title);
-                popupMenu.getMenu().add(0,0,0,"Buka di Browser");
-                popupMenu.getMenu().add(0,1,1,"Bagikan");
+                PoppingMenu poppingMenu = gt.getPoppingMenu(view);
+                poppingMenu.addItem("Buka di Browser");
+                poppingMenu.addItem("Bagikan");
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                poppingMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getOrder()){
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getOrder()){
                             case 0:
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 i.setData(Uri.parse(articleUrl));
                                 startActivity(i);
                                 return true;
                             case 1:
-                                Toast.makeText(context, menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
                                 return true;
                         }
                         return false;
                     }
                 });
-                popupMenu.show();
+                poppingMenu.show();
             }
         });
 

@@ -29,7 +29,7 @@ public class PsychiatristProfileFragment extends Fragment {
     private LayoutInflater inflater;
     private Context context;
     private Session session;
-    private int flContentBnv,flContent;
+    private int flContentBnv, flContent;
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
@@ -37,7 +37,7 @@ public class PsychiatristProfileFragment extends Fragment {
     private TextView tvPsyName, tvPsyNo, tvPsyAddress, tvPsyExtra;
     private ImageView ivPsyImg;
     private Button btnPsyImg;
-    private ImageButton btnPsyAddress;
+    private ImageButton ibtnPsyContact, ibtnPsyAddress;
 
     public PsychiatristProfileFragment(Psychiatrist psychiatrist) {
         this.psychiatrist = psychiatrist;
@@ -48,7 +48,7 @@ public class PsychiatristProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_psychiatrist_profile, container, false);
-         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
         gt = new GlobalTools(getActivity());
@@ -64,17 +64,18 @@ public class PsychiatristProfileFragment extends Fragment {
         tvPsyAddress = view.findViewById(R.id.tvPsyAddress);
         tvPsyExtra = view.findViewById(R.id.tvPsyExtra);
         ivPsyImg = view.findViewById(R.id.ivPsyImg);
-        btnPsyImg= view.findViewById(R.id.btnPsyImg);
-        btnPsyAddress= view.findViewById(R.id.btnPsyAddress);
+        btnPsyImg = view.findViewById(R.id.btnPsyImg);
+        ibtnPsyContact = view.findViewById(R.id.ibtnPsyContact);
+        ibtnPsyAddress = view.findViewById(R.id.ibtnPsyAddress);
 
         tvPsyName.setText(gt.capEachWord(psychiatrist.getName()));
         tvPsyNo.setText(psychiatrist.getNumber());
         tvPsyAddress.setText(psychiatrist.getAddress());
         tvPsyExtra.setText(psychiatrist.getExtra());
 
-        if (psychiatrist.getImg().equals("f")){
+        if (psychiatrist.getImg().equals("f")) {
             gt.loadImgUrl(getString(R.string.img_url), ivPsyImg);
-        }else{
+        } else {
             ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_jrr));
         }
         btnPsyImg.setOnClickListener(new View.OnClickListener() {
@@ -84,16 +85,27 @@ public class PsychiatristProfileFragment extends Fragment {
             }
         });
 
-        btnPsyAddress.setOnClickListener(new View.OnClickListener() {
+        ibtnPsyContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iGoogleMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query="+psychiatrist.getAddress()+""));
-                startActivity(iGoogleMap);
+//                gt.navigateFragment(getFragmentManager(), flContent, new PsychiatristProfileContactFragment());
+                new PsychiatristProfileContactFragment(psychiatrist).show(getFragmentManager(), "Dialog");
             }
         });
 
-
+        ibtnPsyAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGoogleMap();
+            }
+        });
 
         return view;
     }
+
+    private void openGoogleMap() {
+        Intent iGoogleMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=" + psychiatrist.getAddress() + ""));
+        startActivity(iGoogleMap);
+    }
+
 }
