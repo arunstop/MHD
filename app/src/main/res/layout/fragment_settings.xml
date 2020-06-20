@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:text="Settings"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
     </Toolbar>
 </RelativeLayout>

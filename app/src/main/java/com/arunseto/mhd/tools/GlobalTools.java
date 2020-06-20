@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.arunseto.mhd.R;
-import com.arunseto.mhd.api.GoogleAPI;
+import com.arunseto.mhd.api.GoogleAuthClient;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
 import com.arunseto.mhd.ui.PoppingMenu;
@@ -51,12 +51,13 @@ public class GlobalTools {
         return R.id.flContent;
     }
 
-    //Getting GoogleAPI
-    public GoogleAPI getGoogleAPI() {
-        return GoogleAPI.getInstance(context);
+    //Getting GoogleAuthClient
+    public GoogleAuthClient getGoogleAuthClient() {
+        return GoogleAuthClient.getInstance(context);
     }
 
     //Getting Loading Dialog
+    //Must create local dialog with this to prevent window leak
     public LoadingDialog getLoadingDialog() {
         return new LoadingDialog(context);
     }
@@ -112,7 +113,7 @@ public class GlobalTools {
 
     //Capitalize each word
     public String capEachWord(String string) {
-        //Capitalize Each Word
+        //If there is no space, return the default string value
         String s = string.toLowerCase();
         String[] sArray = s.split(" ");
         StringBuilder sBuilder = new StringBuilder();
@@ -146,6 +147,35 @@ public class GlobalTools {
                 container.removeView(item);
             }
         }, 400);
+//        final int duration = 1000;
+//        final ValueAnimator vAnim = ValueAnimator.ofInt(item.getMeasuredHeight(), -100);
+//        vAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                int val = (Integer) valueAnimator.getAnimatedValue();
+//                ViewGroup.LayoutParams layoutParams = item.getLayoutParams();
+//                layoutParams.height = val;
+//                item.setLayoutParams(layoutParams);
+//            }
+//        });
+////        vAnim.addListener(new AnimatorListenerAdapter() {
+////            @Override
+////            public void onAnimationEnd(Animator animation) {
+////                container.removeView(item);
+//////                super.onAnimationEnd(animation);
+////
+////            }
+////        });
+//        vAnim.setDuration(duration);
+//        vAnim.start();
+//
+//        //removing view with delay or 1/4 of animation duration
+//        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                container.removeView(item);
+//            }
+//        }, duration/2);
 
     }
 

@@ -66,8 +66,8 @@ public class NoteListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 PoppingMenu poppingMenu = gt.getPoppingMenu(view);
-                poppingMenu.addItem("Buka di Browser");
-                poppingMenu.addItem("Bagikan");
+                poppingMenu.addItem("Refresh");
+                poppingMenu.addItem("Delete All");
 
                 poppingMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override

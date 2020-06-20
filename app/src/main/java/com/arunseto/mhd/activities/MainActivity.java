@@ -79,12 +79,11 @@ public class MainActivity extends AppCompatActivity {
 //        snackbar.show();
 
         //snackbar color alternative
-        String fName = session.getUser().getFname();
+        String fName = session.getUser().getFirst_name();
         Snackbar.make(findViewById(android.R.id.content), "Welcome back! " + gt.capEachWord(fName), Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
                 .show();
-        View view = findViewById(R.id.flContent);
     }
 
     public BottomNavigationView.OnNavigationItemSelectedListener bnvListener() {

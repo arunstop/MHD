@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/btnBack"
-                android:text="Note List"
+                android:text="Note Detail"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 android:textStyle="bold" />

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="bottom|center_horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -14,9 +14,9 @@
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/spin_kit"
         style="@style/SpinKitView.Large.FadingCircle"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
         app:SpinKit_Color="@color/colorPrimaryLighter" />
     <!--<ProgressBar-->
         <!--android:id="@+id/progressBar"-->

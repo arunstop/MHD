@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:text="Explore"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
     </Toolbar>
     <RelativeLayout
         android:layout_width="match_parent"

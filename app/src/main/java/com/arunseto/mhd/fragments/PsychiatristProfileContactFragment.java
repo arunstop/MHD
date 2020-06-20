@@ -84,6 +84,7 @@ public class PsychiatristProfileContactFragment extends BottomSheetDialogFragmen
                 ClipData clip = ClipData.newPlainText("Phone number", psychiatrist.getNumber());
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+                dismiss();
             }
         });
         return view;

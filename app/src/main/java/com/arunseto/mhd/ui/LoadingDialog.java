@@ -14,14 +14,14 @@ public class LoadingDialog extends Dialog {
     public LoadingDialog(Context context) {
         super(context);
         this.context = context;
+        super.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        super.setContentView(R.layout.template_dialog_progress);
+        super.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        super.setCancelable(false);
     }
 
     @Override
     public void show() {
-        super.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.setContentView(R.layout.template_dialog_progress);
-        super.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        super.setCancelable(false);
         super.show();
     }
 

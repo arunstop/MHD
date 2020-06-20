@@ -13,13 +13,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
-import com.arunseto.mhd.models.DummyListNote;
-import com.arunseto.mhd.models.Note;
+import com.arunseto.mhd.activities.LoginActivity;
+import com.arunseto.mhd.api.MainClient;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 
-import java.util.ArrayList;
-import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class HomeFragment extends Fragment {
@@ -49,7 +51,7 @@ public class HomeFragment extends Fragment {
         btnNavNote = view.findViewById(R.id.btnNavNote);
         btnNavNoteList = view.findViewById(R.id.btnNavNoteList);
 
-        tvName.setText(session.getUser().getFname().toUpperCase() + " " + session.getUser().getLname().toUpperCase());
+        tvName.setText(session.getUser().getFirst_name().toUpperCase() + " " + session.getUser().getLast_name().toUpperCase());
         tvEmail.setText(session.getUser().getEmail());
 
         btnNavNote.setOnClickListener(new View.OnClickListener() {

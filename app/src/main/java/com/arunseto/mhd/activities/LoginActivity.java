@@ -14,9 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.arunseto.mhd.R;
-import com.arunseto.mhd.api.GoogleAPI;
+import com.arunseto.mhd.api.GoogleAuthClient;
+import com.arunseto.mhd.api.MainClient;
 import com.arunseto.mhd.fragments.RegisterFragment;
 import com.arunseto.mhd.models.User;
+import com.arunseto.mhd.models.UserResponse;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
@@ -25,6 +27,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends AppCompatActivity {
 
 
@@ -32,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private Context context;
     private Session session;
     private int flContentBnv, flContent;
-    private GoogleAPI googleAPI;
+    private GoogleAuthClient googleAuthClient;
     private LoadingDialog loadingDialog;
     private LinearLayout llBtnLoginGoogle;
     private Button btnLogin, btnNavRegister;
@@ -44,14 +52,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loadingDialog = new LoadingDialog(LoginActivity.this);
+
         gt = new GlobalTools(LoginActivity.this);
 
         context = gt.getContext();
         session = gt.getSession();
         flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
-        googleAPI = gt.getGoogleAPI();
+        googleAuthClient = gt.getGoogleAuthClient();
+        loadingDialog = gt.getLoadingDialog();
+
 
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -70,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                actLogin();
+                initLogin();
             }
         });
 
@@ -84,10 +94,10 @@ public class LoginActivity extends AppCompatActivity {
         //btnLogout to log out google account
     }
 
-    private void actLogin() {
+    private void initLogin() {
 
-        String email = etEmail.getText().toString();
-        String password = etPassword.getText().toString();
+        String email = etEmail.getText().toString().trim().toLowerCase();
+        String password = etPassword.getText().toString().trim().toLowerCase();
         if (email.isEmpty()) {
             etEmail.setError("Email tidak boleh kosong");
             return;
@@ -105,15 +115,71 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        session.saveUser(new User(email, password, "Tester", "Tester", ""));
-        startActivity(new Intent(context, MainActivity.class));
-        finish();
+        execLogin(email, password);
+// dummy
+//        session.saveUser(new User("",
+//                "email",
+//                "",
+//                "",
+//                "first",
+//                "last",
+//                "",
+//                "",
+//                "",
+//                "",
+//                ""));
+    }
+
+
+    private void execLogin(String email, String password) {
+        loadingDialog.show();
+
+        Call<UserResponse> call = MainClient.getInstance().getApi().showUser(email, password);
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful()) {
+                    UserResponse result = response.body();
+                    if (result.isOk()) {
+                        List<User> lu = result.getData();
+                        session.saveUser(lu.get(0));
+//                    etEmail.setText(new Gson().toJson(response.body())+"");
+//                    String s = "";
+//                        s+= session.getUser().getId_user()+"\n";
+//                        s+= session.getUser().getEmail()+"\n";
+//                        s+= session.getUser().getPassword()+"\n";
+//                        s+= session.getUser().getNo_telp()+"\n";
+//                        s+= session.getUser().getFirst_name()+"\n";
+//                        s+= session.getUser().getLast_name()+"\n";
+//                        s+= session.getUser().getLast_login()+"\n";
+//                        s+= session.getUser().getType_login()+"\n";
+//                        s+= session.getUser().getRole()+"\n";
+//                        s+= session.getUser().getCreated_at()+"\n";
+//                        s+= session.getUser().getPhoto_url()+"\n";
+                        //                    Toast.makeText(LoginActivity.this, s+"", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login " + result.getMessage(), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(context, MainActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "" + result.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(context, response.message() + " Error", Toast.LENGTH_SHORT).show();
+                }
+                loadingDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                Toast.makeText(context, t.getMessage() + " Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // google login
     private void actLoginGoogle() {
         loadingDialog.show();
-        startActivityForResult(googleAPI.getIntent(), 101);
+        startActivityForResult(googleAuthClient.getIntent(), 101);
     }
 
     @Override
@@ -130,11 +196,18 @@ public class LoginActivity extends AppCompatActivity {
 
 //                        Toast.makeText(context, account.getGivenName()+"", Toast.LENGTH_SHORT).show();
                         session.saveUser(
-                                new User(account.getEmail(),
+                                new User("",
+                                        account.getEmail(),
+                                        "",
                                         "",
                                         account.getGivenName(),
                                         account.getFamilyName(),
-                                        account.getPhotoUrl().toString())
+                                        "",
+                                        "",
+                                        "",
+                                        "",
+                                        account.getPhotoUrl().toString()
+                                )
                         );
                         startActivity(new Intent(context, MainActivity.class));
                         finish();

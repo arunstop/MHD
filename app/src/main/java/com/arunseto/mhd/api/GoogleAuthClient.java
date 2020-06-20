@@ -8,16 +8,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 
-public class GoogleAPI {
+public class GoogleAuthClient {
 //    private String idToken = Resources.getSystem().getString(R.string.client_id);
     private String idToken = "52023918840-usq2mt0bjs6jkrncin52gno943csjasf.apps.googleusercontent.com";
-    private static GoogleAPI mInstance;
+    private static GoogleAuthClient mInstance;
     private Context context;
     GoogleSignInOptions gso;
 
-    //Setting up google API
-
-    public GoogleAPI(Context context) {
+    public GoogleAuthClient(Context context) {
         this.context = context;
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("52023918840-usq2mt0bjs6jkrncin52gno943csjasf.apps.googleusercontent.com")
@@ -26,9 +24,9 @@ public class GoogleAPI {
         gsi();
     }
 
-    public static synchronized GoogleAPI getInstance(Context mCtx) {
+    public static synchronized GoogleAuthClient getInstance(Context mCtx) {
         if (mInstance == null) {
-            mInstance = new GoogleAPI(mCtx);
+            mInstance = new GoogleAuthClient(mCtx);
         }
         return mInstance;
     }

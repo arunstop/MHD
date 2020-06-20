@@ -31,13 +31,17 @@ public class Session {
         SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = session.edit();
 
-        editor.putString("email", user.getEmail());
-        editor.putString("password", user.getPassword());
-        editor.putString("fname", user.getFname());
-        editor.putString("lname", user.getLname());
-        editor.putString("photoUrl", user.getPhotoUrl());
-
-
+        editor.putString("id_user",user.getId_user());
+        editor.putString("email",user.getEmail());
+        editor.putString("password",user.getPassword());
+        editor.putString("no_telp",user.getNo_telp());
+        editor.putString("first_name",user.getFirst_name());
+        editor.putString("last_name",user.getLast_name());
+        editor.putString("last_login",user.getLast_login());
+        editor.putString("type_login",user.getType_login());
+        editor.putString("role",user.getRole());
+        editor.putString("created_at",user.getCreated_at());
+        editor.putString("photo_url",user.getPhoto_url());
 
         editor.apply();
     }
@@ -52,11 +56,17 @@ public class Session {
     public User getUser() {
         SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new User(
-                session.getString("email", null),
-                session.getString("password", null),
-                session.getString("fname", null),
-                session.getString("lname", null),
-                session.getString("photoUrl", null)
+                session.getString("id_user",null),
+                session.getString("email",null),
+                session.getString("password",null),
+                session.getString("no_telp",null),
+                session.getString("first_name",null),
+                session.getString("last_name",null),
+                session.getString("last_login",null),
+                session.getString("type_login",null),
+                session.getString("role",null),
+                session.getString("created_at",null),
+                session.getString("photo_url",null)
         );
     }
 

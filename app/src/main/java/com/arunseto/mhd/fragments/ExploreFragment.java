@@ -74,7 +74,7 @@ public class ExploreFragment extends Fragment {
     public void loadNews() {
         llNewsList.removeAllViews();
         // calling news api via retrofit
-        Call<News> call = NewsClient.getInstance().getApi().getNews();
+        Call<News> call = NewsClient.getInstance().getApi().showNews();
         call.enqueue(new Callback<News>() {
             @Override
             public void onResponse(Call<News> call, Response<News> response) {
