@@ -27,6 +27,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -134,15 +136,17 @@ public class LoginActivity extends AppCompatActivity {
     private void execLogin(String email, String password) {
         loadingDialog.show();
 
-        Call<UserResponse> call = MainClient.getInstance().getApi().showUser(email, password);
+        String currentTime = gt.getCurrentTime();
+        Call<UserResponse> call = MainClient.getInstance().getApi().loginUser(email,
+                password, currentTime, 1);
         call.enqueue(new Callback<UserResponse>() {
-            @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                if (response.isSuccessful()) {
-                    UserResponse result = response.body();
-                    if (result.isOk()) {
-                        List<User> lu = result.getData();
-                        session.saveUser(lu.get(0));
+                         @Override
+                         public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                             if (response.isSuccessful()) {
+                                 UserResponse result = response.body();
+                                 if (result.isOk()) {
+                                     List<User> lu = result.getData();
+                                     session.saveUser(lu.get(0));
 //                    etEmail.setText(new Gson().toJson(response.body())+"");
 //                    String s = "";
 //                        s+= session.getUser().getId_user()+"\n";
@@ -156,24 +160,27 @@ public class LoginActivity extends AppCompatActivity {
 //                        s+= session.getUser().getRole()+"\n";
 //                        s+= session.getUser().getCreated_at()+"\n";
 //                        s+= session.getUser().getPhoto_url()+"\n";
-                        //                    Toast.makeText(LoginActivity.this, s+"", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, "Login " + result.getMessage(), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(context, MainActivity.class));
-                        finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "" + result.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(context, response.message() + " Error", Toast.LENGTH_SHORT).show();
-                }
-                loadingDialog.dismiss();
-            }
+                                     //                    Toast.makeText(LoginActivity.this, s+"", Toast.LENGTH_SHORT).show();
+                                     Toast.makeText(LoginActivity.this, "Login " + result.getMessage(), Toast.LENGTH_SHORT).show();
+                                     startActivity(new Intent(context, MainActivity.class));
+                                     finish();
+                                 } else {
+                                     Toast.makeText(LoginActivity.this, "" + result.getMessage(), Toast.LENGTH_SHORT).show();
+                                 }
+                                 loadingDialog.dismiss();
 
-            @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage() + " Error", Toast.LENGTH_SHORT).show();
-            }
-        });
+                             } else {
+                                 Toast.makeText(context, response.message() + " Error", Toast.LENGTH_SHORT).show();
+                                 loadingDialog.dismiss();
+                             }
+                         }
+
+                         @Override
+                         public void onFailure(Call<UserResponse> call, Throwable t) {
+                             Toast.makeText(context, t.getMessage() + " Error", Toast.LENGTH_SHORT).show();
+                         }
+                     }
+        );
     }
 
     // google login
@@ -199,14 +206,17 @@ public class LoginActivity extends AppCompatActivity {
                                 new User("",
                                         account.getEmail(),
                                         "",
-                                        "",
                                         account.getGivenName(),
                                         account.getFamilyName(),
                                         "",
+                                        0,
                                         "",
                                         "",
+                                        account.getPhotoUrl().toString(),
+                                        1,
                                         "",
-                                        account.getPhotoUrl().toString()
+                                        2,
+                                        gt.getCurrentTime()
                                 )
                         );
                         startActivity(new Intent(context, MainActivity.class));

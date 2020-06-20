@@ -14,35 +14,44 @@ public class User {
     private String email;
     @SerializedName("PASSWORD")
     private String password;
-    @SerializedName("NO_TELP")
-    private String no_telp;
     @SerializedName("FIRST_NAME")
     private String first_name;
     @SerializedName("LAST_NAME")
     private String last_name;
+    @SerializedName("NO_TELP")
+    private String no_telp;
+    @SerializedName("SEX")
+    private int sex;
+    @SerializedName("BIRTH_DATE")
+    private String birth_date;
+    @SerializedName("CITY")
+    private String city;
+    @SerializedName("PHOTO_URL")
+    private String photo_url;
+    @SerializedName("ROLE")
+    private int role;
     @SerializedName("LAST_LOGIN")
     private String last_login;
     @SerializedName("TYPE_LOGIN")
-    private String type_login;
-    @SerializedName("ROLE")
-    private String role;
+    private int type_login;
     @SerializedName("CREATED_AT")
     private String created_at;
-    @SerializedName("PHOTO_URL")
-    private String photo_url;
 
-    public User(String id_user, String email, String password, String no_telp, String first_name, String last_name, String last_login, String type_login, String role, String created_at, String photo_url) {
+    public User(String id_user, String email, String password, String first_name, String last_name, String no_telp, int sex, String birth_date, String city, String photo_url, int role, String last_login, int type_login, String created_at) {
         this.id_user = id_user;
         this.email = email;
         this.password = password;
-        this.no_telp = no_telp;
         this.first_name = first_name;
         this.last_name = last_name;
+        this.no_telp = no_telp;
+        this.sex = sex;
+        this.birth_date = birth_date;
+        this.city = city;
+        this.photo_url = photo_url;
+        this.role = role;
         this.last_login = last_login;
         this.type_login = type_login;
-        this.role = role;
         this.created_at = created_at;
-        this.photo_url = photo_url;
     }
 
     public String getId_user() {
@@ -57,10 +66,6 @@ public class User {
         return password;
     }
 
-    public String getNo_telp() {
-        return no_telp;
-    }
-
     public String getFirst_name() {
         return first_name;
     }
@@ -69,23 +74,39 @@ public class User {
         return last_name;
     }
 
-    public String getLast_login() {
-        return last_login;
+    public String getNo_telp() {
+        return no_telp;
     }
 
-    public String getType_login() {
-        return type_login;
+    public int getSex() {
+        return sex;
     }
 
-    public String getRole() {
-        return role;
+    public String getBirth_date() {
+        return birth_date;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCity() {
+        return city;
     }
 
     public String getPhoto_url() {
         return photo_url;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public String getLast_login() {
+        return last_login;
+    }
+
+    public int getType_login() {
+        return type_login;
+    }
+
+    public String getCreated_at() {
+        return created_at;
     }
 }

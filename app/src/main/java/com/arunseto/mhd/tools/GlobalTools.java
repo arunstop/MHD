@@ -22,6 +22,9 @@ import com.arunseto.mhd.ui.PoppingMenu;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class GlobalTools {
     private Context context;
     private int animItemCounter;
@@ -182,6 +185,12 @@ public class GlobalTools {
     //Pop out menu
     public PoppingMenu getPoppingMenu(View anchor) {
         return new PoppingMenu(context, anchor);
+    }
+
+    public String getCurrentTime(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateNow = new Date();
+        return formatter.format(dateNow);
     }
 
 }

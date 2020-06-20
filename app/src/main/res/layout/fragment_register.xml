@@ -82,12 +82,13 @@
                     android:layout_margin="6dp">
 
                     <EditText
+                        android:id="@+id/etFirstName"
+                        style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_mail_24dp"
-                        style="@style/EditTextBasic"
                         android:hint="Nama Depan"
-                        android:inputType="text"/>
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -97,12 +98,13 @@
                     android:layout_margin="6dp">
 
                     <EditText
+                        android:id="@+id/etLastName"
+                        style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_mail_24dp"
-                        style="@style/EditTextBasic"
                         android:hint="Nama Belakang"
-                        android:inputType="text"/>
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -111,12 +113,13 @@
                     android:layout_margin="6dp">
 
                     <EditText
+                        android:id="@+id/etEmail"
+                        style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_mail_24dp"
-                        style="@style/EditTextBasic"
                         android:hint="Email"
-                        android:inputType="textEmailAddress"/>
+                        android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -125,12 +128,13 @@
                     android:layout_margin="6dp">
 
                     <EditText
+                        android:id="@+id/etPassword"
+                        style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_lock_24dp"
-                        style="@style/EditTextBasic"
                         android:hint="Password"
-                        android:inputType="textPassword"/>
+                        android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -139,12 +143,13 @@
                     android:layout_margin="6dp">
 
                     <EditText
+                        android:id="@+id/etPasswordConfirm"
+                        style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_lock_24dp"
-                        style="@style/EditTextBasic"
                         android:hint="Confirm Password"
-                        android:inputType="textPassword"/>
+                        android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -153,10 +158,74 @@
                     android:layout_margin="6dp">
 
                     <EditText
+                        android:id="@+id/etPhone"
+                        style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_lock_24dp"
+                        android:hint="Phone Number"
+                        android:inputType="phone"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp">
+
+                    <LinearLayout
+                        android:paddingStart="6dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/ic_sex_24dp"
+                            android:drawablePadding="6dp"
+                            android:gravity="center|start"
+                            android:orientation="horizontal"
+                            android:text="Jenis Kelamin : "
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:id="@+id/btnMale"
+                            style="@style/ButtonRound"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            android:layout_weight="1"
+                            android:text="Laki-laki"
+                            android:textColor="@color/colorPrimary" />
+
+                        <Button
+                            android:id="@+id/btnFemale"
+                            style="@style/ButtonRound"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:text="Perempuan"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp">
+
+                    <EditText
+                        android:id="@+id/etBirthDate"
                         style="@style/EditTextBasic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_lock_24dp"
                         android:hint="Tanggal Lahir"
                         android:inputType="date" />
                 </com.google.android.material.textfield.TextInputLayout>
