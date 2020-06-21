@@ -57,15 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
         List<Note> ln = new ArrayList<>();
 
-        ln.add(new Note("Feels Good Man 1", "Feels Good super Good Man", "12 May 2020"));
-        ln.add(new Note("Feels Good Man 2", "Feels Good super Good Man", "12 May 2020"));
-        ln.add(new Note("Feels Good Man 3", "Feels Good super Good Man", "12 May 2020"));
-        ln.add(new Note("Feels Good Man 4", "Feels Good super Good Man", "12 May 2020"));
-        ln.add(new Note("Feels Good Man 5", "Feels Good super Good Man", "12 May 2020"));
-        ln.add(new Note("Feels Good Man 6", "Feels Good super Good Man", "12 May 2020"));
-        ln.add(new Note("Feels Good Man 7", "Feels Good super Good Man", "12 May 2020"));
-        ln.add(new Note("Feels Good Man 8", "Feels Good super Good Man", "12 May 2020"));
-        ln.add(new Note("Feels Good Man 9", "Feels Good super Good Man", "12 May 2020"));
+
+        for (int i=1;i<=10;i++){
+            ln.add(new Note(i,"Feels Good Man "+i, "Feels Good super Good Man", "12 May 2020"));
+        }
 
         DummyListNote dln = DummyListNote.getInstance();
         dln.setDln(ln);

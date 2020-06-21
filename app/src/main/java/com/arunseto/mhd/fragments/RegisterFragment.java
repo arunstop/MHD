@@ -19,6 +19,7 @@ import com.arunseto.mhd.activities.MainActivity;
 import com.arunseto.mhd.api.MainClient;
 import com.arunseto.mhd.models.DefaultResponse;
 import com.arunseto.mhd.models.User;
+import com.arunseto.mhd.models.UserResponse;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
@@ -155,37 +156,46 @@ public class RegisterFragment extends Fragment {
 
         if (firstName.isEmpty()) {
             etFirstName.setError("Tidak boleh kosong");
+            etFirstName.requestFocus();
             return;
         }
         if (lastName.isEmpty()) {
             etLastName.setError("Tidak boleh kosong");
+            etLastName.requestFocus();
             return;
         }
         if (email.isEmpty()) {
             etEmail.setError("Tidak boleh kosong");
+            etEmail.requestFocus();
             return;
         }
         if (password.isEmpty()) {
             etPassword.setError("Tidak boleh kosong");
+            etPassword.requestFocus();
             return;
         }
         if (password.length() < 8) {
             etPassword.setError("Minimal 8 karakter");
+            etPassword.requestFocus();
             return;
         }
         if (passwordConfirm.isEmpty()) {
             etPasswordConfirm.setError("Tidak boleh kosong");
+            etPasswordConfirm.requestFocus();
             return;
         }
         if (passwordConfirm.length() < 8) {
             etPasswordConfirm.setError("Minimal 8 karakter");
+            etPasswordConfirm.requestFocus();
             return;
         }
         if (!password.equals(passwordConfirm)) {
             etPasswordConfirm.setError("Password harus sama");
+            etPasswordConfirm.requestFocus();
         }
         if (birthDate.isEmpty()) {
             etBirthDate.setError("Tidak boleh kosong");
+            etBirthDate.requestFocus();
             return;
         }
 
@@ -194,7 +204,7 @@ public class RegisterFragment extends Fragment {
 
     public void execRegister() {
         loadingDialog.show();
-        Call<DefaultResponse> call = MainClient.getInstance().getApi()
+        Call<UserResponse> call = MainClient.getInstance().getApi()
                 .registerUser(email,
                         passwordConfirm,
                         firstName,
@@ -209,27 +219,13 @@ public class RegisterFragment extends Fragment {
                         1,
                         gt.getCurrentTime()
                 );
-        call.enqueue(new Callback<DefaultResponse>() {
+        call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()) {
-                    DefaultResponse result = response.body();
+                    UserResponse result = response.body();
                     if (result.isOk()) {
-                        session.saveUser(new User(
-                                "",
-                                email,
-                                passwordConfirm,
-                                firstName,
-                                lastName,
-                                phone,
-                                sexO,
-                                birthDate,
-                                "",
-                                "",
-                                1,
-                                gt.getCurrentTime(),
-                                1,
-                                gt.getCurrentTime()));
+                        session.saveUser(result.getData().get(0));
                         Toast.makeText(context, "Registration Success", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(context, MainActivity.class));
                         getActivity().finish();
@@ -239,7 +235,7 @@ public class RegisterFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<DefaultResponse> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
 
             }

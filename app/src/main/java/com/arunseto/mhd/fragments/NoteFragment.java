@@ -65,7 +65,7 @@ public class NoteFragment extends Fragment {
         btnNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dln.getDln().add(new Note("Test", etNote.getText().toString(), date.toString()));
+                dln.getDln().add(new Note(1,"Test", etNote.getText().toString(), date.toString()));
                 Toast.makeText(context, "Sukses menambah catatan", Toast.LENGTH_SHORT).show();
                 getActivity().onBackPressed();
             }

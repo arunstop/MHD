@@ -22,8 +22,8 @@ public interface MainAPI {
     );
 
     @FormUrlEncoded
-    @POST("user")
-    Call<DefaultResponse> registerUser(
+    @POST("user/register")
+    Call<UserResponse> registerUser(
             @Field("email") String email,
             @Field("password") String password,
             @Field("first_name") String first_name,
