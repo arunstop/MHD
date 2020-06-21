@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragments.HomeFragment">
+
     <Toolbar
 
         android:layout_width="match_parent"
@@ -20,9 +21,10 @@
             android:layout_height="wrap_content"
             android:text="Diagnose"
             android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.arunseto.mhd.activities.LoginActivity;
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAuthClient;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.ConfirmationDialog;
@@ -35,6 +36,7 @@ public class SettingsFragment extends Fragment {
     private LayoutInflater inflater;
     private Context context;
     private Session session;
+    private User user;
     private GoogleAuthClient googleAuthClient;
     private TextView tvName, tvEmail;
     private ImageView ivProfilePhoto;
@@ -55,6 +57,7 @@ public class SettingsFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        user = gt.getUser();
         googleAuthClient = gt.getGoogleAuthClient();
         loadingDialog = gt.getLoadingDialog();
 
@@ -62,13 +65,13 @@ public class SettingsFragment extends Fragment {
         tvEmail = view.findViewById(R.id.tvEmail);
         ivProfilePhoto = view.findViewById(R.id.ivProfilePhoto);
 
-        String displayName = session.getUser().getFirst_name() + " " + session.getUser().getLast_name();
+        String displayName = user.getFirst_name() + " " + user.getLast_name();
         displayName = gt.capEachWord(displayName);
         tvName.setText(displayName);
-        tvEmail.setText(session.getUser().getEmail());
-        if (!session.getUser().getPhoto_url().isEmpty()) {
-//            Glide.with(context).load(session.getUser().getPhoto_url()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivProfilePhoto);
-            gt.loadImgUrl(session.getUser().getPhoto_url(), ivProfilePhoto);
+        tvEmail.setText(user.getEmail());
+        if (!user.getPhoto_url().isEmpty()) {
+//            Glide.with(context).load(user.getPhoto_url()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivProfilePhoto);
+            gt.loadImgUrl(user.getPhoto_url(), ivProfilePhoto);
         }
 
         btnAbout = view.findViewById(R.id.btnAbout);

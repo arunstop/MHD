@@ -9,7 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 
 public class GoogleAuthClient {
-//    private String idToken = Resources.getSystem().getString(R.string.client_id);
+    //    private String idToken = Resources.getSystem().getString(R.string.client_id);
     private String idToken = "52023918840-usq2mt0bjs6jkrncin52gno943csjasf.apps.googleusercontent.com";
     private static GoogleAuthClient mInstance;
     private Context context;
@@ -31,11 +31,11 @@ public class GoogleAuthClient {
         return mInstance;
     }
 
-    public GoogleSignInClient gsi(){
+    public GoogleSignInClient gsi() {
         return GoogleSignIn.getClient(context, gso);
     }
 
-    public Intent getIntent(){
+    public Intent getIntent() {
         return gsi().getSignInIntent();
     }
 

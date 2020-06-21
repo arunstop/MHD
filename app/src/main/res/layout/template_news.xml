@@ -58,11 +58,12 @@
                 android:layout_width="120dp"
                 app:cardCornerRadius="12dp"
                 android:layout_height="90dp">
-            <ImageView
-                android:id="@+id/ivArticleImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_map_black_120dp" />
+
+                <ImageView
+                    android:id="@+id/ivArticleImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_map_black_120dp" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </LinearLayout>

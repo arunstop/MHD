@@ -38,6 +38,7 @@ public class RegisterFragment extends Fragment {
 
     private Context context;
     private Session session;
+    private User user;
     private int flContentBnv, flContent;
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
@@ -58,6 +59,7 @@ public class RegisterFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        user = gt.getUser();
         flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
         loadingDialog = gt.getLoadingDialog();

@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
@@ -27,6 +28,7 @@ public class PsychiatristProfileImgFragment extends Fragment {
 
     private Context context;
     private Session session;
+    private User user;
     private int flContentBnv, flContent;
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
@@ -50,6 +52,7 @@ public class PsychiatristProfileImgFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        user = gt.getUser();
         flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
         loadingDialog = gt.getLoadingDialog();

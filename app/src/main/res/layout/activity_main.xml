@@ -29,7 +29,8 @@
                     android:layout_height="match_parent"
                     android:animateLayoutChanges="true"
                     android:paddingBottom="60dp"
-                    app:layout_constraintTop_toTopOf="parent" >
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <Toolbar
 
                         android:layout_width="match_parent"
@@ -43,8 +44,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
                     </Toolbar>
                 </FrameLayout>
 

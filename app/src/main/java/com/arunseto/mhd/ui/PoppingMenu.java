@@ -27,10 +27,10 @@ public class PoppingMenu extends PopupMenu {
         super.show();
     }
 
-    public void addItem(String title){
+    public void addItem(String title) {
         //add(groupId, itemId, order, title);
         int itemId = order;
-        super.getMenu().add(0, itemId, order,title);
+        super.getMenu().add(0, itemId, order, title);
         order++;
     }
 }

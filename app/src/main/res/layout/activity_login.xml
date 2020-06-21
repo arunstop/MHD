@@ -65,8 +65,7 @@
                                 android:drawableStart="@drawable/ic_mail_24dp"
                                 style="@style/EditTextBasic"
                                 android:hint="Username/Email"
-                                android:inputType="textEmailAddress"
-                                 />
+                                android:inputType="textEmailAddress" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -81,7 +80,7 @@
                                 android:drawableStart="@drawable/ic_lock_24dp"
                                 style="@style/EditTextBasic"
                                 android:hint="Password"
-                                android:inputType="textPassword"/>
+                                android:inputType="textPassword" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <Button

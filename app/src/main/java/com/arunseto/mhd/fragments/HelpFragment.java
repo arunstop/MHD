@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
@@ -21,7 +22,8 @@ public class HelpFragment extends Fragment {
     private LayoutInflater inflater;
     private Context context;
     private Session session;
-    private int flContentBnv,flContent;
+    private User user;
+    private int flContentBnv, flContent;
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
@@ -31,12 +33,13 @@ public class HelpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_help, container, false);
-         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        user = gt.getUser();
         flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
         loadingDialog = gt.getLoadingDialog();

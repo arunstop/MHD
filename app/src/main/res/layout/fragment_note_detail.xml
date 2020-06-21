@@ -70,6 +70,7 @@
                 android:textColor="@color/colorDark"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
             <TextView
                 android:layout_marginTop="24dp"
                 android:id="@+id/tvNoteDate"
@@ -77,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp" />
+
             <TextView
                 android:layout_marginTop="12dp"
                 android:id="@+id/tvNoteContent"

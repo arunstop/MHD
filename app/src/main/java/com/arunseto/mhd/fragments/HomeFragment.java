@@ -30,29 +30,31 @@ public class HomeFragment extends Fragment {
     private LayoutInflater inflater;
     private Context context;
     private Session session;
+    private User user;
     private TextView tvName, tvEmail;
     private GlobalTools gt;
-    private Button btnNavNote,btnNavNoteList;
+    private Button btnNavNote, btnNavNoteList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
-         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        user = gt.getUser();
 
         tvName = view.findViewById(R.id.tvName);
         tvEmail = view.findViewById(R.id.tvEmail);
         btnNavNote = view.findViewById(R.id.btnNavNote);
         btnNavNoteList = view.findViewById(R.id.btnNavNoteList);
 
-        tvName.setText(session.getUser().getFirst_name().toUpperCase() + " " + session.getUser().getLast_name().toUpperCase());
-        tvEmail.setText(session.getUser().getEmail());
+        tvName.setText(user.getFirst_name().toUpperCase() + " " + user.getLast_name().toUpperCase());
+        tvEmail.setText(user.getEmail());
 
         btnNavNote.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -42,25 +42,22 @@
     </Toolbar>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
 
-        <LinearLayout
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/ivPsyImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            android:orientation="vertical">
+            android:scaleType="fitCenter"
+            android:src="@drawable/dummy_femdoc" />
 
-
-
-                <com.github.chrisbanes.photoview.PhotoView
-                    android:id="@+id/ivPsyImg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/dummy_femdoc" />
-
-        </LinearLayout>
-
+    </LinearLayout>
 
 
 </LinearLayout>

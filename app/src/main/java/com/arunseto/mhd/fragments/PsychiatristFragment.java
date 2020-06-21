@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.models.Psychiatrist;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 
@@ -27,6 +28,7 @@ public class PsychiatristFragment extends Fragment {
     private LayoutInflater inflater;
     private Context context;
     private Session session;
+    private User user;
     private LinearLayout llPsychiatristList;
     private int flContent;
     private GlobalTools gt;
@@ -37,12 +39,13 @@ public class PsychiatristFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_psychiatrist, container, false);
-         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
+        //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        user = gt.getUser();
         flContent = gt.getContent();
 
         llPsychiatristList = view.findViewById(R.id.llPsychiatristList);
@@ -68,9 +71,9 @@ public class PsychiatristFragment extends Fragment {
 
             tvPsyName.setText(gt.capEachWord(psy.getName()));
             tvPsyNo.setText(psy.getNumber());
-            if (psy.getImg().equals("f")){
+            if (psy.getImg().equals("f")) {
                 ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_femdoc));
-            }else{
+            } else {
                 ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_jrr));
             }
 

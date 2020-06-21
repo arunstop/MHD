@@ -4,24 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class Note {
 
-    @SerializedName("id_catatan")
-    private int id_catatan;
-    @SerializedName("title")
+    @SerializedName("ID_CATATAN")
+    private int id;
+    @SerializedName("JUDUL_CATATAN")
     private String title;
-    @SerializedName("content")
+    @SerializedName("ISI_CATATAN")
     private String content;
-    @SerializedName("date")
+    @SerializedName("CREATED_AT")
     private String date;
 
-    public Note(int id_catatan, String title, String content, String date) {
-        this.id_catatan = id_catatan;
+    public Note(int id, String title, String content, String date) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.date = date;
     }
 
-    public int getId_catatan() {
-        return id_catatan;
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

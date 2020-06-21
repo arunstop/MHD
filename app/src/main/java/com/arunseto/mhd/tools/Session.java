@@ -31,7 +31,7 @@ public class Session {
         SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = session.edit();
 
-        editor.putString("id_user", user.getId_user());
+        editor.putInt("id_user", user.getId_user());
         editor.putString("email", user.getEmail());
         editor.putString("password", user.getPassword());
         editor.putString("first_name", user.getFirst_name());
@@ -47,7 +47,6 @@ public class Session {
         editor.putString("created_at", user.getCreated_at());
 
 
-
         editor.apply();
     }
 
@@ -61,7 +60,7 @@ public class Session {
     public User getUser() {
         SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new User(
-                session.getString("id_user", null),
+                session.getInt("id_user", 0),
                 session.getString("email", null),
                 session.getString("password", null),
                 session.getString("first_name", null),
@@ -75,7 +74,7 @@ public class Session {
                 session.getString("last_login", null),
                 session.getInt("type_login", 0),
                 session.getString("created_at", null)
-                );
+        );
     }
 
     public void clear() {

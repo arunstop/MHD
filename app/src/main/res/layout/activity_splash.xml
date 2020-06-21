@@ -7,10 +7,10 @@
     android:orientation="vertical">
 
     <!--<ImageView-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/icon" />-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/icon" />-->
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/spin_kit"
         style="@style/SpinKitView.Large.FadingCircle"
@@ -19,15 +19,15 @@
         android:layout_marginBottom="60dp"
         app:SpinKit_Color="@color/colorPrimaryLighter" />
     <!--<ProgressBar-->
-        <!--android:id="@+id/progressBar"-->
-        <!--style="?android:attr/progressBarStyleHorizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:indeterminate="true"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:max="100"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:backgroundTint="@color/colorTransparent"-->
-        <!--android:indeterminateTint="@color/colorAccent" />-->
+    <!--android:id="@+id/progressBar"-->
+    <!--style="?android:attr/progressBarStyleHorizontal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:indeterminate="true"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:max="100"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:backgroundTint="@color/colorTransparent"-->
+    <!--android:indeterminateTint="@color/colorAccent" />-->
 
 </RelativeLayout>

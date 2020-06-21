@@ -39,8 +39,7 @@
                 android:textSize="12sp"
                 android:layout_weight="1"
                 android:text="NO"
-                android:textColor="@color/colorPrimary"
-                 />
+                android:textColor="@color/colorPrimary" />
 
             <Button
                 android:id="@+id/btnYes"
@@ -51,8 +50,7 @@
                 android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
-                android:text="YES"
-                 />
+                android:text="YES" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

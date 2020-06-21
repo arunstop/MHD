@@ -19,6 +19,7 @@ import com.arunseto.mhd.activities.ArticleActivity;
 import com.arunseto.mhd.api.NewsClient;
 import com.arunseto.mhd.models.News;
 import com.arunseto.mhd.models.NewsArticle;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
@@ -37,6 +38,7 @@ public class ExploreFragment extends Fragment {
     private LayoutInflater inflater;
     private Context context;
     private Session session;
+    private User user;
     private int flContent;
     private LinearLayout llNewsList;
     private SpinKitView skvLoading;
@@ -54,6 +56,7 @@ public class ExploreFragment extends Fragment {
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        user = gt.getUser();
         flContent = gt.getContent();
 
         llNewsList = view.findViewById(R.id.llNewsList);

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.PoppingMenu;
@@ -23,9 +24,10 @@ import com.github.ybq.android.spinkit.SpinKitView;
 public class ArticleActivity extends AppCompatActivity {
     private Context context;
     private Session session;
+    private User user;
     private Bundle bundle;
     private String articleUrl;
-private GlobalTools gt;
+    private GlobalTools gt;
     private WebView wvArticle;
     private SpinKitView skvLoading;
     private Button btnMore;
@@ -55,7 +57,7 @@ private GlobalTools gt;
                 poppingMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getOrder()){
+                        switch (item.getOrder()) {
                             case 0:
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 i.setData(Uri.parse(articleUrl));
@@ -74,7 +76,7 @@ private GlobalTools gt;
 
         wvArticle.loadUrl(articleUrl);
         // Force links and redirects to open in the WebView instead of in a browser
-        wvArticle.setWebViewClient(new WebViewClient(){
+        wvArticle.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 skvLoading.setVisibility(View.GONE);
@@ -89,8 +91,7 @@ private GlobalTools gt;
         // Check if the key event was the Back button and if there's history
         if (wvArticle.canGoBack()) {
             wvArticle.goBack();
-        }
-        else {
+        } else {
             // If it wasn't the Back key or there's no web page history, bubble up to the default
             // system behavior (probably exit the activity)
             super.onBackPressed();
@@ -99,7 +100,7 @@ private GlobalTools gt;
 
     }
 
-    public void navBack(View view){
+    public void navBack(View view) {
         finish();
     }
 }

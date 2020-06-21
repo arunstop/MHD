@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private GlobalTools gt;
     private Context context;
     private Session session;
+    private User user;
     private int flContentBnv, flContent;
     private GoogleAuthClient googleAuthClient;
     private LoadingDialog loadingDialog;
@@ -149,17 +150,17 @@ public class LoginActivity extends AppCompatActivity {
                                      session.saveUser(lu.get(0));
 //                    etEmail.setText(new Gson().toJson(response.body())+"");
 //                    String s = "";
-//                        s+= session.getUser().getId_user()+"\n";
-//                        s+= session.getUser().getEmail()+"\n";
-//                        s+= session.getUser().getPassword()+"\n";
-//                        s+= session.getUser().getNo_telp()+"\n";
-//                        s+= session.getUser().getFirst_name()+"\n";
-//                        s+= session.getUser().getLast_name()+"\n";
-//                        s+= session.getUser().getLast_login()+"\n";
-//                        s+= session.getUser().getType_login()+"\n";
-//                        s+= session.getUser().getRole()+"\n";
-//                        s+= session.getUser().getCreated_at()+"\n";
-//                        s+= session.getUser().getPhoto_url()+"\n";
+//                        s+= user.getId_user()+"\n";
+//                        s+= user.getEmail()+"\n";
+//                        s+= user.getPassword()+"\n";
+//                        s+= user.getNo_telp()+"\n";
+//                        s+= user.getFirst_name()+"\n";
+//                        s+= user.getLast_name()+"\n";
+//                        s+= user.getLast_login()+"\n";
+//                        s+= user.getType_login()+"\n";
+//                        s+= user.getRole()+"\n";
+//                        s+= user.getCreated_at()+"\n";
+//                        s+= user.getPhoto_url()+"\n";
                                      //                    Toast.makeText(LoginActivity.this, s+"", Toast.LENGTH_SHORT).show();
                                      Toast.makeText(LoginActivity.this, "Login " + result.getMessage(), Toast.LENGTH_SHORT).show();
                                      startActivity(new Intent(context, MainActivity.class));
@@ -203,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //                        Toast.makeText(context, account.getGivenName()+"", Toast.LENGTH_SHORT).show();
                         session.saveUser(
-                                new User("",
+                                new User(0,
                                         account.getEmail(),
                                         "",
                                         account.getGivenName(),

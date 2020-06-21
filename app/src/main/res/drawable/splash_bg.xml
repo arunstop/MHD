@@ -4,7 +4,8 @@
     <item android:drawable="@drawable/bg_gradient" />
 
     <item>
-        <bitmap android:src="@drawable/google_logo"
+        <bitmap
+            android:src="@drawable/google_logo"
             android:gravity="center" />
 
     </item>

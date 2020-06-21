@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.models.Psychiatrist;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.ConfirmationDialog;
@@ -31,6 +32,7 @@ public class PsychiatristProfileContactFragment extends BottomSheetDialogFragmen
     private LayoutInflater inflater;
     private Context context;
     private Session session;
+    private User user;
     private int flContentBnv, flContent;
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
@@ -53,6 +55,7 @@ public class PsychiatristProfileContactFragment extends BottomSheetDialogFragmen
         gt = new GlobalTools(getActivity());
         context = gt.getContext();
         session = gt.getSession();
+        user = gt.getUser();
         flContentBnv = gt.getContentBnv();
         flContent = gt.getContent();
         loadingDialog = gt.getLoadingDialog();

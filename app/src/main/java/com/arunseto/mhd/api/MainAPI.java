@@ -2,10 +2,12 @@ package com.arunseto.mhd.api;
 
 import com.arunseto.mhd.models.DefaultResponse;
 import com.arunseto.mhd.models.News;
+import com.arunseto.mhd.models.NoteResponse;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.models.UserResponse;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -48,7 +50,25 @@ public interface MainAPI {
             @Field("type_login") int type_login
     );
 
+    @GET("note/show")
+    Call<NoteResponse> showNote(
+            @Query("id_user") int id_user
+    );
 
+    @FormUrlEncoded
+    @POST("note/add")
+    Call<DefaultResponse> addNote(
+            @Field("id_user") int id_user,
+            @Field("judul_catatan") String judul_catatan,
+                    @Field("isi_catatan") String isi_catatan,
+                    @Field("created_at") String created_at
+    );
+
+    @FormUrlEncoded
+    @POST("note/delete")
+    Call<DefaultResponse> deleteNote(
+        @Field("id_catatan") int id
+    );
 
 
 }

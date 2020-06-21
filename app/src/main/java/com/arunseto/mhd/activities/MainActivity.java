@@ -9,6 +9,7 @@ import com.arunseto.mhd.fragments.HomeFragment;
 import com.arunseto.mhd.fragments.SettingsFragment;
 import com.arunseto.mhd.models.DummyListNote;
 import com.arunseto.mhd.models.Note;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private boolean doubleBackToExitPressedOnce;
     private Session session;
+    private User user;
     private int flContentBnv;
     private TextView tvToolbar;
     private BottomNavigationView bnvNav;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         gt = new GlobalTools(this);
         session = gt.getSession();
+        user = gt.getUser();
         flContentBnv = gt.getContentBnv();
 
         bnvNav = findViewById(R.id.nav_view);
@@ -58,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
         List<Note> ln = new ArrayList<>();
 
 
-        for (int i=1;i<=10;i++){
-            ln.add(new Note(i,"Feels Good Man "+i, "Feels Good super Good Man", "12 May 2020"));
+        for (int i = 1; i <= 10; i++) {
+            ln.add(new Note(i, "Feels Good Man " + i, "Feels Good super Good Man", "12 May 2020"));
         }
 
         DummyListNote dln = DummyListNote.getInstance();
@@ -74,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
 //        snackbar.show();
 
         //snackbar color alternative
-        String fName = session.getUser().getFirst_name();
-        Snackbar.make(findViewById(android.R.id.content), "Welcome back! " + gt.capEachWord(fName), Snackbar.LENGTH_SHORT)
+        String fName = user.getFirst_name();
+        Snackbar.make(findViewById(android.R.id.content), "Welcome back! " +gt.getCurrentDate(DateFormat.SHORT), Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
                 .show();

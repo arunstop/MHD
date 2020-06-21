@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,13 +17,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAuthClient;
+import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
 import com.arunseto.mhd.ui.PoppingMenu;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class GlobalTools {
@@ -42,6 +46,11 @@ public class GlobalTools {
     //Getting session
     public Session getSession() {
         return Session.getInstance(context);
+    }
+
+    //Getting user
+    public User getUser() {
+        return getSession().getUser();
     }
 
     //Getting Bottom Nav Content
@@ -187,10 +196,17 @@ public class GlobalTools {
         return new PoppingMenu(context, anchor);
     }
 
-    public String getCurrentTime(){
+    public String getCurrentTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dateNow = new Date();
         return formatter.format(dateNow);
+    }
+
+    public String getCurrentDate(int dateFormat){
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(dateFormat).format(calendar.getTime());
+
+        return currentDate;
     }
 
 }

@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_lock_24dp"
                         android:hint="Phone Number"
-                        android:inputType="phone"/>
+                        android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
