@@ -162,9 +162,9 @@ public class LoginActivity extends AppCompatActivity {
 //                        s+= user.getCreated_at()+"\n";
 //                        s+= user.getPhoto_url()+"\n";
                                      //                    Toast.makeText(LoginActivity.this, s+"", Toast.LENGTH_SHORT).show();
-                                     Toast.makeText(LoginActivity.this, "Login " + result.getMessage(), Toast.LENGTH_SHORT).show();
                                      startActivity(new Intent(context, MainActivity.class));
                                      finish();
+                                     Toast.makeText(LoginActivity.this, "Login " + result.getMessage(), Toast.LENGTH_SHORT).show();
                                  } else {
                                      Toast.makeText(LoginActivity.this, "" + result.getMessage(), Toast.LENGTH_SHORT).show();
                                  }

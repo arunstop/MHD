@@ -51,7 +51,7 @@ public class ConfirmationDialog extends AlertDialog {
         btnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                dismiss();
             }
         });
 

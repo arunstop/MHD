@@ -228,10 +228,10 @@ public class RegisterFragment extends Fragment {
                     UserResponse result = response.body();
                     if (result.isOk()) {
                         session.saveUser(result.getData().get(0));
-                        Toast.makeText(context, "Registration Success", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(context, MainActivity.class));
                         getActivity().finish();
                         loadingDialog.dismiss();
+                        Toast.makeText(context, "Registration Success", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

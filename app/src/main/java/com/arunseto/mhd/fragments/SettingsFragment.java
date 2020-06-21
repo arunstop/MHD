@@ -42,7 +42,7 @@ public class SettingsFragment extends Fragment {
     private ImageView ivProfilePhoto;
     private ConfirmationDialog confirmationDialog;
     private GlobalTools gt;
-    private Button btnAbout, btnHelp, btnLogout;
+    private Button btnEditProfile, btnAbout, btnHelp, btnLogout;
     private LoadingDialog loadingDialog;
 
     @Nullable
@@ -64,6 +64,10 @@ public class SettingsFragment extends Fragment {
         tvName = view.findViewById(R.id.tvName);
         tvEmail = view.findViewById(R.id.tvEmail);
         ivProfilePhoto = view.findViewById(R.id.ivProfilePhoto);
+        btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        btnAbout = view.findViewById(R.id.btnAbout);
+        btnHelp = view.findViewById(R.id.btnHelp);
+        btnLogout = view.findViewById(R.id.btnLogout);
 
         String displayName = user.getFirst_name() + " " + user.getLast_name();
         displayName = gt.capEachWord(displayName);
@@ -74,9 +78,15 @@ public class SettingsFragment extends Fragment {
             gt.loadImgUrl(user.getPhoto_url(), ivProfilePhoto);
         }
 
-        btnAbout = view.findViewById(R.id.btnAbout);
-        btnHelp = view.findViewById(R.id.btnHelp);
-        btnLogout = view.findViewById(R.id.btnLogout);
+
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gt.navigateFragment(getFragmentManager(),
+                        gt.getContent(),
+                        new UserProfileFragment());
+            }
+        });
 
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +131,7 @@ public class SettingsFragment extends Fragment {
                 confirmationDialog.dismiss();
                 loadingDialog.show();
                 execLogout();
+                loadingDialog.dismiss();
             }
         });
 
@@ -143,24 +154,12 @@ public class SettingsFragment extends Fragment {
             public void onComplete(@NonNull Task<Void> task) {
                 //On Succesfull signout we navigate the user back to LoginActivity
                 session.clear();
-                Toast.makeText(context, "Log out success", Toast.LENGTH_SHORT).show();
                 Log.w("Google Logout", "NICE");
                 startActivity(new Intent(context, LoginActivity.class));
                 getActivity().finish();
+                Toast.makeText(context, "Log out success", Toast.LENGTH_SHORT).show();
             }
         });
 
-    }
-
-    @Override
-    public void onDestroy() {
-        loadingDialog.dismiss();
-        super.onDestroy();
-    }
-
-    @Override
-    public void onPause() {
-        loadingDialog.dismiss();
-        super.onPause();
     }
 }

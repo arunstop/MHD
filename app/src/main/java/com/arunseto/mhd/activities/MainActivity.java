@@ -25,7 +25,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         //snackbar color alternative
         String fName = user.getFirst_name();
-        Snackbar.make(findViewById(android.R.id.content), "Welcome back! " +gt.getCurrentDate(DateFormat.SHORT), Snackbar.LENGTH_SHORT)
+        Snackbar.make(findViewById(android.R.id.content), "Welcome back! " + gt.capEachWord(fName), Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
                 .show();

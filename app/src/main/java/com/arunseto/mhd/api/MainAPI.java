@@ -50,6 +50,27 @@ public interface MainAPI {
             @Field("type_login") int type_login
     );
 
+    @FormUrlEncoded
+    @PUT("user/update")
+    Call<UserResponse> updateUser(
+            @Field("id_user") int id_user,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("first_name") String first_name,
+            @Field("last_name") String last_name,
+            @Field("no_telp") String no_telp,
+            @Field("sex") int sex,
+            @Field("birth_date") String birth_date,
+            @Field("city") String city
+    );
+
+    @FormUrlEncoded
+    @POST("user/delete")
+    Call<DefaultResponse> deleteUser(
+            @Field("id_user") int id_user
+    );
+
+
     @GET("note/show")
     Call<NoteResponse> showNote(
             @Query("id_user") int id_user
