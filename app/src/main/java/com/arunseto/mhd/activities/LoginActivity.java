@@ -118,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        loadingDialog.show();
         execLogin(email, password);
 // dummy
 //        session.saveUser(new User("",
@@ -135,8 +136,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void execLogin(String email, String password) {
-        loadingDialog.show();
-
         String currentTime = gt.getCurrentTime();
         Call<UserResponse> call = MainClient.getInstance().getApi().loginUser(email,
                 password, currentTime, 1);
@@ -164,7 +163,8 @@ public class LoginActivity extends AppCompatActivity {
                                      //                    Toast.makeText(LoginActivity.this, s+"", Toast.LENGTH_SHORT).show();
                                      startActivity(new Intent(context, MainActivity.class));
                                      finish();
-                                     Toast.makeText(LoginActivity.this, "Login " + result.getMessage(), Toast.LENGTH_SHORT).show();
+                                     loadingDialog.dismiss();
+//                                     Toast.makeText(LoginActivity.this, "Login " + result.getMessage(), Toast.LENGTH_SHORT).show();
                                  } else {
                                      Toast.makeText(LoginActivity.this, "" + result.getMessage(), Toast.LENGTH_SHORT).show();
                                  }

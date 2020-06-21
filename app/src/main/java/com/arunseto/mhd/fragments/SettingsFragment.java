@@ -128,10 +128,9 @@ public class SettingsFragment extends Fragment {
         confirmationDialog.getBtnYes().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                confirmationDialog.dismiss();
                 loadingDialog.show();
                 execLogout();
-                loadingDialog.dismiss();
+
             }
         });
 
@@ -157,6 +156,8 @@ public class SettingsFragment extends Fragment {
                 Log.w("Google Logout", "NICE");
                 startActivity(new Intent(context, LoginActivity.class));
                 getActivity().finish();
+                confirmationDialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(context, "Log out success", Toast.LENGTH_SHORT).show();
             }
         });

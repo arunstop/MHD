@@ -228,8 +228,6 @@ public class UserProfileFragment extends Fragment {
             public void onClick(View view) {
                 loadingDialog.show();
                 execUpdateProfile();
-                confirmationDialog.dismiss();
-                loadingDialog.dismiss();
             }
         });
     }
@@ -255,8 +253,10 @@ public class UserProfileFragment extends Fragment {
                         //getting button must be declared after .show()
                         //otherwise it's going to crash the app
                         session.saveUser(result.getData().get(0));
-                        Toast.makeText(context, result.getMessage() + "", Toast.LENGTH_SHORT).show();
                         getActivity().onBackPressed();
+                        confirmationDialog.dismiss();
+                        loadingDialog.dismiss();
+                        Toast.makeText(context, result.getMessage() + "", Toast.LENGTH_SHORT).show();
 
                     }
 //                    Toast.makeText(context, result.getMessage() + "", Toast.LENGTH_SHORT).show();
@@ -281,8 +281,7 @@ public class UserProfileFragment extends Fragment {
             public void onClick(View view) {
                 loadingDialog.show();
                 execDeleteAccount();
-                confirmationDialog.dismiss();
-                loadingDialog.dismiss();
+
             }
         });
     }
@@ -303,11 +302,13 @@ public class UserProfileFragment extends Fragment {
                                 Log.w("Google Logout", "NICE");
                                 startActivity(new Intent(context, LoginActivity.class));
                                 getActivity().finish();
+                                confirmationDialog.dismiss();
+                                loadingDialog.dismiss();
                                 Toast.makeText(context, result.getMessage() + "", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
-                }else{
+                } else {
                     Toast.makeText(context, response.message() + "", Toast.LENGTH_SHORT).show();
                 }
             }
