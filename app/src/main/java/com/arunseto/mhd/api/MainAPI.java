@@ -3,6 +3,7 @@ package com.arunseto.mhd.api;
 import com.arunseto.mhd.models.DefaultResponse;
 import com.arunseto.mhd.models.News;
 import com.arunseto.mhd.models.NoteResponse;
+import com.arunseto.mhd.models.PsychiatristResponse;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.models.UserResponse;
 
@@ -90,6 +91,9 @@ public interface MainAPI {
     Call<DefaultResponse> deleteNote(
             @Field("id_catatan") int id
     );
+
+    @GET("psychiatrist/show")
+    Call<PsychiatristResponse> showPsychiatrist();
 
 
 }

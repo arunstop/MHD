@@ -3,24 +3,32 @@ package com.arunseto.mhd.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Psychiatrist {
-    @SerializedName("name")
+
+
+    @SerializedName("ID_AHLI")
+    private int id;
+    @SerializedName("NAMA_AHLI")
     private String name;
-    @SerializedName("number")
+    @SerializedName("NO_TELP_AHLI")
     private String number;
-    @SerializedName("address")
+    @SerializedName("ADDRESS")
     private String address;
-    @SerializedName("extra")
-    private String extra;
-    @SerializedName("img")
-    private String img;
+    @SerializedName("DESCRIPTION")
+    private String desc;
+    @SerializedName("PHOTO_URL")
+    private String photoUrl;
 
-
-    public Psychiatrist(String name, String number, String address, String extra, String img) {
+    public Psychiatrist(int id, String name, String number, String address, String desc, String photoUrl) {
+        this.id = id;
         this.name = name;
         this.number = number;
         this.address = address;
-        this.extra = extra;
-        this.img = img;
+        this.desc = desc;
+        this.photoUrl = photoUrl;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -35,11 +43,11 @@ public class Psychiatrist {
         return address;
     }
 
-    public String getExtra() {
-        return extra;
+    public String getDesc() {
+        return desc;
     }
 
-    public String getImg() {
-        return img;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 }

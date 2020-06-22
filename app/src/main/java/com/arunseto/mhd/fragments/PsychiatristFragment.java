@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -15,7 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.api.MainClient;
+import com.arunseto.mhd.models.NoteResponse;
 import com.arunseto.mhd.models.Psychiatrist;
+import com.arunseto.mhd.models.PsychiatristResponse;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
@@ -23,6 +27,10 @@ import com.github.ybq.android.spinkit.SpinKitView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class PsychiatristFragment extends Fragment {
@@ -69,24 +77,42 @@ public class PsychiatristFragment extends Fragment {
         return view;
     }
 
-    public void loadPsychiatrist(){
+    public void loadPsychiatrist() {
         skvLoading.setVisibility(View.VISIBLE);
         llPsychiatristList.removeAllViews();
 
-        List<Psychiatrist> dummy = new ArrayList<>();
-        dummy.add(new Psychiatrist("Dr. Muna Sihombing", "+62 823 999 890", "Jl. Mawar No 1, Malang", "08:00 - 19:00", "f"));
-        dummy.add(new Psychiatrist("Dr. Mariyo Kirk", "+62 822 123 642", "Jl. Kasih No 2, Batu", "08:00 - 19:00", "m"));
-        dummy.add(new Psychiatrist("Dr. Billy Suharja", "+62 811 656 576", "Jl. Ibu No 23, Malang", "08:00 - 19:00", "m"));
-        dummy.add(new Psychiatrist("Dr. Mustafa Allemania", "+62 823 789 279", "Jl. Yogurt No 6", "08:00 - 19:00", "m"));
-        dummy.add(new Psychiatrist("Dr. Ma'aruf Mancagit", "+62 811 222 712", "Jl. Setia No 7", "08:00 - 19:00", "m"));
-        dummy.add(new Psychiatrist("Dr. Durma Durmajana", "+62 823 157 228", "Jl. Melati No 12", "08:00 - 19:00", "f"));
-        dummy.add(new Psychiatrist("Dr. Prasetiyo", "+62 822 122 561", "Jl. Melijan No 32", "08:00 - 19:00", "m"));
-        dummy.add(new Psychiatrist("Dr. Enny Malamita", "+62 810 572 550", "Jl. Sukoharjo No 2", "08:00 - 19:00", "f"));
+//        List<Psychiatrist> dummy = new ArrayList<>();
+//        dummy.add(new Psychiatrist("Dr. Muna Sihombing", "+62 823 999 890", "Jl. Mawar No 1, Malang", "08:00 - 19:00", "f"));
+//        dummy.add(new Psychiatrist("Dr. Mariyo Kirk", "+62 822 123 642", "Jl. Kasih No 2, Batu", "08:00 - 19:00", "m"));
+//        dummy.add(new Psychiatrist("Dr. Billy Suharja", "+62 811 656 576", "Jl. Ibu No 23, Malang", "08:00 - 19:00", "m"));
+//        dummy.add(new Psychiatrist("Dr. Mustafa Allemania", "+62 823 789 279", "Jl. Yogurt No 6", "08:00 - 19:00", "m"));
+//        dummy.add(new Psychiatrist("Dr. Ma'aruf Mancagit", "+62 811 222 712", "Jl. Setia No 7", "08:00 - 19:00", "m"));
+//        dummy.add(new Psychiatrist("Dr. Durma Durmajana", "+62 823 157 228", "Jl. Melati No 12", "08:00 - 19:00", "f"));
+//        dummy.add(new Psychiatrist("Dr. Prasetiyo", "+62 822 122 561", "Jl. Melijan No 32", "08:00 - 19:00", "m"));
+//        dummy.add(new Psychiatrist("Dr. Enny Malamita", "+62 810 572 550", "Jl. Sukoharjo No 2", "08:00 - 19:00", "f"));
 
-        mapPsychiatrist(dummy);
+        Call<PsychiatristResponse> call = MainClient.getInstance().getApi().showPsychiatrist();
+        call.enqueue(new Callback<PsychiatristResponse>() {
+                         @Override
+                         public void onResponse(Call<PsychiatristResponse> call, Response<PsychiatristResponse> response) {
+                             if (response.isSuccessful()) {
+                                 PsychiatristResponse result = response.body();
+                                 if (result.isOk()) {
+                                     mapPsychiatrist(result.getData());
+                                 }
+                             }
+                         }
+
+                         @Override
+                         public void onFailure(Call<PsychiatristResponse> call, Throwable t) {
+                             Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                         }
+                     }
+        );
+
     }
 
-    public void mapPsychiatrist(List<Psychiatrist> lp){
+    public void mapPsychiatrist(List<Psychiatrist> lp) {
         for (final Psychiatrist psy : lp) {
             View vPsy = getLayoutInflater().inflate(R.layout.template_psychiatrist, null);
             LinearLayout llPsy = vPsy.findViewById(R.id.llPsychiatrist);
@@ -96,7 +122,7 @@ public class PsychiatristFragment extends Fragment {
 
             tvPsyName.setText(gt.capEachWord(psy.getName()));
             tvPsyNo.setText(psy.getNumber());
-            if (psy.getImg().equals("f")) {
+            if (psy.getPhotoUrl().equals("f")) {
                 ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_femdoc));
             } else {
                 ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_jrr));

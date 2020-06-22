@@ -74,9 +74,9 @@ public class PsychiatristProfileFragment extends Fragment {
         tvPsyName.setText(gt.capEachWord(psychiatrist.getName()));
         tvPsyNo.setText(psychiatrist.getNumber());
         tvPsyAddress.setText(psychiatrist.getAddress());
-        tvPsyExtra.setText(psychiatrist.getExtra());
+        tvPsyExtra.setText(psychiatrist.getDesc());
 
-        if (psychiatrist.getImg().equals("f")) {
+        if (psychiatrist.getPhotoUrl().equals("f")) {
             gt.loadImgUrl(getString(R.string.img_url), ivPsyImg);
         } else {
             ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_jrr));
