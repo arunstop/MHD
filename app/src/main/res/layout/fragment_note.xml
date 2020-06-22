@@ -62,6 +62,7 @@
             android:gravity="center_horizontal"
             android:padding="12dp"
             android:orientation="vertical">
+
             <EditText
                 android:id="@+id/etNoteTitle"
                 style="@style/EditTextBasic"
@@ -72,6 +73,7 @@
                 android:hint="Judul"
                 android:layout_marginTop="12dp"
                 android:inputType="text" />
+
             <EditText
                 android:id="@+id/etNoteContent"
                 android:layout_width="match_parent"

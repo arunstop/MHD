@@ -37,7 +37,7 @@ public class PsychiatristProfileContactFragment extends BottomSheetDialogFragmen
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
-    private Button btnSaveToContact, btnCopyToClipboard;
+    private Button btnSaveToContact, btnCopyToClipboard, btnShare;
     private Psychiatrist psychiatrist;
 
     public PsychiatristProfileContactFragment(Psychiatrist psychiatrist) {
@@ -63,6 +63,7 @@ public class PsychiatristProfileContactFragment extends BottomSheetDialogFragmen
 
         btnSaveToContact = view.findViewById(R.id.btnSaveToContact);
         btnCopyToClipboard = view.findViewById(R.id.btnCopyToClipboard);
+        btnShare = view.findViewById(R.id.btnShare);
 
 
         //Saving to contact
@@ -88,6 +89,13 @@ public class PsychiatristProfileContactFragment extends BottomSheetDialogFragmen
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show();
                 dismiss();
+            }
+        });
+
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gt.showSharingIntent(psychiatrist.getName() + "\n" + psychiatrist.getNumber());
             }
         });
         return view;

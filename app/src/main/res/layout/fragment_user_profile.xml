@@ -81,14 +81,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp">
 
-                    <EditText
-                        android:id="@+id/etEmail"
+                    <TextView
+                        android:id="@+id/tvEmail"
                         style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_mail_24dp"
-                        android:hint="Email"
-                        android:inputType="textEmailAddress|none" />
+                        android:drawableStart="@drawable/ic_mail_24dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -131,7 +129,7 @@
                     android:drawableStart="@drawable/ic_info_24dp"
                     android:drawablePadding="12dp"
                     android:gravity="start|center_vertical"
-                    android:text="Kosongkan password jika tidak ingin mengganti password"
+                    android:text="Kosongkan kolom password jika tidak ingin mengganti password"
                     android:textSize="12sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -225,7 +223,8 @@
                             android:layout_margin="6dp"
                             android:layout_weight="1"
                             android:text="Laki-laki"
-                            android:textColor="@color/colorPrimary" />
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
 
                         <Button
                             android:id="@+id/btnFemale"
@@ -237,7 +236,8 @@
                             android:layout_weight="1"
                             android:orientation="horizontal"
                             android:text="Perempuan"
-                            android:textColor="@color/colorPrimary" />
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                 </com.google.android.material.textfield.TextInputLayout>

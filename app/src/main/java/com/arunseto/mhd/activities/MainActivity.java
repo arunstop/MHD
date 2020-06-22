@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         //snackbar color alternative
         String fName = user.getFirst_name();
-        Snackbar.make(findViewById(android.R.id.content), "Welcome back! " + gt.capEachWord(fName), Snackbar.LENGTH_SHORT)
+        Snackbar.make(findViewById(android.R.id.content), "Welcome ! " + gt.capEachWord(fName), Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
                 .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
                 .show();

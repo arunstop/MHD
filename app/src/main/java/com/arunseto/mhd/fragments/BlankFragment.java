@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.models.User;
@@ -22,7 +23,6 @@ public class BlankFragment extends Fragment {
 
     private View view;
     private LayoutInflater inflater;
-
     private Context context;
     private Session session;
     private User user;
@@ -30,6 +30,8 @@ public class BlankFragment extends Fragment {
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
+    private SwipeRefreshLayout srlRefresher;
+
 
     @Nullable
     @Override
@@ -47,6 +49,7 @@ public class BlankFragment extends Fragment {
         flContent = gt.getContent();
         loadingDialog = gt.getLoadingDialog();
         confirmationDialog = gt.getConfirmationDialog();
+//        srlRefresher = ((SwipeRefreshLayout) llList.getParent().getParent());
 
 
         return view;

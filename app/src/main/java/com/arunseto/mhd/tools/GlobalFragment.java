@@ -11,7 +11,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -20,8 +19,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAuthClient;
 import com.arunseto.mhd.models.User;
-import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.PoppingMenu;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -31,13 +30,25 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class GlobalTools {
+public class GlobalFragment extends Fragment {
     private Context context;
+    private Activity fragmentActivity;
     private int animItemCounter;
 
-    public GlobalTools(Context context) {
-        this.context = context;
+    private static GlobalFragment mInstance;
+
+
+    public GlobalFragment(Activity fragmentActivity) {
+        this.fragmentActivity = fragmentActivity;
+        this.context = fragmentActivity.getApplicationContext();
         animItemCounter = 1;
+    }
+
+    public static synchronized GlobalFragment getInstance(Activity fragmentActivity) {
+        if (mInstance == null) {
+            mInstance = new GlobalFragment(fragmentActivity);
+        }
+        return mInstance;
     }
 
     //Getting Context
@@ -100,15 +111,7 @@ public class GlobalTools {
                         0,
                         R.anim.slide_right_out
                 );
-        fragmentTransaction.replace(content, fragment).addToBackStack("fragmentNavigation").commit();
-    }
-
-    //Refresh Fragment
-    public void refreshFragment(FragmentManager fragmentManager, Fragment fragment) {
-        //Fragment navigator for the Bottom Navigation View content
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        fragmentTransaction.detach(fragment).attach(fragment).commit();
+        fragmentTransaction.replace(content, fragment).addToBackStack("1").commit();
     }
 
     //Load online Image
@@ -223,12 +226,12 @@ public class GlobalTools {
 
     //Sharing intent
     public void showSharingIntent(String text) {
-        Intent iShare = new Intent(android.content.Intent.ACTION_SEND);
+        Intent iShare = new Intent(Intent.ACTION_SEND);
         iShare.setType("text/plain");
-        iShare.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
-        iShare.putExtra(android.content.Intent.EXTRA_TEXT, text);
+        iShare.putExtra(Intent.EXTRA_SUBJECT, "");
+        iShare.putExtra(Intent.EXTRA_TEXT, text);
 
-        ((Activity) context).startActivity(Intent.createChooser(iShare, "Share via..."));
+        startActivity(Intent.createChooser(iShare, "Share via..."));
     }
 
 }

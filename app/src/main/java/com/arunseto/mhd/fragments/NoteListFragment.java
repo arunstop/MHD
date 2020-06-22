@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.MainClient;
@@ -29,6 +30,7 @@ import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
 import com.arunseto.mhd.ui.PoppingMenu;
+import com.github.ybq.android.spinkit.SpinKitView;
 
 import java.util.List;
 
@@ -52,6 +54,8 @@ public class NoteListFragment extends Fragment {
     private LoadingDialog loadingDialog;
     private LinearLayout llNoteList;
     private Button btnMore;
+    private SpinKitView skvLoading;
+    private SwipeRefreshLayout srlRefresher;
 
     @Nullable
     @Override
@@ -71,7 +75,10 @@ public class NoteListFragment extends Fragment {
         confirmationDialog = gt.getConfirmationDialog();
 
         llNoteList = view.findViewById(R.id.llNoteList);
+        skvLoading = view.findViewById(R.id.skvLoading);
         btnMore = view.findViewById(R.id.btnMore);
+        srlRefresher = ((SwipeRefreshLayout) llNoteList.getParent().getParent());
+
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,15 +105,23 @@ public class NoteListFragment extends Fragment {
             }
         });
 
-//        final DummyListNote dln = DummyListNote.getInstance();
-//        final List<Note> ln = dln.getDln();
+        srlRefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                loadNotes();
+                gt.refreshFragment(getFragmentManager(), NoteListFragment.this);
+            }
+        });
 
-//        Toast.makeText(context, ln.size()+"", Toast.LENGTH_SHORT).show();
         loadNotes();
+
+
+//
         return view;
     }
 
     public void loadNotes() {
+        skvLoading.setVisibility(View.VISIBLE);
         Call<NoteResponse> call = MainClient.getInstance().getApi().showNote(user.getId_user());
         call.enqueue(new Callback<NoteResponse>() {
             @Override
@@ -114,43 +129,7 @@ public class NoteListFragment extends Fragment {
                 if (response.isSuccessful()) {
                     NoteResponse result = response.body();
                     if (result.isOk()) {
-                        for (final Note note : result.getData()) {
-                            final View vNote = inflater.inflate(R.layout.template_note, null);
-                            TextView tvNoteTitle = vNote.findViewById(R.id.tvNoteTitle);
-                            TextView tvNoteContent = vNote.findViewById(R.id.tvNoteContent);
-                            TextView tvNoteDate = vNote.findViewById(R.id.tvNoteDate);
-
-                            tvNoteTitle.setText(note.getTitle());
-                            tvNoteContent.setText(note.getContent());
-                            tvNoteDate.setText(note.getDate());
-
-                            vNote.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    gt.navigateFragment(getFragmentManager(), gt.getContent(), new NoteDetailFragment(note));
-                                }
-                            });
-
-                            vNote.setOnLongClickListener(new View.OnLongClickListener() {
-                                @Override
-                                public boolean onLongClick(View view) {
-                                    confirmationDialog = new ConfirmationDialog(context);
-                                    confirmationDialog.setTitle("Apakah Anda yakin ingin menghapus catatan?");
-                                    confirmationDialog.setYLabel("HAPUS");
-                                    confirmationDialog.setNLabel("BATAL");
-                                    confirmationDialog.show();
-                                    confirmationDialog.getBtnYes().setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            deleteNote(note.getId(), vNote);
-                                        }
-                                    });
-                                    return false;
-                                }
-                            });
-
-                            gt.addViewAnimated(llNoteList, vNote);
-                        }
+                        mapNews(result.getData());
 //                        Toast.makeText(context, result.getMessage()+"", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -163,26 +142,69 @@ public class NoteListFragment extends Fragment {
         });
     }
 
-    public void deleteNote(int id, final View vNote){
+    public void mapNews(List<Note> ln) {
+        llNoteList.removeAllViews();
+        for (final Note note : ln) {
+            final View vNote = inflater.inflate(R.layout.template_note, null);
+            TextView tvNoteTitle = vNote.findViewById(R.id.tvNoteTitle);
+            TextView tvNoteContent = vNote.findViewById(R.id.tvNoteContent);
+            TextView tvNoteDate = vNote.findViewById(R.id.tvNoteDate);
+
+            tvNoteTitle.setText(note.getTitle());
+            tvNoteContent.setText(note.getContent());
+            tvNoteDate.setText(note.getDate());
+
+            vNote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    gt.navigateFragment(getFragmentManager(), gt.getContent(), new NoteDetailFragment(note));
+                }
+            });
+
+            vNote.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    confirmationDialog = new ConfirmationDialog(context);
+                    confirmationDialog.setTitle("Apakah Anda yakin ingin menghapus catatan?");
+                    confirmationDialog.setYLabel("HAPUS");
+                    confirmationDialog.setNLabel("BATAL");
+                    confirmationDialog.show();
+                    confirmationDialog.getBtnYes().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            deleteNote(note.getId(), vNote);
+                        }
+                    });
+                    return false;
+                }
+            });
+
+            gt.addViewAnimated(llNoteList, vNote);
+        }
+        skvLoading.setVisibility(View.GONE);
+        srlRefresher.setRefreshing(false);
+    }
+
+    public void deleteNote(int id, final View vNote) {
         Call<DefaultResponse> call = MainClient.getInstance().getApi().deleteNote(id);
         call.enqueue(new Callback<DefaultResponse>() {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     DefaultResponse result = response.body();
-                    if (result.isOk()){
+                    if (result.isOk()) {
                         gt.removeViewAnimated(llNoteList, vNote);
                         confirmationDialog.dismiss();
-                        Toast.makeText(context, result.getMessage()+"", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, result.getMessage() + "", Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(context, response.message()+"", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, response.message() + "", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage()+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }

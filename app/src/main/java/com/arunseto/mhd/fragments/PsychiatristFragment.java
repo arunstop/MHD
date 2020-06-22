@@ -12,12 +12,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.models.Psychiatrist;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
+import com.github.ybq.android.spinkit.SpinKitView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,8 @@ public class PsychiatristFragment extends Fragment {
     private LinearLayout llPsychiatristList;
     private int flContent;
     private GlobalTools gt;
+    private SpinKitView skvLoading;
+    private SwipeRefreshLayout srlRefresher;
 
 
     @Nullable
@@ -49,19 +53,40 @@ public class PsychiatristFragment extends Fragment {
         flContent = gt.getContent();
 
         llPsychiatristList = view.findViewById(R.id.llPsychiatristList);
+        skvLoading = view.findViewById(R.id.skvLoading);
+        srlRefresher = ((SwipeRefreshLayout) llPsychiatristList.getParent().getParent());
+
+        srlRefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                loadPsychiatrist();
+                gt.refreshFragment(getFragmentManager(), PsychiatristFragment.this);
+            }
+        });
+
+        loadPsychiatrist();
+
+        return view;
+    }
+
+    public void loadPsychiatrist(){
+        skvLoading.setVisibility(View.VISIBLE);
         llPsychiatristList.removeAllViews();
 
-        List<Psychiatrist> lp = new ArrayList<>();
-        lp.add(new Psychiatrist("Dr. Muna Sihombing", "+62 823 999 890", "Jl. Mawar No 1, Malang", "08:00 - 19:00", "f"));
-        lp.add(new Psychiatrist("Dr. Mariyo Kirk", "+62 822 123 642", "Jl. Kasih No 2, Batu", "08:00 - 19:00", "m"));
-        lp.add(new Psychiatrist("Dr. Billy Suharja", "+62 811 656 576", "Jl. Ibu No 23, Malang", "08:00 - 19:00", "m"));
-        lp.add(new Psychiatrist("Dr. Mustafa Allemania", "+62 823 789 279", "Jl. Yogurt No 6", "08:00 - 19:00", "m"));
-        lp.add(new Psychiatrist("Dr. Ma'aruf Mancagit", "+62 811 222 712", "Jl. Setia No 7", "08:00 - 19:00", "m"));
-        lp.add(new Psychiatrist("Dr. Durma Durmajana", "+62 823 157 228", "Jl. Melati No 12", "08:00 - 19:00", "f"));
-        lp.add(new Psychiatrist("Dr. Prasetiyo", "+62 822 122 561", "Jl. Melijan No 32", "08:00 - 19:00", "m"));
-        lp.add(new Psychiatrist("Dr. Enny Malamita", "+62 810 572 550", "Jl. Sukoharjo No 2", "08:00 - 19:00", "f"));
+        List<Psychiatrist> dummy = new ArrayList<>();
+        dummy.add(new Psychiatrist("Dr. Muna Sihombing", "+62 823 999 890", "Jl. Mawar No 1, Malang", "08:00 - 19:00", "f"));
+        dummy.add(new Psychiatrist("Dr. Mariyo Kirk", "+62 822 123 642", "Jl. Kasih No 2, Batu", "08:00 - 19:00", "m"));
+        dummy.add(new Psychiatrist("Dr. Billy Suharja", "+62 811 656 576", "Jl. Ibu No 23, Malang", "08:00 - 19:00", "m"));
+        dummy.add(new Psychiatrist("Dr. Mustafa Allemania", "+62 823 789 279", "Jl. Yogurt No 6", "08:00 - 19:00", "m"));
+        dummy.add(new Psychiatrist("Dr. Ma'aruf Mancagit", "+62 811 222 712", "Jl. Setia No 7", "08:00 - 19:00", "m"));
+        dummy.add(new Psychiatrist("Dr. Durma Durmajana", "+62 823 157 228", "Jl. Melati No 12", "08:00 - 19:00", "f"));
+        dummy.add(new Psychiatrist("Dr. Prasetiyo", "+62 822 122 561", "Jl. Melijan No 32", "08:00 - 19:00", "m"));
+        dummy.add(new Psychiatrist("Dr. Enny Malamita", "+62 810 572 550", "Jl. Sukoharjo No 2", "08:00 - 19:00", "f"));
 
+        mapPsychiatrist(dummy);
+    }
 
+    public void mapPsychiatrist(List<Psychiatrist> lp){
         for (final Psychiatrist psy : lp) {
             View vPsy = getLayoutInflater().inflate(R.layout.template_psychiatrist, null);
             LinearLayout llPsy = vPsy.findViewById(R.id.llPsychiatrist);
@@ -87,7 +112,7 @@ public class PsychiatristFragment extends Fragment {
 
             gt.addViewAnimated(llPsychiatristList, vPsy);
         }
-
-        return view;
+        skvLoading.setVisibility(View.GONE);
+        srlRefresher.setRefreshing(false);
     }
 }

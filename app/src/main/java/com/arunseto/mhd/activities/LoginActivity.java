@@ -56,8 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        gt = new GlobalTools(LoginActivity.this);
-
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         flContentBnv = gt.getContentBnv();

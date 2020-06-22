@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,8 @@ public class UserProfileFragment extends Fragment {
     private ConfirmationDialog confirmationDialog;
     private GoogleAuthClient googleAuthClient;
     private LoadingDialog loadingDialog;
-    private EditText etFirstName, etLastName, etEmail, etPassword, etPhone, etPasswordConfirm, etBirthDate, etCity;
+    private TextView tvEmail;
+    private EditText etFirstName, etLastName, etPassword, etPhone, etPasswordConfirm, etBirthDate, etCity;
     private Button btnMale, btnFemale, btnUpdateProfile, btnDeleteAccount;
     private String firstName, lastName, email, password, phone, passwordConfirm, birthDate, city;
     private int sexO;
@@ -74,7 +76,7 @@ public class UserProfileFragment extends Fragment {
 
         etFirstName = view.findViewById(R.id.etFirstName);
         etLastName = view.findViewById(R.id.etLastName);
-        etEmail = view.findViewById(R.id.etEmail);
+        tvEmail = view.findViewById(R.id.tvEmail);
         etPassword = view.findViewById(R.id.etPassword);
         etPasswordConfirm = view.findViewById(R.id.etPasswordConfirm);
         etPhone = view.findViewById(R.id.etPhone);
@@ -155,7 +157,7 @@ public class UserProfileFragment extends Fragment {
 
         etFirstName.setText(user.getFirst_name());
         etLastName.setText(user.getLast_name());
-        etEmail.setText(user.getEmail());
+        tvEmail.setText(user.getEmail());
         etPhone.setText(user.getNo_telp());
         sexO = user.getSex();
         etCity.setText(user.getCity());
@@ -173,7 +175,7 @@ public class UserProfileFragment extends Fragment {
     public void initUpdateProfile() {
         firstName = etFirstName.getText().toString().trim().toLowerCase();
         lastName = etLastName.getText().toString().trim().toLowerCase();
-        email = etEmail.getText().toString().trim().toLowerCase();
+        email = tvEmail.getText().toString().trim().toLowerCase();
         password = etPassword.getText().toString().trim().toLowerCase();
         passwordConfirm = etPasswordConfirm.getText().toString().trim().toLowerCase();
         phone = etPhone.getText().toString().trim().toLowerCase();
@@ -188,11 +190,6 @@ public class UserProfileFragment extends Fragment {
         if (lastName.isEmpty()) {
             etLastName.setError("Tidak boleh kosong");
             etLastName.requestFocus();
-            return;
-        }
-        if (email.isEmpty()) {
-            etEmail.setError("Tidak boleh kosong");
-            etEmail.requestFocus();
             return;
         }
         if (!password.isEmpty()) {

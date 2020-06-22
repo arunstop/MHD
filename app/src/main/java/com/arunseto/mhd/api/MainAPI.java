@@ -81,14 +81,14 @@ public interface MainAPI {
     Call<DefaultResponse> addNote(
             @Field("id_user") int id_user,
             @Field("judul_catatan") String judul_catatan,
-                    @Field("isi_catatan") String isi_catatan,
-                    @Field("created_at") String created_at
+            @Field("isi_catatan") String isi_catatan,
+            @Field("created_at") String created_at
     );
 
     @FormUrlEncoded
     @POST("note/delete")
     Call<DefaultResponse> deleteNote(
-        @Field("id_catatan") int id
+            @Field("id_catatan") int id
     );
 
 

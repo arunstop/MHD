@@ -192,6 +192,7 @@
 
                         <Button
                             android:id="@+id/btnMale"
+                            android:textSize="12sp"
                             style="@style/ButtonRound"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -203,6 +204,7 @@
                         <Button
                             android:id="@+id/btnFemale"
                             style="@style/ButtonRound"
+                            android:textSize="12sp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="6dp"

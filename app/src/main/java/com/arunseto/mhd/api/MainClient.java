@@ -9,9 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainClient {
     // NOX EMULATOR
-    private static final String BASE_URL = "http://172.17.100.2/MHD-API/api/";
+//    private static final String BASE_URL = "http://172.17.100.2/MHD-API/api/";
     // NON NOX
-//    private static final String BASE_URL = "http://196.168.1.2/mhd/api/";
+    private static final String BASE_URL = "http://192.168.1.2:80/MHD-API/api/";
     private static MainClient mInstance;
     private Retrofit retrofit;
 

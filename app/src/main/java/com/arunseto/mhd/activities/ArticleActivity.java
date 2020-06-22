@@ -36,9 +36,9 @@ public class ArticleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
-        context = this;
 
-        gt = new GlobalTools(context);
+        gt = new GlobalTools(this);
+        context = gt.getContext();
         session = gt.getSession();
         bundle = getIntent().getExtras();
         articleUrl = bundle.getString("articleUrl");
@@ -47,43 +47,51 @@ public class ArticleActivity extends AppCompatActivity {
         skvLoading = findViewById(R.id.skvLoading);
         btnMore = findViewById(R.id.btnMore);
 
-        btnMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PoppingMenu poppingMenu = gt.getPoppingMenu(view);
-                poppingMenu.addItem("Buka di Browser");
-                poppingMenu.addItem("Bagikan");
-
-                poppingMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getOrder()) {
-                            case 0:
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse(articleUrl));
-                                startActivity(i);
-                                return true;
-                            case 1:
-                                Toast.makeText(context, item.getTitle(), Toast.LENGTH_SHORT).show();
-                                return true;
-                        }
-                        return false;
-                    }
-                });
-                poppingMenu.show();
-            }
-        });
-
         wvArticle.loadUrl(articleUrl);
         // Force links and redirects to open in the WebView instead of in a browser
         wvArticle.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                skvLoading.setVisibility(View.GONE);
                 super.onPageFinished(view, url);
+                skvLoading.setVisibility(View.GONE);
             }
         });
 
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setPoppingMenu(view);
+            }
+        });
+
+    }
+
+    public void setPoppingMenu(View view) {
+        PoppingMenu poppingMenu = gt.getPoppingMenu(view);
+        poppingMenu.addItem("Buka di Browser");
+        poppingMenu.addItem("Bagikan");
+        poppingMenu.addItem("Refresh");
+
+        poppingMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getOrder()) {
+                    case 0:
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(articleUrl));
+                        startActivity(i);
+                        return true;
+                    case 1:
+                        gt.showSharingIntent(articleUrl + "");
+                        return true;
+                    case 2:
+                        wvArticle.reload();
+                        return true;
+                }
+                return false;
+            }
+        });
+        poppingMenu.show();
     }
 
     @Override

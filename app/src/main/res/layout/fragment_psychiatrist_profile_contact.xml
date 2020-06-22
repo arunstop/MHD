@@ -24,23 +24,20 @@
             android:backgroundTint="@color/colorPrimarySoft" />
 
         <TextView
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_textline"
+            android:layout_marginTop="12dp"
             android:text="Hubungi Ahli"
             android:textColor="@color/colorDark"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="12dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
+        android:layout_marginBottom="12dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -50,13 +47,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableStart="@drawable/ic_contact_phone_60dp"
+            android:drawableStart="@drawable/ic_contact_phone_30dp"
             android:drawablePadding="12dp"
             android:gravity="start|center_vertical"
             android:padding="12dp"
-            android:textStyle="normal"
             android:text="Tambah ke Kontak"
-            android:textSize="14sp" />
+            android:textSize="12sp"
+            android:textStyle="normal" />
 
         <Button
             android:id="@+id/btnCopyToClipboard"
@@ -64,13 +61,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableStart="@drawable/ic_copy_60dp"
+            android:drawableStart="@drawable/ic_copy_30dp"
             android:drawablePadding="12dp"
             android:gravity="start|center_vertical"
             android:padding="12dp"
-            android:textStyle="normal"
             android:text="Copy Nomor"
-            android:textSize="14sp" />
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/btnShare"
+            style="@style/ButtonTransparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_share_30dp"
+            android:drawablePadding="12dp"
+            android:gravity="start|center_vertical"
+            android:padding="12dp"
+            android:text="Bagikan"
+            android:textSize="12sp"
+            android:textStyle="normal" />
     </LinearLayout>
 
 </LinearLayout>

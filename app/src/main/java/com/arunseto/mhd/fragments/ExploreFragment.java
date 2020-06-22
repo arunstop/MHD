@@ -11,8 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.activities.ArticleActivity;
@@ -44,6 +46,7 @@ public class ExploreFragment extends Fragment {
     private SpinKitView skvLoading;
     private LoadingDialog loadingDialog;
     private GlobalTools gt;
+    private SwipeRefreshLayout srlRefresher;
 
     @Nullable
     @Override
@@ -62,20 +65,29 @@ public class ExploreFragment extends Fragment {
         llNewsList = view.findViewById(R.id.llNewsList);
         skvLoading = view.findViewById(R.id.skvLoading);
         loadingDialog = new LoadingDialog(context);
+        srlRefresher = ((SwipeRefreshLayout) llNewsList.getParent().getParent());
+
+        srlRefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                loadNews();
+                gt.refreshFragment(getFragmentManager(), ExploreFragment.this);
+            }
+        });
 
         loadNews();
-//        try {
-//
-//        } catch (Exception e) {
-//            Log.e("fragment", "[Switching Fragment Too Fast] "+e.getMessage());
-//        }
 
 
         return view;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
+
     public void loadNews() {
-        llNewsList.removeAllViews();
+        skvLoading.setVisibility(View.VISIBLE);
         // calling news api via retrofit
         Call<News> call = NewsClient.getInstance().getApi().showNews();
         call.enqueue(new Callback<News>() {
@@ -84,7 +96,6 @@ public class ExploreFragment extends Fragment {
                 News newsResult = response.body();
                 if (response.isSuccessful()) {
                     mapNews(newsResult.getArticles());
-                    skvLoading.setVisibility(View.GONE);
                 } else {
                     Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
                 }
@@ -94,10 +105,13 @@ public class ExploreFragment extends Fragment {
             public void onFailure(Call<News> call, Throwable t) {
                 Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
+
         });
+
     }
 
     public void mapNews(List<NewsArticle> lna) {
+        llNewsList.removeAllViews();
         //removing all contents inside news list container
         for (final NewsArticle na : lna) {
             // calling news template
@@ -140,5 +154,7 @@ public class ExploreFragment extends Fragment {
 
             gt.addViewAnimated(llNewsList, vArticle);
         }
+        skvLoading.setVisibility(View.GONE);
+        srlRefresher.setRefreshing(false);
     }
 }
