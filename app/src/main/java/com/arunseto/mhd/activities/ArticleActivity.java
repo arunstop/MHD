@@ -2,6 +2,7 @@ package com.arunseto.mhd.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.fragments.PsychiatristFragment;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
@@ -31,6 +33,7 @@ public class ArticleActivity extends AppCompatActivity {
     private WebView wvArticle;
     private SpinKitView skvLoading;
     private Button btnMore;
+    private SwipeRefreshLayout srlRefresher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,15 @@ public class ArticleActivity extends AppCompatActivity {
         wvArticle = findViewById(R.id.wvArticle);
         skvLoading = findViewById(R.id.skvLoading);
         btnMore = findViewById(R.id.btnMore);
+        srlRefresher = ((SwipeRefreshLayout) wvArticle.getParent().getParent());
+
+        srlRefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                wvArticle.loadUrl(articleUrl);
+                srlRefresher.setRefreshing(false);
+            }
+        });
 
         wvArticle.loadUrl(articleUrl);
         // Force links and redirects to open in the WebView instead of in a browser
