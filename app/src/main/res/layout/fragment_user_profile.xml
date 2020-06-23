@@ -254,6 +254,7 @@
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_lock_24dp"
                         android:hint="Tanggal Lahir"
+                        android:focusable="false"
                         android:inputType="date" />
                 </com.google.android.material.textfield.TextInputLayout>
 

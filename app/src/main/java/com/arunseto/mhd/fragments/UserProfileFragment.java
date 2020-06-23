@@ -1,5 +1,6 @@
 package com.arunseto.mhd.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +33,10 @@ import com.arunseto.mhd.ui.LoadingDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,8 +59,11 @@ public class UserProfileFragment extends Fragment {
     private TextView tvEmail;
     private EditText etFirstName, etLastName, etPassword, etPhone, etPasswordConfirm, etBirthDate, etCity;
     private Button btnMale, btnFemale, btnUpdateProfile, btnDeleteAccount;
-    private String firstName, lastName, email, password, phone, passwordConfirm, birthDate, city;
+    private String firstName, lastName, email, password, phone, passwordConfirm, birthDate="", city;
     private int sexO;
+    private Calendar calendar;
+    private SimpleDateFormat formatter;
+    private SimpleDateFormat formatterForDB;
 
     @Nullable
     @Override
@@ -87,8 +96,13 @@ public class UserProfileFragment extends Fragment {
         btnUpdateProfile = view.findViewById(R.id.btnUpdateProfile);
         btnDeleteAccount = view.findViewById(R.id.btnDeleteAccount);
 
-        setDataUser();
+        calendar = Calendar.getInstance();
+        formatter = new SimpleDateFormat("dd-MM-yyyy");
+        formatterForDB = new SimpleDateFormat("yyyy-MM-dd");
+
+        setDatePicker();
         sexOpt();
+        setDataUser();
 
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +155,36 @@ public class UserProfileFragment extends Fragment {
 
     }
 
+    private void setDatePicker() {
+
+        final DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                calendar.set(
+                        year,
+                        monthOfYear,
+                        dayOfMonth);
+
+                birthDate = formatterForDB.format(calendar.getTime());
+                etBirthDate.setText(formatter.format(calendar.getTime()));
+
+            }
+        };
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(
+                context,
+                onDateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+
+        etBirthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog.show();
+            }
+        });
+    }
+
     //Setting out confirmation dialog to be used in update profile and delete account
     public ConfirmationDialog setConfirmationDialog(String title, String yLabel, String nLabel) {
         confirmationDialog = new ConfirmationDialog(context);
@@ -169,7 +213,12 @@ public class UserProfileFragment extends Fragment {
             btnSexChecked(btnFemale);
             btnSexUnchecked(btnMale);
         }
-        etBirthDate.setText(user.getBirth_date());
+
+        birthDate = user.getBirth_date();
+        String[] bDate = user.getBirth_date().split("-");
+        etBirthDate.setText(bDate[2] + "-" + bDate[1] + "-" + bDate[0]);
+
+
     }
 
     public void initUpdateProfile() {
@@ -179,7 +228,6 @@ public class UserProfileFragment extends Fragment {
         password = etPassword.getText().toString().trim().toLowerCase();
         passwordConfirm = etPasswordConfirm.getText().toString().trim().toLowerCase();
         phone = etPhone.getText().toString().trim().toLowerCase();
-        birthDate = etBirthDate.getText().toString().trim().toLowerCase();
         city = etCity.getText().toString().trim().toLowerCase();
 
         if (firstName.isEmpty()) {

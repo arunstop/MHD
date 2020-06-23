@@ -1,5 +1,6 @@
 package com.arunseto.mhd.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,6 +26,9 @@ import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,8 +50,11 @@ public class RegisterFragment extends Fragment {
     private LoadingDialog loadingDialog;
     private EditText etFirstName, etLastName, etEmail, etPassword, etPhone, etPasswordConfirm, etBirthDate;
     private Button btnMale, btnFemale, btnRegister;
-    private String firstName, lastName, email, password, phone, passwordConfirm, birthDate;
+    private String firstName, lastName, email, password, phone, passwordConfirm, birthDate="";
     private int sexO;
+    private Calendar calendar;
+    private SimpleDateFormat formatter;
+    private SimpleDateFormat formatterForDB;
 
     @Nullable
     @Override
@@ -76,40 +84,19 @@ public class RegisterFragment extends Fragment {
         etBirthDate = view.findViewById(R.id.etBirthDate);
         btnRegister = view.findViewById(R.id.btnRegister);
 
-        sexO = 0;
+        calendar = Calendar.getInstance();
+        formatter = new SimpleDateFormat("dd-MM-yyyy");
+        formatterForDB = new SimpleDateFormat("yyyy-MM-dd");
 
+        sexO = 0;
         sexOpt();
+
+        setDatePicker();
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 initRegister();
-//                Call<DefaultResponse> call = MainClient.getInstance().getApi()
-//                        .registerUser("email@email.com1",
-//                                "email12345",
-//                                "",
-//                                "",
-//                                "",
-//                                sexO,
-//                                "",
-//                                "",
-//                                "",
-//                                1,
-//                                "",
-//                                1,
-//                                gt.getCurrentTime()
-//                                );
-//                call.enqueue(new Callback<DefaultResponse>() {
-//                    @Override
-//                    public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-//                        Toast.makeText(context, response.message()+"", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<DefaultResponse> call, Throwable t) {
-//                        Toast.makeText(context, t.getMessage()+"", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                });
             }
         });
 
@@ -117,7 +104,7 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    public void sexOpt() {
+    private void sexOpt() {
         btnMale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,25 +123,54 @@ public class RegisterFragment extends Fragment {
         });
     }
 
-    public void btnSexChecked(Button button) {
+    private void btnSexChecked(Button button) {
         button.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
         button.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
     }
 
-    public void btnSexUnchecked(Button button) {
+    private void btnSexUnchecked(Button button) {
         button.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorBackground));
         button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
     }
 
-    public void initRegister() {
+    private void setDatePicker() {
+
+        final DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                calendar.set(
+                        year,
+                        monthOfYear,
+                        dayOfMonth);
+
+                etBirthDate.setText(formatter.format(calendar.getTime()));
+
+            }
+        };
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(
+                context,
+                onDateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+
+        etBirthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog.show();
+            }
+        });
+    }
+
+    private void initRegister() {
         firstName = etFirstName.getText().toString().trim().toLowerCase();
         lastName = etLastName.getText().toString().trim().toLowerCase();
         email = etEmail.getText().toString().trim().toLowerCase();
         password = etPassword.getText().toString().trim().toLowerCase();
         passwordConfirm = etPasswordConfirm.getText().toString().trim().toLowerCase();
         phone = etPhone.getText().toString().trim().toLowerCase();
-        birthDate = etBirthDate.getText().toString().trim().toLowerCase();
+        birthDate = formatterForDB.format(calendar.getTime());
 
         if (firstName.isEmpty()) {
             etFirstName.setError("Tidak boleh kosong");
@@ -204,7 +220,7 @@ public class RegisterFragment extends Fragment {
         execRegister();
     }
 
-    public void execRegister() {
+    private void execRegister() {
         loadingDialog.show();
         Call<UserResponse> call = MainClient.getInstance().getApi()
                 .registerUser(email,

@@ -173,11 +173,11 @@
                     android:layout_margin="6dp">
 
                     <LinearLayout
-                        android:paddingStart="6dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingStart="6dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -192,19 +192,18 @@
 
                         <Button
                             android:id="@+id/btnMale"
-                            android:textSize="12sp"
                             style="@style/ButtonRound"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="6dp"
                             android:layout_weight="1"
                             android:text="Laki-laki"
-                            android:textColor="@color/colorPrimary" />
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
 
                         <Button
                             android:id="@+id/btnFemale"
                             style="@style/ButtonRound"
-                            android:textSize="12sp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="6dp"
@@ -212,7 +211,8 @@
                             android:layout_weight="1"
                             android:orientation="horizontal"
                             android:text="Perempuan"
-                            android:textColor="@color/colorPrimary" />
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -228,6 +228,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_lock_24dp"
+                        android:focusable="false"
                         android:hint="Tanggal Lahir"
                         android:inputType="date" />
                 </com.google.android.material.textfield.TextInputLayout>
