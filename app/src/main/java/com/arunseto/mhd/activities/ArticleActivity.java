@@ -54,7 +54,7 @@ public class ArticleActivity extends AppCompatActivity {
         srlRefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                wvArticle.loadUrl(articleUrl);
+                wvArticle.reload();
                 srlRefresher.setRefreshing(false);
             }
         });
