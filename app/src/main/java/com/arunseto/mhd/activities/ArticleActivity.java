@@ -49,7 +49,7 @@ public class ArticleActivity extends AppCompatActivity {
         wvArticle = findViewById(R.id.wvArticle);
         skvLoading = findViewById(R.id.skvLoading);
         btnMore = findViewById(R.id.btnMore);
-        srlRefresher = ((SwipeRefreshLayout) wvArticle.getParent().getParent());
+        srlRefresher = findViewById(R.id.srlRefresher);
 
         srlRefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -80,25 +80,30 @@ public class ArticleActivity extends AppCompatActivity {
 
     public void setPoppingMenu(View view) {
         PoppingMenu poppingMenu = gt.getPoppingMenu(view);
+        poppingMenu.addItem("Refresh");
+        poppingMenu.addItem("Artikel awal");
         poppingMenu.addItem("Buka di Browser");
         poppingMenu.addItem("Bagikan");
-        poppingMenu.addItem("Refresh");
 
         poppingMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getOrder()) {
                     case 0:
+                        wvArticle.reload();
+                        return true;
+                    case 1:
+                        wvArticle.loadUrl(articleUrl);
+                        return true;
+                    case 2:
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(articleUrl));
                         startActivity(i);
                         return true;
-                    case 1:
+                    case 3:
                         gt.showSharingIntent(articleUrl + "");
                         return true;
-                    case 2:
-                        wvArticle.reload();
-                        return true;
+
                 }
                 return false;
             }

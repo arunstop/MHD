@@ -106,21 +106,24 @@
         </LinearLayout>
     </ScrollView>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/srlRefresher"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <WebView
-            android:id="@+id/wvArticle"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srlRefresher"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </WebView>
+            <WebView
+                android:id="@+id/wvArticle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </WebView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
         <com.github.ybq.android.spinkit.SpinKitView
             android:id="@+id/skvLoading"
@@ -130,6 +133,5 @@
             android:layout_centerInParent="true"
             app:SpinKit_Color="@color/colorPrimaryDark" />
     </RelativeLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>
