@@ -83,4 +83,18 @@ public class Session {
         editor.clear();
         editor.apply();
     }
+
+    public boolean getEngArticle() {
+        SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return session.getBoolean("engArticle", false);
+    }
+
+    public void engArticleOn(boolean on) {
+        SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = session.edit();
+        editor.putBoolean("engArticle", on);
+        editor.apply();
+    }
+
+
 }

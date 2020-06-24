@@ -4,15 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -25,8 +27,13 @@ import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.LoadingDialog;
+import com.arunseto.mhd.ui.PoppingMenu;
 import com.github.ybq.android.spinkit.SpinKitView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,6 +54,7 @@ public class ExploreFragment extends Fragment {
     private LoadingDialog loadingDialog;
     private GlobalTools gt;
     private SwipeRefreshLayout srlRefresher;
+    private Button btnMore;
 
     @Nullable
     @Override
@@ -62,10 +70,18 @@ public class ExploreFragment extends Fragment {
         user = gt.getUser();
         flContent = gt.getContent();
 
+        btnMore = view.findViewById(R.id.btnMore);
         llNewsList = view.findViewById(R.id.llNewsList);
         skvLoading = view.findViewById(R.id.skvLoading);
         loadingDialog = new LoadingDialog(context);
         srlRefresher = ((SwipeRefreshLayout) llNewsList.getParent().getParent());
+
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setPoppingMenu(view);
+            }
+        });
 
         srlRefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -75,21 +91,58 @@ public class ExploreFragment extends Fragment {
             }
         });
 
-        loadNews();
+        llNewsList.removeAllViews();
+        loadNews("kesehatan mental");
+        if (session.getEngArticle()) {
+            loadNews("mental health");
+        }
 
 
         return view;
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
+    public void setPoppingMenu(View view) {
+        PoppingMenu poppingMenu = gt.getPoppingMenu(view);
+        if (session.getEngArticle()) {
+            poppingMenu.addItem("Hide English articles");
+        } else {
+            poppingMenu.addItem("Show English articles");
+        }
+
+        poppingMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getOrder()) {
+                    case 0:
+                        if (session.getEngArticle()) {
+                            session.engArticleOn(false);
+                            gt.refreshFragment(getFragmentManager(), ExploreFragment.this);
+                        } else {
+                            session.engArticleOn(true);
+                        }
+
+                        if (session.getEngArticle()) {
+                            gt.refreshFragment(getFragmentManager(), ExploreFragment.this);
+                        }
+                        return true;
+
+                }
+                return false;
+            }
+        });
+        poppingMenu.show();
     }
 
-    public void loadNews() {
+//    @Override
+//    public void onAttach(@NonNull Context context) {
+//        super.onAttach(context);
+//    }
+
+    public void loadNews(String query) {
         skvLoading.setVisibility(View.VISIBLE);
         // calling news api via retrofit
-        Call<News> call = NewsClient.getInstance().getApi().showNews();
+        Call<News> call = NewsClient.getInstance().getApi().showNews(query);
+//        Toast.makeText(context, call.request().url().toString()+"", Toast.LENGTH_SHORT).show();
         call.enqueue(new Callback<News>() {
             @Override
             public void onResponse(Call<News> call, Response<News> response) {
@@ -111,7 +164,12 @@ public class ExploreFragment extends Fragment {
     }
 
     public void mapNews(List<NewsArticle> lna) {
-        llNewsList.removeAllViews();
+//        llNewsList.removeAllViews();
+        SimpleDateFormat formatterForDB = new SimpleDateFormat("yyyy-MM-dd");
+//        DateFormat formatter = DateFormat.getDateInstance(DateFormat.FULL);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+
+
         //removing all contents inside news list container
         for (final NewsArticle na : lna) {
             // calling news template
@@ -124,7 +182,17 @@ public class ExploreFragment extends Fragment {
 
             tvArticleTitle.setText(na.getTitle());
             tvArticleContent.setText(na.getContent());
-            tvArticleExtra.setText(na.getSource().getName() + " - " + na.getPublishedAt().substring(0, 10));
+//            tvArticleExtra.setText(na.getSource().getName() + " - " + na.getPublishedAt().substring(0, 10));
+            try {
+                //publishetAt example 2020-05-27T19:30:00Z
+                Date date = formatterForDB.parse(na.getPublishedAt());
+                //after formatted with formatterForDB 2020-05-27
+                String extra = na.getSource().getName() + " - " + formatter.format(date);
+                //after formatted with formatter 27 Jun 2020
+                tvArticleExtra.setText(extra);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             vArticle.setOnClickListener(new View.OnClickListener() {
                 @Override

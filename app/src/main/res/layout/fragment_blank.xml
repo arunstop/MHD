@@ -19,14 +19,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
 
-            <Button
-                android:id="@+id/btnBack"
-                style="@style/ButtonBack"
-                android:layout_width="24dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:drawableStart="@drawable/ic_back_24dp"
-                android:onClick="navBack" />
+
 
             <TextView
                 android:id="@+id/tvPageTitle"

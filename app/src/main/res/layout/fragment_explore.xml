@@ -16,14 +16,32 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tvToolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Explore"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Explore"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnMore"
+                style="@style/ButtonBack"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:drawableStart="@drawable/ic_more_vert_black_24dp"
+                android:gravity="end" />
+        </RelativeLayout>
     </Toolbar>
 
     <RelativeLayout

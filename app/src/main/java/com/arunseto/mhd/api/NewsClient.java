@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class NewsClient {
-    private static final String BASE_URL = "https://newsapi.org/v2/";
+    private static final String BASE_URL = "https://newsapi.org/v2/everything/";
     private static NewsClient mInstance;
     private Retrofit retrofit;
 

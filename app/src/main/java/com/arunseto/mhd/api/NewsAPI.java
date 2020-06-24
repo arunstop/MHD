@@ -6,10 +6,12 @@ import com.arunseto.mhd.models.User;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface NewsAPI {
 
-    @GET("everything?apiKey=88ea4c944312484386c20c74b423c008&q=kesehatan%20mental")
-    Call<News> showNews();
+    @GET("?apiKey=88ea4c944312484386c20c74b423c008")
+    Call<News> showNews(@Query("q") String q);
 
 }
