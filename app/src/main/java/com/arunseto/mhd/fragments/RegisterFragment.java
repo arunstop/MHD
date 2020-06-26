@@ -53,8 +53,6 @@ public class RegisterFragment extends Fragment {
     private String firstName, lastName, email, password, phone, passwordConfirm, birthDate="";
     private int sexO;
     private Calendar calendar;
-    private SimpleDateFormat formatter;
-    private SimpleDateFormat formatterForDB;
 
     @Nullable
     @Override
@@ -85,8 +83,7 @@ public class RegisterFragment extends Fragment {
         btnRegister = view.findViewById(R.id.btnRegister);
 
         calendar = Calendar.getInstance();
-        formatter = new SimpleDateFormat("dd-MM-yyyy");
-        formatterForDB = new SimpleDateFormat("yyyy-MM-dd");
+
 
         sexO = 0;
         sexOpt();
@@ -143,8 +140,9 @@ public class RegisterFragment extends Fragment {
                         year,
                         monthOfYear,
                         dayOfMonth);
-
-                etBirthDate.setText(formatter.format(calendar.getTime()));
+                birthDate = gt.formatDate("EEE MMM dd HH:mm:ss z yyyy","yyyy-MM-dd",calendar.getTime().toString());
+                String strDateForEt = gt.formatDate("yyyy-MM-dd","dd-MM-yyyy",birthDate);
+                etBirthDate.setText(strDateForEt);
 
             }
         };
@@ -170,7 +168,6 @@ public class RegisterFragment extends Fragment {
         password = etPassword.getText().toString().trim().toLowerCase();
         passwordConfirm = etPasswordConfirm.getText().toString().trim().toLowerCase();
         phone = etPhone.getText().toString().trim().toLowerCase();
-        birthDate = formatterForDB.format(calendar.getTime());
 
         if (firstName.isEmpty()) {
             etFirstName.setError("Tidak boleh kosong");

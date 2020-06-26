@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -229,6 +230,50 @@ public class GlobalTools {
         iShare.putExtra(android.content.Intent.EXTRA_TEXT, text);
 
         ((Activity) context).startActivity(Intent.createChooser(iShare, "Share via..."));
+    }
+
+    //DateFormatter
+    /* FORMAT PATTERNS
+       "yyyy.MM.dd G 'at' HH:mm:ss z" ==== 2001.07.04 AD at 12:08:56 PDT
+
+        "EEE, MMM d, ''yy" ==== Wed, Jul 4, '01
+
+        "h:mm a" ==== 12:08 PM
+
+        "hh 'o''clock' a, zzzz" ==== 12 o'clock PM, Pacific Daylight Time
+
+        "K:mm a, z" ==== 0:08 PM, PDT
+
+        "yyyyy.MMMMM.dd GGG hh:mm aaa" ==== 02001.July.04 AD 12:08 PM
+
+        "EEE, d MMM yyyy HH:mm:ss Z" ==== Wed, 4 Jul 2001 12:08:56 -0700
+
+        "yyMMddHHmmssZ" ==== 010704120856-0700
+
+        "yyyy-MM-dd'T'HH:mm:ss.SSSZ" ==== 2001-07-04T12:08:56.235-0700
+
+        "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" ==== 2001-07-04T12:08:56.235-07:00
+
+        "YYYY-'W'ww-u" ==== 2001-W27-3
+     */
+    public String formatDate(String inPattern, String outPattern, String strDate){
+
+        String strResult = "";
+        SimpleDateFormat ip = new SimpleDateFormat(inPattern);
+//        DateFormat formatter = DateFormat.getDateInstance(DateFormat.FULL);
+        SimpleDateFormat op= new SimpleDateFormat(outPattern);
+
+        try {
+            //dateStr example 2020-05-27T19:30:00Z
+            Date date = ip.parse(strDate);
+            //after formatted with ip 2020-05-27
+            strResult = op.format(date);
+            //after formatted with formatter 27 Jun 2020
+            return strResult;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return strResult;
     }
 
 }

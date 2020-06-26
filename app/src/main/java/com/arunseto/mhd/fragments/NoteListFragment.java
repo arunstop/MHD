@@ -152,7 +152,12 @@ public class NoteListFragment extends Fragment {
 
             tvNoteTitle.setText(note.getTitle());
             tvNoteContent.setText(note.getContent());
-            tvNoteDate.setText(note.getDate());
+            String strOutputDate = gt.formatDate(
+                    "yyyy-MM-dd HH:mm:ss",
+                    "dd MMMM yyyy, HH:mm",
+                    note.getDate());
+
+            tvNoteDate.setText(strOutputDate);
 
             vNote.setOnClickListener(new View.OnClickListener() {
                 @Override

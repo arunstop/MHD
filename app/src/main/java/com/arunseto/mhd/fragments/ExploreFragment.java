@@ -165,9 +165,6 @@ public class ExploreFragment extends Fragment {
 
     public void mapNews(List<NewsArticle> lna) {
 //        llNewsList.removeAllViews();
-        SimpleDateFormat formatterForDB = new SimpleDateFormat("yyyy-MM-dd");
-//        DateFormat formatter = DateFormat.getDateInstance(DateFormat.FULL);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
 
 
         //removing all contents inside news list container
@@ -183,16 +180,12 @@ public class ExploreFragment extends Fragment {
             tvArticleTitle.setText(na.getTitle());
             tvArticleContent.setText(na.getContent());
 //            tvArticleExtra.setText(na.getSource().getName() + " - " + na.getPublishedAt().substring(0, 10));
-            try {
-                //publishetAt example 2020-05-27T19:30:00Z
-                Date date = formatterForDB.parse(na.getPublishedAt());
-                //after formatted with formatterForDB 2020-05-27
-                String extra = na.getSource().getName() + " - " + formatter.format(date);
-                //after formatted with formatter 27 Jun 2020
-                tvArticleExtra.setText(extra);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            String strOutputDate = gt.formatDate(
+                    "yyyy-MM-dd'T'HH:mm:ss",
+                    "dd MMMM yyyy",
+                    na.getPublishedAt());
+            String extra = na.getSource().getName() + " - " + strOutputDate;
+            tvArticleExtra.setText(extra);
 
             vArticle.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -62,8 +62,7 @@ public class UserProfileFragment extends Fragment {
     private String firstName, lastName, email, password, phone, passwordConfirm, birthDate="", city;
     private int sexO;
     private Calendar calendar;
-    private SimpleDateFormat formatter;
-    private SimpleDateFormat formatterForDB;
+
 
     @Nullable
     @Override
@@ -97,8 +96,7 @@ public class UserProfileFragment extends Fragment {
         btnDeleteAccount = view.findViewById(R.id.btnDeleteAccount);
 
         calendar = Calendar.getInstance();
-        formatter = new SimpleDateFormat("dd-MM-yyyy");
-        formatterForDB = new SimpleDateFormat("yyyy-MM-dd");
+
 
         setDatePicker();
         sexOpt();
@@ -164,9 +162,11 @@ public class UserProfileFragment extends Fragment {
                         year,
                         monthOfYear,
                         dayOfMonth);
-
-                birthDate = formatterForDB.format(calendar.getTime());
-                etBirthDate.setText(formatter.format(calendar.getTime()));
+                //Format from calendar.getTime() example:
+                //Fri Jun 26 08:06:50 GMT+07:00 2020
+                birthDate = gt.formatDate("EEE MMM dd HH:mm:ss z yyyy","yyyy-MM-dd",calendar.getTime().toString());
+                String strDateForEt = gt.formatDate("yyyy-MM-dd","dd-MM-yyyy",birthDate);
+                etBirthDate.setText(strDateForEt);
 
             }
         };
