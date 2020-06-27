@@ -2,6 +2,7 @@ package com.arunseto.mhd.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,9 @@ public class DiagnoseFragment extends Fragment {
         llNavPsychiatristMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(context, MapsActivity.class));
+                // go to google map
+                Intent iGoogleMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=psikiater+terdekat"));
+                startActivity(iGoogleMap);
             }
         });
 

@@ -12,9 +12,15 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.fragments.AboutFragment;
+import com.arunseto.mhd.fragments.ExpertListMapFragment;
+import com.arunseto.mhd.fragments.PsychiatristProfileContactFragment;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.google.android.gms.common.ConnectionResult;
@@ -33,13 +39,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MapsActivity extends FragmentActivity
         implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener,
+        ExpertListMapFragment.ExpertListMapFragmentListener {
 
     private static final int REQUEST_USER_LOCATION_CODE = 99;
 
@@ -53,6 +61,10 @@ public class MapsActivity extends FragmentActivity
     private Context context;
     private User user;
 
+    private Button btnExpertShow;
+    private LinearLayout llExpertList;
+    private boolean showExperList = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +73,17 @@ public class MapsActivity extends FragmentActivity
         gt = new GlobalTools(this);
         context = gt.getContext();
         user = gt.getUser();
+
+        btnExpertShow = findViewById(R.id.btnExpertShow);
+        llExpertList = findViewById(R.id.llExpertList);
+
+        btnExpertShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ExpertListMapFragment elmFragment =  new ExpertListMapFragment();
+                elmFragment.show(getSupportFragmentManager(), "Dialog");
+            }
+        });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkUserLocationPermission();
@@ -96,10 +119,15 @@ public class MapsActivity extends FragmentActivity
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+//        // Add a marker in Sydney and move the camera
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
-            Toast.makeText(context, "KEKW", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "KEKW", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -138,7 +166,7 @@ public class MapsActivity extends FragmentActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(context, "KEKWEEEE", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "KEKWEEEE", Toast.LENGTH_SHORT).show();
         lastLocation = location;
 
         if (currentUserMarker != null) {
@@ -150,14 +178,15 @@ public class MapsActivity extends FragmentActivity
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latlng);
-        markerOptions.title(user.getFirst_name()+" "+ user.getLast_name());
+        markerOptions.title(gt.capEachWord(user.getFirst_name() + " " + user.getLast_name()));
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
 
         currentUserMarker = mMap.addMarker(markerOptions);
 
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 12));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 12));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(latlng));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15));
 
         if (googleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
@@ -185,6 +214,15 @@ public class MapsActivity extends FragmentActivity
     //This method is called whenever the device is failed to connect
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+
+    @Override
+    public void getExpertLocation(LatLng latLng) {
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34, 151),15));
+        llExpertList.setVisibility(View.VISIBLE);
+        getSupportFragmentManager().beginTransaction().add(R.id.llExpertList, new AboutFragment()).commit();
 
     }
 }
