@@ -32,7 +32,7 @@
                 <!--android:layout_height="wrap_content"-->
                 <!--android:layout_centerVertical="true"-->
                 <!--android:layout_margin="0dp"-->
-                <!--android:layout_toRightOf="@+id/btnBack"-->
+                <!--android:layout_toEndOf="@+id/btnBack"-->
                 <!--android:text="Ahli didekat anda"-->
                 <!--android:textColor="@color/colorWhite"-->
                 <!--android:textSize="12sp"-->

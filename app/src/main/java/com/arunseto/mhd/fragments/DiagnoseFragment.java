@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
-import com.arunseto.mhd.activities.MapsActivity;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
@@ -25,7 +24,7 @@ public class DiagnoseFragment extends Fragment {
     private Context context;
     private Session session;
     private User user;
-    private LinearLayout llNavPsychiatrist,llNavPsychiatristMap;
+    private LinearLayout llNavDiagnoseExecute,llNavPsychiatrist,llNavPsychiatristMap;
     private int flContent;
     private GlobalTools gt;
 
@@ -44,9 +43,17 @@ public class DiagnoseFragment extends Fragment {
         user = gt.getUser();
         flContent = gt.getContent();
 
+        llNavDiagnoseExecute = view.findViewById(R.id.llNavDiagnoseExecute);
         llNavPsychiatrist = view.findViewById(R.id.llNavPsychiatrist);
         llNavPsychiatristMap = view.findViewById(R.id.llNavPsychiatristMap);
 
+
+        llNavDiagnoseExecute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseExecuteFragment());
+            }
+        });
 
         llNavPsychiatrist.setOnClickListener(new View.OnClickListener() {
             @Override

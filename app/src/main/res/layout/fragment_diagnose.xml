@@ -27,9 +27,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:layout_height="match_parent">
+        android:paddingBottom="12dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,6 +37,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/llNavDiagnoseExecute"
                 style="@style/ButtonTransparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -19,6 +19,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAuthClient;
+import com.arunseto.mhd.api.MainAPI;
+import com.arunseto.mhd.api.MainClient;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
@@ -64,6 +66,11 @@ public class GlobalTools {
     //Getting main content
     public int getContent() {
         return R.id.flContent;
+    }
+
+    //Getting Main API
+    public MainAPI callApi(){
+        return MainClient.getInstance().getApi();
     }
 
     //Getting GoogleAuthClient

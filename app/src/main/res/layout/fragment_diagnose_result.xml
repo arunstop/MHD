@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorBackground"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:orientation="vertical">
 
     <Toolbar
@@ -34,53 +34,37 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/btnBack"
-                android:text="Ahli terdekat"
+                android:text="Hasil Diagnosa"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!--<Button-->
-                <!--android:id="@+id/btnMore"-->
-                <!--style="@style/ButtonBack"-->
-                <!--android:layout_width="24dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginEnd="12dp"-->
-                <!--android:drawableStart="@drawable/ic_more_vert_black_24dp"-->
-                <!--android:gravity="end" />-->
+            <Button
+                android:id="@+id/btnMore"
+                style="@style/ButtonBack"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:drawableStart="@drawable/ic_more_vert_black_24dp"
+                android:gravity="end" />
         </RelativeLayout>
     </Toolbar>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:overScrollMode="never"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="12dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="12dp">
 
-            <Button
-                android:id="@+id/btnTest"
-                style="@style/ButtonRound"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:text="TEST"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <include layout="@layout/template_news"/>
-            <include layout="@layout/template_news"/>
-            <include layout="@layout/template_news"/>
-            <include layout="@layout/template_news"/>
-            <include layout="@layout/template_news"/>
-            <include layout="@layout/template_news"/>
-            <include layout="@layout/template_news"/>
-            <include layout="@layout/template_news"/>
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 
 </LinearLayout>

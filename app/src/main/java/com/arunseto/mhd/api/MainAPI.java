@@ -4,6 +4,7 @@ import com.arunseto.mhd.models.DefaultResponse;
 import com.arunseto.mhd.models.News;
 import com.arunseto.mhd.models.NoteResponse;
 import com.arunseto.mhd.models.PsychiatristResponse;
+import com.arunseto.mhd.models.SymptomResponse;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.models.UserResponse;
 
@@ -95,5 +96,6 @@ public interface MainAPI {
     @GET("psychiatrist/show")
     Call<PsychiatristResponse> showPsychiatrist();
 
-
+    @GET("symptom/show")
+    Call<SymptomResponse> showSymptom();
 }
