@@ -16,8 +16,6 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arunseto.mhd.R;
-import com.arunseto.mhd.api.MainClient;
-import com.arunseto.mhd.models.PsychiatristResponse;
 import com.arunseto.mhd.models.Symptom;
 import com.arunseto.mhd.models.SymptomResponse;
 import com.arunseto.mhd.models.User;
@@ -25,6 +23,7 @@ import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.ConfirmationDialog;
 import com.arunseto.mhd.ui.LoadingDialog;
+import com.github.ybq.android.spinkit.SpinKitView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +45,7 @@ public class DiagnoseExecuteFragment extends Fragment {
     private SwipeRefreshLayout srlRefresher;
     private LinearLayout llSymptomsList;
     private Button btnNext;
+    private SpinKitView skvLoading;
 
 
     @Nullable
@@ -68,8 +68,10 @@ public class DiagnoseExecuteFragment extends Fragment {
 
         llSymptomsList = view.findViewById(R.id.llSymptomsList);
         btnNext = view.findViewById(R.id.btnNext);
+        skvLoading = view.findViewById(R.id.skvLoading);
 
-        loadSymptom();
+//        loadSymptom();
+        loadSymptomQuiz(1);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,9 +100,9 @@ public class DiagnoseExecuteFragment extends Fragment {
                             Button btnNo = vSymptom.findViewById(R.id.btnNo);
 
                             //Button behaviour
-                            btnBehaviour(btnYes,btnNo);
+                            btnBehaviour(btnYes, btnNo);
 
-                            tvSymptomName.setText(symptom.getNama_gejala()+" ?");
+                            tvSymptomName.setText(symptom.getNama_gejala() + " ?");
 
                             llSymptomsList.addView(vSymptom);
                         }
@@ -110,10 +112,58 @@ public class DiagnoseExecuteFragment extends Fragment {
 
             @Override
             public void onFailure(Call<SymptomResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage()+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    public void loadSymptomQuiz(int id) {
+        skvLoading.setVisibility(View.VISIBLE);
+
+        Call<SymptomResponse> call = gt.callApi().showSymptomQuiz(id);
+        call.enqueue(new Callback<SymptomResponse>() {
+            @Override
+            public void onResponse(Call<SymptomResponse> call, Response<SymptomResponse> response) {
+                llSymptomsList.removeAllViews();
+                if (response.isSuccessful()) {
+                    SymptomResponse result = response.body();
+                    if (result.isOk()) {
+                        for (final Symptom symptom : result.getData()) {
+                            View vSymptom = inflater.inflate(R.layout.template_diagnose_symptom, null);
+                            TextView tvSymptomName = vSymptom.findViewById(R.id.tvSymptomName);
+                            Button btnYes = vSymptom.findViewById(R.id.btnYes);
+                            Button btnNo = vSymptom.findViewById(R.id.btnNo);
+
+                            btnYes.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    loadSymptomQuiz(symptom.getYes());
+                                }
+                            });
+
+                            btnNo.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    loadSymptomQuiz(symptom.getNo());
+                                }
+                            });
+
+                            tvSymptomName.setText(symptom.getId_gejala_detail() +" "+ symptom.getNama_gejala() + " ?");
+
+                            llSymptomsList.addView(vSymptom);
+                            skvLoading.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SymptomResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
     public void btnBehaviour(final Button btnYes, final Button btnNo) {
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override

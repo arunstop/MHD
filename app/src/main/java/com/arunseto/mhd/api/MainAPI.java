@@ -44,7 +44,7 @@ public interface MainAPI {
     );
 
     @FormUrlEncoded
-    @PUT("user/auth")
+    @POST("user/auth")
     Call<UserResponse> loginUser(
             @Field("email") String email,
             @Field("password") String password,
@@ -53,7 +53,7 @@ public interface MainAPI {
     );
 
     @FormUrlEncoded
-    @PUT("user/update")
+    @POST("user/update")
     Call<UserResponse> updateUser(
             @Field("id_user") int id_user,
             @Field("email") String email,
@@ -98,4 +98,9 @@ public interface MainAPI {
 
     @GET("symptom/show")
     Call<SymptomResponse> showSymptom();
+
+    @GET("symptom/show")
+    Call<SymptomResponse> showSymptomQuiz(
+            @Query("id_gejala_detail") int id_gejala_detail
+    );
 }

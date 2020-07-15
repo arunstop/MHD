@@ -178,6 +178,8 @@ public class LoginActivity extends AppCompatActivity {
                          @Override
                          public void onFailure(Call<UserResponse> call, Throwable t) {
                              Toast.makeText(context, t.getMessage() + " Error", Toast.LENGTH_SHORT).show();
+                             loadingDialog.dismiss();
+
                          }
                      }
         );
