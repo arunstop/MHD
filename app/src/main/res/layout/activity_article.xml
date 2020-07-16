@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@color/colorBackground"
+    android:clickable="true"
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 

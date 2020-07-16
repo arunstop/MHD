@@ -40,10 +40,10 @@
 
                 <TextView
                     android:id="@+id/tvPsyName"
-                    android:textColor="@color/colorDark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rumah Saki Syaiful Anwar"
+                    android:textColor="@color/colorDark"
                     android:textStyle="bold" />
 
                 <TextView

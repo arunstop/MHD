@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:clickable="true"
     android:orientation="vertical">
 
     <fragment
@@ -15,59 +15,58 @@
         tools:context=".activities.MapsActivity" />
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
 
-        <!--<RelativeLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@drawable/des_round_corner_bottom_right"-->
-            <!--android:backgroundTint="@color/colorPrimaryDark"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:padding="12dp">-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/des_round_corner_bottom_right"-->
+    <!--android:backgroundTint="@color/colorPrimaryDark"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:padding="12dp">-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/tvPageTitle"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_margin="0dp"-->
-                <!--android:layout_toEndOf="@+id/btnBack"-->
-                <!--android:text="Ahli didekat anda"-->
-                <!--android:textColor="@color/colorWhite"-->
-                <!--android:textSize="12sp"-->
-                <!--android:textStyle="bold" />-->
+    <!--<TextView-->
+    <!--android:id="@+id/tvPageTitle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_margin="0dp"-->
+    <!--android:layout_toEndOf="@+id/btnBack"-->
+    <!--android:text="Ahli didekat anda"-->
+    <!--android:textColor="@color/colorWhite"-->
+    <!--android:textSize="12sp"-->
+    <!--android:textStyle="bold" />-->
 
-        <!--</RelativeLayout>-->
+    <!--</RelativeLayout>-->
     <!--</LinearLayout>-->
 
     <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:layout_alignParentBottom="true">
+        android:orientation="vertical">
 
         <Button
-            android:text="Daftar ahli"
-            android:padding="6dp"
-            android:backgroundTint="@color/colorPrimary"
             android:id="@+id/btnExpertShow"
+            style="@style/ButtonRound"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:textSize="12sp"
             android:layout_margin="12dp"
-            style="@style/ButtonRound"
-            />
+            android:backgroundTint="@color/colorPrimary"
+            android:padding="6dp"
+            android:text="Daftar ahli"
+            android:textSize="12sp" />
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/llExpertList"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
         </LinearLayout>
     </LinearLayout>

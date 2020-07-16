@@ -4,20 +4,17 @@ import androidx.annotation.Nullable;
 
 import com.arunseto.mhd.models.DefaultResponse;
 import com.arunseto.mhd.models.DisorderResponse;
-import com.arunseto.mhd.models.News;
 import com.arunseto.mhd.models.NoteResponse;
 import com.arunseto.mhd.models.PsychiatristResponse;
 import com.arunseto.mhd.models.SymptomResponse;
-import com.arunseto.mhd.models.User;
+import com.arunseto.mhd.models.TestResultResponse;
 import com.arunseto.mhd.models.UserResponse;
 
 import retrofit2.Call;
-import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface MainAPI {
@@ -112,8 +109,11 @@ public interface MainAPI {
 
     @FormUrlEncoded
     @POST("test/add")
-    Call<DefaultResponse> addTest(
-            @Field("id_catatan") int id
+    Call<TestResultResponse> addTest(
+            @Field("id_user") int id_user
     );
+
+    @GET("test/showFullInfo")
+    Call<TestResultResponse> showTest(@Query("id_user") Integer id_user);
 
 }

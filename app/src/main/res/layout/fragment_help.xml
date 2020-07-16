@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:clickable="true"
     android:orientation="vertical">
 
     <Toolbar
@@ -59,10 +59,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:padding="12dp"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="12dp">
 
             <com.github.ybq.android.spinkit.SpinKitView
                 android:id="@+id/spin_kit"
@@ -72,11 +72,11 @@
                 app:SpinKit_Color="@color/colorPrimaryLighter" />
 
             <TextView
-                android:textSize="24sp"
-                android:text="Coming soon"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Coming soon"
+                android:textSize="24sp" />
 
 
         </LinearLayout>

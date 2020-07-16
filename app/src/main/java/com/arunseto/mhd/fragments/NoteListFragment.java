@@ -154,7 +154,7 @@ public class NoteListFragment extends Fragment {
             tvNoteContent.setText(note.getContent());
             String strOutputDate = gt.formatDate(
                     "yyyy-MM-dd HH:mm:ss",
-                    "dd MMMM yyyy, HH:mm",
+                    "EEEE, dd MMMM yyyy, HH:mm",
                     note.getDate());
 
             tvNoteDate.setText(strOutputDate);

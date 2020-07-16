@@ -1,50 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <androidx.cardview.widget.CardView
-        app:cardUseCompatPadding="true"
-        app:cardElevation="6dp"
-        app:cardCornerRadius="18dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true">
+
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tvSymptomQuizNo"
-            android:textStyle="bold"
-            android:textColor="@color/colorBackground"
-            android:text="1"
-            android:padding="6dp"
-            android:gravity="center"
-            android:background="@drawable/bg_gradient_180"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:gravity="center"
-            android:id="@+id/tvSymptomName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="300dp"
-            android:orientation="horizontal"
-            android:text="Apakah anda merasa bosan ? "
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSymptomQuizNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_gradient_180"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="1"
+                android:textColor="@color/colorBackground"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSymptomName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="300dp"
+                android:orientation="horizontal"
+                android:text="Apakah anda merasa bosan ? "
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <Button
                 android:id="@+id/btnPrevious"
                 style="@style/ButtonBack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
+                android:drawableStart="@drawable/ic_chevron_left_24dp"
                 android:text="Kembali"
-                android:drawableStart="@drawable/ic_chevron_left_24dp"/>
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -54,14 +58,14 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:layout_weight="1"
             android:id="@+id/btnNo"
             style="@style/ButtonRound"
-            android:background="@drawable/bg_round_corner_border"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_margin="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_round_corner_border"
             android:minWidth="72dp"
             android:orientation="horizontal"
             android:outlineProvider="background"
@@ -70,13 +74,13 @@
             android:textSize="12sp" />
 
         <Button
-            android:layout_weight="1"
             android:id="@+id/btnYes"
             style="@style/ButtonRound"
-            android:backgroundTint="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
             android:minWidth="72dp"
             android:outlineProvider="background"
             android:text="Ya"

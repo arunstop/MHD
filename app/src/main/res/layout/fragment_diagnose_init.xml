@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:clickable="true"
     android:orientation="vertical">
 
     <Toolbar
@@ -53,47 +53,69 @@
     </Toolbar>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:layout_height="match_parent">
 
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Geser ke kanan untuk memulai diagnosa"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.ebanx.swipebtn.SwipeButton
+                android:id="@+id/sbNavDiagnoseExecute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                app:button_background="@drawable/swipe_button_outer_round"
+                app:button_bottom_padding="18dp"
+                app:button_image_disabled="@drawable/ic_forward_24dp"
+                app:button_image_enabled="@drawable/ic_check_circle_24dp"
+                app:button_image_height="60dp"
+                app:button_image_width="60dp"
+                app:button_left_padding="18dp"
+                app:button_right_padding="18dp"
+                app:button_top_padding="18dp"
+                app:has_activate_state="true"
+                app:initial_state="disabled"
+                app:inner_text="SWIPE RIGHT"
+                app:inner_text_background="@drawable/swipe_button_inner_round"
+                app:inner_text_bottom_padding="18dp"
+                app:inner_text_color="@color/colorBackground"
+                app:inner_text_size="16sp"
+                app:inner_text_top_padding="18dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_marginTop="12dp"
+            android:id="@+id/btnNavTestList"
+            style="@style/ButtonTransparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Geser ke kanan untuk memulai diagnosa"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <com.ebanx.swipebtn.SwipeButton
-            android:layout_marginTop="24dp"
-            android:id="@+id/sbNavDiagnoseExecute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            app:button_background="@drawable/swipe_button_outer_round"
-            app:button_bottom_padding="18dp"
-            app:button_image_disabled="@drawable/ic_forward_24dp"
-            app:button_image_enabled="@drawable/ic_check_circle_24dp"
-            app:button_image_height="60dp"
-            app:button_image_width="60dp"
-            app:button_left_padding="18dp"
-            app:button_right_padding="18dp"
-            app:button_top_padding="18dp"
-            app:has_activate_state="true"
-            app:initial_state="disabled"
-            app:inner_text="SWIPE RIGHT"
-            app:inner_text_background="@drawable/swipe_button_inner_round"
-            app:inner_text_bottom_padding="18dp"
-            app:inner_text_color="@color/colorBackground"
-            app:inner_text_size="16sp"
-            app:inner_text_top_padding="18dp" />
-
-    </LinearLayout>
+            android:layout_alignParentEnd="true"
+            android:drawableEnd="@drawable/ic_chevron_right_30dp"
+            android:drawablePadding="6dp"
+            android:gravity="start|center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="Riwayat Diagnosa Anda"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
 
 </LinearLayout>

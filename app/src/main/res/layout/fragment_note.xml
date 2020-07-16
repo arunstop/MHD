@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorBackground"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:clickable="true"
     android:orientation="vertical">
 
     <Toolbar
@@ -60,40 +59,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="12dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="12dp">
 
             <EditText
                 android:id="@+id/etNoteTitle"
                 style="@style/EditTextBasic"
-                android:background="@drawable/bg_round_corner_border"
-                android:padding="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Judul"
                 android:layout_marginTop="12dp"
-                android:inputType="text" />
+                android:background="@drawable/bg_round_corner_border"
+                android:hint="Judul"
+                android:inputType="text"
+                android:padding="12dp" />
 
             <EditText
                 android:id="@+id/etNoteContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_round_corner_border"
-                android:hint="Tulis perasaan anda..."
-                android:gravity="top"
                 android:layout_marginTop="12dp"
+                android:background="@drawable/bg_round_corner_border"
+                android:gravity="top"
+                android:hint="Tulis perasaan anda..."
+                android:minHeight="300dp"
                 android:padding="12dp"
-                android:textSize="12sp"
-                android:minHeight="300dp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnNote"
-                android:layout_marginTop="12dp"
                 style="@style/ButtonRound"
-                android:text="Catat"
-                android:backgroundTint="@color/colorPrimary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Catat" />
 
         </LinearLayout>
     </ScrollView>

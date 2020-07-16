@@ -243,7 +243,7 @@ public class GlobalTools {
     /* FORMAT PATTERNS
        "yyyy.MM.dd G 'at' HH:mm:ss z" ==== 2001.07.04 AD at 12:08:56 PDT
 
-        "EEE, MMM d, ''yy" ==== Wed, Jul 4, '01
+        "EEEE, MMM d, ''yy" ==== Wednesday, Jul 4, '01
 
         "h:mm a" ==== 12:08 PM
 

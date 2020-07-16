@@ -90,10 +90,9 @@ public class DiagnoseExecuteFragment extends Fragment {
             }
 
 
-
             @Override
             public void onFailure(Call<DisorderResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage()+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
         loadSymptomQuiz(1, 0, 0);
@@ -143,7 +142,7 @@ public class DiagnoseExecuteFragment extends Fragment {
         });
     }
 
-    public void loadSymptomQuiz(final int id, int idBefore, final int idSymptom) {
+    public void loadSymptomQuiz(final int id, final int idBefore, final int idSymptom) {
         skvLoading.setVisibility(View.VISIBLE);
 
         Call<SymptomResponse> call = gt.callApi().showSymptomQuiz(id);
@@ -160,14 +159,15 @@ public class DiagnoseExecuteFragment extends Fragment {
                             TextView tvSymptomName = vSymptom.findViewById(R.id.tvSymptomName);
                             Button btnYes = vSymptom.findViewById(R.id.btnYes);
                             Button btnNo = vSymptom.findViewById(R.id.btnNo);
+                            Button btnPrevious = vSymptom.findViewById(R.id.btnPrevious);
 
                             tvSymptomQuizNo.setText(iNo + "");
 
                             btnYes.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    if(symptom.getYes() ==0){
-                                        Toast.makeText(context, symptom.getNama_penyakit()+"", Toast.LENGTH_SHORT).show();
+                                    if (symptom.getYes() == 0) {
+                                        Toast.makeText(context, symptom.getNama_penyakit() + "", Toast.LENGTH_SHORT).show();
                                     }
                                     loadSymptomQuiz(symptom.getYes(), symptom.getId_gejala_detail(), symptom.getId_gejala());
 
@@ -177,25 +177,27 @@ public class DiagnoseExecuteFragment extends Fragment {
                             btnNo.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    if(symptom.getNo() ==0){
-                                        Toast.makeText(context, symptom.getNama_penyakit()+"", Toast.LENGTH_SHORT).show();
+                                    if (symptom.getNo() == 0) {
+                                        Toast.makeText(context, symptom.getNama_penyakit() + "", Toast.LENGTH_SHORT).show();
                                     }
                                     loadSymptomQuiz(symptom.getNo(), symptom.getId_gejala_detail(), symptom.getId_gejala());
                                 }
                             });
 
 
+
+
                             String strSymptomName;
-                            if(symptom.getId_gejala() != idSymptom){
-                                strSymptomName =  symptom.getId_gejala_detail() + " " + symptom.getNama_gejala() + " ?";
-                            }else{
-                                strSymptomName =  "sama " + symptom.getNama_gejala() + " ?";
+                            if (symptom.getId_gejala() != idSymptom) {
+                                strSymptomName = symptom.getId_gejala_detail() + " " + symptom.getNama_gejala() + " ?";
+                            } else {
+                                strSymptomName = "sama " + symptom.getNama_gejala() + " ?";
                             }
 
                             tvSymptomName.setText(strSymptomName);
 
                             llSymptomsList.addView(vSymptom);
-                            skvLoading.setVisibility(View.INVISIBLE);
+                            skvLoading.setVisibility(View.GONE);
                             iNo++;
                         }
                     }
@@ -204,7 +206,7 @@ public class DiagnoseExecuteFragment extends Fragment {
 
             @Override
             public void onFailure(Call<SymptomResponse> call, Throwable t) {
-
+                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }
