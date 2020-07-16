@@ -51,7 +51,7 @@ public class DiagnoseFragment extends Fragment {
         llNavDiagnoseExecute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseExecuteFragment());
+                gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseInitFragment());
             }
         });
 

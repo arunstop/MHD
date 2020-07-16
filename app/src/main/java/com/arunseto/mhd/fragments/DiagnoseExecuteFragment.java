@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.models.Disorder;
+import com.arunseto.mhd.models.DisorderResponse;
 import com.arunseto.mhd.models.Symptom;
 import com.arunseto.mhd.models.SymptomResponse;
 import com.arunseto.mhd.models.User;
@@ -24,6 +26,9 @@ import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.ConfirmationDialog;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.github.ybq.android.spinkit.SpinKitView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +51,7 @@ public class DiagnoseExecuteFragment extends Fragment {
     private LinearLayout llSymptomsList;
     private Button btnNext;
     private SpinKitView skvLoading;
+    private int iNo = 1;
 
 
     @Nullable
@@ -71,7 +77,27 @@ public class DiagnoseExecuteFragment extends Fragment {
         skvLoading = view.findViewById(R.id.skvLoading);
 
 //        loadSymptom();
-        loadSymptomQuiz(1);
+        Call<DisorderResponse> call = gt.callApi().showDisorder(null);
+        call.enqueue(new Callback<DisorderResponse>() {
+            @Override
+            public void onResponse(Call<DisorderResponse> call, Response<DisorderResponse> response) {
+                if (response.isSuccessful()) {
+                    DisorderResponse result = response.body();
+                    if (result.isOk()) {
+                        Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+
+
+            @Override
+            public void onFailure(Call<DisorderResponse> call, Throwable t) {
+                Toast.makeText(context, t.getMessage()+"", Toast.LENGTH_SHORT).show();
+            }
+        });
+        loadSymptomQuiz(1, 0, 0);
+
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +143,7 @@ public class DiagnoseExecuteFragment extends Fragment {
         });
     }
 
-    public void loadSymptomQuiz(int id) {
+    public void loadSymptomQuiz(final int id, int idBefore, final int idSymptom) {
         skvLoading.setVisibility(View.VISIBLE);
 
         Call<SymptomResponse> call = gt.callApi().showSymptomQuiz(id);
@@ -129,29 +155,48 @@ public class DiagnoseExecuteFragment extends Fragment {
                     SymptomResponse result = response.body();
                     if (result.isOk()) {
                         for (final Symptom symptom : result.getData()) {
-                            View vSymptom = inflater.inflate(R.layout.template_diagnose_symptom, null);
+                            View vSymptom = inflater.inflate(R.layout.template_diagnose_quiz, null);
+                            TextView tvSymptomQuizNo = vSymptom.findViewById(R.id.tvSymptomQuizNo);
                             TextView tvSymptomName = vSymptom.findViewById(R.id.tvSymptomName);
                             Button btnYes = vSymptom.findViewById(R.id.btnYes);
                             Button btnNo = vSymptom.findViewById(R.id.btnNo);
 
+                            tvSymptomQuizNo.setText(iNo + "");
+
                             btnYes.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loadSymptomQuiz(symptom.getYes());
+                                    if(symptom.getYes() ==0){
+                                        Toast.makeText(context, symptom.getNama_penyakit()+"", Toast.LENGTH_SHORT).show();
+                                    }
+                                    loadSymptomQuiz(symptom.getYes(), symptom.getId_gejala_detail(), symptom.getId_gejala());
+
                                 }
                             });
 
                             btnNo.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    loadSymptomQuiz(symptom.getNo());
+                                    if(symptom.getNo() ==0){
+                                        Toast.makeText(context, symptom.getNama_penyakit()+"", Toast.LENGTH_SHORT).show();
+                                    }
+                                    loadSymptomQuiz(symptom.getNo(), symptom.getId_gejala_detail(), symptom.getId_gejala());
                                 }
                             });
 
-                            tvSymptomName.setText(symptom.getId_gejala_detail() +" "+ symptom.getNama_gejala() + " ?");
+
+                            String strSymptomName;
+                            if(symptom.getId_gejala() != idSymptom){
+                                strSymptomName =  symptom.getId_gejala_detail() + " " + symptom.getNama_gejala() + " ?";
+                            }else{
+                                strSymptomName =  "sama " + symptom.getNama_gejala() + " ?";
+                            }
+
+                            tvSymptomName.setText(strSymptomName);
 
                             llSymptomsList.addView(vSymptom);
                             skvLoading.setVisibility(View.INVISIBLE);
+                            iNo++;
                         }
                     }
                 }

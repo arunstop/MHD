@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/btnBack"
-                android:text="Diagnosa"
+                android:text="Start Diagnose"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -52,54 +52,48 @@
         </RelativeLayout>
     </Toolbar>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/llSymptomsList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="12dp">
-
-
-        </LinearLayout>
-
-        <com.github.ybq.android.spinkit.SpinKitView
-            android:id="@+id/skvLoading"
-            style="@style/SpinKitView.Large.FadingCircle"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_centerInParent="true"
-            app:SpinKit_Color="@color/colorPrimaryDark" />
-    </RelativeLayout>
-
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="12dp">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Geser ke kanan untuk memulai diagnosa"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        </LinearLayout>
+        <com.ebanx.swipebtn.SwipeButton
+            android:layout_marginTop="24dp"
+            android:id="@+id/sbNavDiagnoseExecute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:button_background="@drawable/swipe_button_outer_round"
+            app:button_bottom_padding="18dp"
+            app:button_image_disabled="@drawable/ic_forward_24dp"
+            app:button_image_enabled="@drawable/ic_check_circle_24dp"
+            app:button_image_height="60dp"
+            app:button_image_width="60dp"
+            app:button_left_padding="18dp"
+            app:button_right_padding="18dp"
+            app:button_top_padding="18dp"
+            app:has_activate_state="true"
+            app:initial_state="disabled"
+            app:inner_text="SWIPE RIGHT"
+            app:inner_text_background="@drawable/swipe_button_inner_round"
+            app:inner_text_bottom_padding="18dp"
+            app:inner_text_color="@color/colorBackground"
+            app:inner_text_size="16sp"
+            app:inner_text_top_padding="18dp" />
 
-    </ScrollView>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnNext"
-        style="@style/ButtonRound"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="Next" />
 
 </LinearLayout>
