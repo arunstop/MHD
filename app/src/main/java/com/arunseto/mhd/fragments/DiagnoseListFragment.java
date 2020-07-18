@@ -31,7 +31,7 @@ import retrofit2.Response;
 
 //This is the main prototype of fragmenting
 
-public class TestListFragment extends Fragment {
+public class DiagnoseListFragment extends Fragment {
 
     private View view;
     private LayoutInflater inflater;
@@ -77,7 +77,7 @@ public class TestListFragment extends Fragment {
             @Override
             public void onRefresh() {
 //                loadNotes();
-                gt.refreshFragment(getFragmentManager(), TestListFragment.this);
+                gt.refreshFragment(getFragmentManager(), DiagnoseListFragment.this);
             }
         });
 
@@ -96,8 +96,8 @@ public class TestListFragment extends Fragment {
                     TestResponse result = response.body();
                     if (result.isOk()) {
                         int i = 1;
-                        for (Test test : result.getData()) {
-                            View vTestResult = inflater.inflate(R.layout.template_test, null);
+                        for (final Test test : result.getData()) {
+                            View vTestResult = inflater.inflate(R.layout.template_diagnose, null);
                             TextView tvTestLabel = vTestResult.findViewById(R.id.tvTestLabel);
                             TextView tvTestDate = vTestResult.findViewById(R.id.tvTestDate);
 
@@ -106,7 +106,12 @@ public class TestListFragment extends Fragment {
                                     "yyyy-MM-dd HH:mm:ss",
                                     "dd MMMM yyyy, HH:mm",
                                     test.getDate()));
-
+                            vTestResult.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseResultFragment(test.getId_tes()));
+                                }
+                            });
                             llTestResultList.addView(vTestResult);
                             i++;
                         }

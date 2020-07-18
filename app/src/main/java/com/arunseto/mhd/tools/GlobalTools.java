@@ -89,6 +89,10 @@ public class GlobalTools {
         return new ConfirmationDialog(context);
     }
 
+    public int getColor(int color){
+        return ContextCompat.getColor(context, color);
+    }
+
     //Navigate Fragment inside Bottom Navigation View
     public void navigateFragmentBnv(FragmentManager fragmentManager, int content, Fragment fragment) {
         //Fragment navigator for the main content

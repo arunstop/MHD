@@ -9,6 +9,7 @@ import com.arunseto.mhd.models.PsychiatristResponse;
 import com.arunseto.mhd.models.QuizResponse;
 import com.arunseto.mhd.models.TestDetailResponse;
 import com.arunseto.mhd.models.TestResponse;
+import com.arunseto.mhd.models.TestResultResponse;
 import com.arunseto.mhd.models.UserResponse;
 
 import retrofit2.Call;
@@ -106,7 +107,9 @@ public interface MainAPI {
     );
 
     @GET("disorder/show")
-    Call<DisorderResponse> showDisorder(@Nullable @Query("id_penyakit") Integer id_penyakit);
+    Call<DisorderResponse> showDisorder(
+            @Nullable @Query("id_penyakit") Integer id_penyakit
+    );
 
     @FormUrlEncoded
     @POST("test/add")
@@ -116,16 +119,27 @@ public interface MainAPI {
     );
 
     @GET("test/showFullInfo")
-    Call<TestResponse> showTest(@Query("id_user") Integer id_user);
+    Call<TestResponse> showTest(
+            @Query("id_user") Integer id_user
+    );
 
     @FormUrlEncoded
     @POST("test/addDetail")
-    Call<TestDetailResponse> addDetailTest(
+    Call<TestDetailResponse> addTestDetail(
             @Field("id_gejala_detail") int id_gejala_detail,
             @Field("id_tes") int id_tes,
             @Field("choice") int choice
     );
 
+    @GET("test/showTestResult")
+    Call<TestResultResponse> showTestResult(
+            @Query("id_tes") int id_tes
+    );
+
+    @GET("test/showDetail")
+    Call<TestDetailResponse> showTestDetail(
+            @Query("id_tes") int id_tes
+    );
 
 
 }

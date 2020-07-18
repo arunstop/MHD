@@ -6,16 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
-import com.arunseto.mhd.models.Test;
-import com.arunseto.mhd.models.TestResponse;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
@@ -23,10 +19,6 @@ import com.arunseto.mhd.ui.ConfirmationDialog;
 import com.arunseto.mhd.ui.LoadingDialog;
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 //This is the main prototype of fragmenting
 
@@ -86,7 +78,7 @@ public class DiagnoseInitFragment extends Fragment {
         btnNavTestList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(), flContent, new TestListFragment());
+                gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseListFragment());
             }
         });
 

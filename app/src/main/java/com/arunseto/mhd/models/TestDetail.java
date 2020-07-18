@@ -12,6 +12,16 @@ public class TestDetail {
     private int id_test;
     @SerializedName("CHOICE")
     private int choice;
+    @SerializedName("NAMA_GEJALA")
+    private String symptom_name;
+
+    public TestDetail(int id_test_detail, int id_symptom_detail, int id_test, int choice, String symptom_name) {
+        this.id_test_detail = id_test_detail;
+        this.id_symptom_detail = id_symptom_detail;
+        this.id_test = id_test;
+        this.choice = choice;
+        this.symptom_name = symptom_name;
+    }
 
     public int getId_test_detail() {
         return id_test_detail;
@@ -29,10 +39,7 @@ public class TestDetail {
         return choice;
     }
 
-    public TestDetail(int id_test_detail, int id_symptom_detail, int id_test, int choice) {
-        this.id_test_detail = id_test_detail;
-        this.id_symptom_detail = id_symptom_detail;
-        this.id_test = id_test;
-        this.choice = choice;
+    public String getSymptom_name() {
+        return symptom_name;
     }
 }

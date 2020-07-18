@@ -130,7 +130,7 @@ public class DiagnoseExecuteFragment extends Fragment {
                     QuizResponse result = response.body();
                     if (result.isOk()) {
                         for (final Quiz quiz : result.getData()) {
-                            View vSymptom = inflater.inflate(R.layout.template_symptom, null);
+                            View vSymptom = inflater.inflate(R.layout.template_diagnose_result_detail, null);
                             TextView tvSymptomName = vSymptom.findViewById(R.id.tvSymptomName);
                             Button btnYes = vSymptom.findViewById(R.id.btnYes);
                             Button btnNo = vSymptom.findViewById(R.id.btnNo);
@@ -191,7 +191,7 @@ public class DiagnoseExecuteFragment extends Fragment {
                                 llSymptomsList.showNext();
                             } else {
                                 loadQuiz(quiz.getYes(), quiz.getId_symptom(),choice);
-                                pushDetailTest(
+                                pushTestDetail(
                                         quiz.getId_symptom_detail(),
                                         choice
                                 );
@@ -227,7 +227,7 @@ public class DiagnoseExecuteFragment extends Fragment {
                         quiz.getId_symptom(),
                         1
                 );
-                pushDetailTest(
+                pushTestDetail(
                         quiz.getId_symptom_detail(),
                         1
                 );
@@ -247,7 +247,7 @@ public class DiagnoseExecuteFragment extends Fragment {
                         quiz.getId_symptom(),
                         0
                 );
-                pushDetailTest(
+                pushTestDetail(
                         quiz.getId_symptom_detail(),
                         0
                 );
@@ -268,8 +268,8 @@ public class DiagnoseExecuteFragment extends Fragment {
         });
     }
 
-    public void pushDetailTest(int id_symptom_detail, int choice) {
-        tdList.add(new TestDetail(0, id_symptom_detail, 0, choice));
+    public void pushTestDetail(int id_symptom_detail, int choice) {
+        tdList.add(new TestDetail(0, id_symptom_detail, 0, choice,""));
     }
 
     public void addTest(final int id_disorder_result) {
@@ -283,14 +283,14 @@ public class DiagnoseExecuteFragment extends Fragment {
                     if (result.isOk()) {
                         for (Test test : result.getData()) {
                             for (TestDetail testDetail : tdList) {
-                                addDetailTest(
+                                addTestDetail(
                                         testDetail.getId_symptom_detail(),
                                         test.getId_tes(),
                                         testDetail.getChoice()
                                 );
                             }
                             gt.popFragment(getFragmentManager());
-                            gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseResultFragment());
+                            gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseResultFragment(test.getId_tes()));
 //                            Toast.makeText(context, result.getMessage() + "", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -311,9 +311,9 @@ public class DiagnoseExecuteFragment extends Fragment {
 //        Toast.makeText(context, call.request().url()+"", Toast.LENGTH_SHORT).show();
     }
 
-    public void addDetailTest(int id_symptom_detail, int id_tes, int choice) {
+    public void addTestDetail(int id_symptom_detail, int id_tes, int choice) {
         Call<TestDetailResponse> call = gt.callApi()
-                .addDetailTest(
+                .addTestDetail(
                         id_symptom_detail,
                         id_tes,
                         choice
