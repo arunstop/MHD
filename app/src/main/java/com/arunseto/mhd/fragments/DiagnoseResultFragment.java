@@ -74,7 +74,6 @@ public class DiagnoseResultFragment extends Fragment {
         llTestResultPercentageList.removeAllViews();
 
         loadTestResult();
-        loadTestDetail();
 
         return view;
     }
@@ -96,15 +95,15 @@ public class DiagnoseResultFragment extends Fragment {
                             if (iNo == 1) {
                                 strLabel = "<b>" + strLabel + "</b>";
                                 tvTestResultPercentage.setTextSize(18);
-                                tvTestResultPercentage.setTextColor(gt.getColor(R.color.colorPrimaryDark));
+                                textStyling(tvTestResultPercentage, R.color.colorPrimaryDark, 0);
                             }
-                            Toast.makeText(context, strLabel + "", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(context, strLabel + "", Toast.LENGTH_SHORT).show();
                             tvTestResultPercentage.setText(Html.fromHtml(strLabel));
 
-                            llTestResultPercentageList.addView(vPercentage);
+                            gt.addViewAnimated(llTestResultPercentageList, vPercentage);
                             iNo++;
                         }
-
+                        loadTestDetail();
                     }
                 }
             }
@@ -133,10 +132,14 @@ public class DiagnoseResultFragment extends Fragment {
                             tvTestDetailSymptom.setText(iNo + ". " + testDetail.getSymptom_name());
                             if (testDetail.getChoice() == 1) {
                                 tvTestDetailChoice.setText("YA");
+                                textStyling(tvTestDetailChoice, R.color.colorSuccess, R.drawable.bg_round_corner_border_success);
+
                             } else {
                                 tvTestDetailChoice.setText("TIDAK");
+                                textStyling(tvTestDetailChoice, R.color.colorDanger, R.drawable.bg_round_corner_border_danger);
                             }
-                            llTestResultDetailList.addView(vDetail);
+
+                            gt.addViewAnimated(llTestResultDetailList, vDetail);
                             iNo++;
                         }
                     }
@@ -148,5 +151,12 @@ public class DiagnoseResultFragment extends Fragment {
                 Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void textStyling(TextView tv, int txtColor, int bg) {
+        tv.setTextColor(gt.getColor(txtColor));
+        if (bg != 0) {
+            tv.setBackground(gt.getDrawable(bg));
+        }
     }
 }

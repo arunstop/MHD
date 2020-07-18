@@ -3,6 +3,7 @@ package com.arunseto.mhd.tools;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -89,8 +90,14 @@ public class GlobalTools {
         return new ConfirmationDialog(context);
     }
 
+    //Getting color
     public int getColor(int color){
         return ContextCompat.getColor(context, color);
+    }
+
+    //Getting Drawable
+    public Drawable getDrawable(int drawable){
+        return ContextCompat.getDrawable(context, drawable);
     }
 
     //Navigate Fragment inside Bottom Navigation View
