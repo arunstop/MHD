@@ -95,13 +95,13 @@ public class DiagnoseListFragment extends Fragment {
                 if (response.isSuccessful()) {
                     TestResponse result = response.body();
                     if (result.isOk()) {
-                        int i = 1;
+                        int i = result.getData().size();
                         for (final Test test : result.getData()) {
                             View vTestResult = inflater.inflate(R.layout.template_diagnose, null);
                             TextView tvTestLabel = vTestResult.findViewById(R.id.tvTestLabel);
                             TextView tvTestDate = vTestResult.findViewById(R.id.tvTestDate);
 
-                            tvTestLabel.setText("Test #" + i);
+                            tvTestLabel.setText("Test #" + (i));
                             tvTestDate.setText(gt.formatDate(
                                     "yyyy-MM-dd HH:mm:ss",
                                     "dd MMMM yyyy, HH:mm",
@@ -113,7 +113,7 @@ public class DiagnoseListFragment extends Fragment {
                                 }
                             });
                             llTestResultList.addView(vTestResult);
-                            i++;
+                            i--;
                         }
                     }
                     skvLoading.setVisibility(View.GONE);

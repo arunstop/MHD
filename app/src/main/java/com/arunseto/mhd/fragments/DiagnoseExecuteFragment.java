@@ -50,7 +50,7 @@ public class DiagnoseExecuteFragment extends Fragment {
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
     private SwipeRefreshLayout srlRefresher;
-    private ViewFlipper llSymptomsList;
+    private ViewFlipper vfSymptomsList;
     private SpinKitView skvLoading;
     private TextView tvPageTitle;
     private TextView append;
@@ -77,7 +77,7 @@ public class DiagnoseExecuteFragment extends Fragment {
 
         tdList = new ArrayList<>();
 
-        llSymptomsList = view.findViewById(R.id.llSymptomsList);
+        vfSymptomsList = view.findViewById(R.id.llSymptomsList);
         skvLoading = view.findViewById(R.id.skvLoading);
 //        append = view.findViewById(R.id.append);
 
@@ -102,7 +102,7 @@ public class DiagnoseExecuteFragment extends Fragment {
 //        });
 
 
-        llSymptomsList.removeAllViews();
+        vfSymptomsList.removeAllViews();
         loadQuiz(1, 0, 1);
 
 
@@ -120,7 +120,7 @@ public class DiagnoseExecuteFragment extends Fragment {
     }
 
     public void loadSymptom() {
-        llSymptomsList.removeAllViews();
+        vfSymptomsList.removeAllViews();
 
         Call<QuizResponse> call = gt.callApi().showSymptom();
         call.enqueue(new Callback<QuizResponse>() {
@@ -140,7 +140,7 @@ public class DiagnoseExecuteFragment extends Fragment {
 
                             tvSymptomName.setText(quiz.getSymptom_name() + " ?");
 
-                            llSymptomsList.addView(vSymptom);
+                            vfSymptomsList.addView(vSymptom);
                         }
                     }
                 }
@@ -184,11 +184,9 @@ public class DiagnoseExecuteFragment extends Fragment {
                                 String strYn = "\n"
                                         + "YES : " + quiz.getYes() + "\n"
                                         + "NO : " + quiz.getNo();
-                                strQuizName =
-                                        quiz.getId_symptom_detail()
-                                                + " " + quiz.getSymptom_name() + " ?";
-                                llSymptomsList.addView(vQuiz);
-                                llSymptomsList.showNext();
+                                strQuizName = "Apakah " + quiz.getSymptom_name() + " ?";
+                                vfSymptomsList.addView(vQuiz);
+                                vfSymptomsList.showNext();
                             } else {
                                 loadQuiz(quiz.getYes(), quiz.getId_symptom(),choice);
                                 pushTestDetail(
@@ -202,7 +200,7 @@ public class DiagnoseExecuteFragment extends Fragment {
                             if (tdList.size() == 0) {
                                 btnPrevious.setVisibility(View.INVISIBLE);
                             }
-                            setButtonOption(quiz, llSymptomsList.getChildCount(), vQuiz, btnYes, btnNo, btnPrevious);
+                            setButtonOption(quiz, vfSymptomsList.getChildCount(), vQuiz, btnYes, btnNo, btnPrevious);
 
 
                             skvLoading.setVisibility(View.GONE);
@@ -232,7 +230,7 @@ public class DiagnoseExecuteFragment extends Fragment {
                         1
                 );
                 if (quiz.getYes() == 0) {
-                    llSymptomsList.removeAllViews();
+                    vfSymptomsList.removeAllViews();
 //                    Toast.makeText(context, tdList.size() + "", Toast.LENGTH_SHORT).show();
                     addTest(quiz.getId_disorder());
                 }
@@ -252,7 +250,7 @@ public class DiagnoseExecuteFragment extends Fragment {
                         0
                 );
                 if (quiz.getNo() == 0) {
-                    llSymptomsList.removeAllViews();
+                    vfSymptomsList.removeAllViews();
 //                    Toast.makeText(context, tdList.size() + "", Toast.LENGTH_SHORT).show();
                     addTest(quiz.getId_disorder());
                 }
@@ -261,8 +259,8 @@ public class DiagnoseExecuteFragment extends Fragment {
         btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llSymptomsList.showPrevious();
-                llSymptomsList.removeView(vSymptom);
+                vfSymptomsList.showPrevious();
+                vfSymptomsList.removeView(vSymptom);
                 tdList.remove((tdList.size() - 1));
             }
         });

@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
@@ -24,7 +23,6 @@ import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,10 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
         //snackbar color alternative
         String fName = user.getFirst_name();
-        Snackbar.make(findViewById(android.R.id.content), "Welcome ! " + gt.capEachWord(fName), Snackbar.LENGTH_SHORT)
-                .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimaryDark))
-                .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
-                .show();
+        gt.showSnackbar(
+                "Welcome ! " + gt.capEachWord(fName),
+                "OK",
+                null
+        ).show();
     }
 
     public BottomNavigationView.OnNavigationItemSelectedListener bnvListener() {
@@ -154,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 //                snackbar.show();
                 Toast.makeText(this, "Tekan sekali lagi untuk kembali", Toast.LENGTH_SHORT).show();
 
-            }else{
+            } else {
                 Toast.makeText(this, "Tekan sekali lagi untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
 
             }
@@ -169,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                     doubleBackToExitPressedOnce = false;
                 }
             }, 3000);
-        }  else {
+        } else {
             super.onBackPressed();
         }
     }

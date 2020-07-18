@@ -12,7 +12,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,11 +22,12 @@ import com.arunseto.mhd.api.GoogleAuthClient;
 import com.arunseto.mhd.api.MainAPI;
 import com.arunseto.mhd.api.MainClient;
 import com.arunseto.mhd.models.User;
-import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.PoppingMenu;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -70,7 +70,7 @@ public class GlobalTools {
     }
 
     //Getting Main API
-    public MainAPI callApi(){
+    public MainAPI callApi() {
         return MainClient.getInstance().getApi();
     }
 
@@ -90,13 +90,27 @@ public class GlobalTools {
         return new ConfirmationDialog(context);
     }
 
+    //Getting Snackbar
+    public Snackbar showSnackbar(String message, String btnMsg, View.OnClickListener listener) {
+        View view = (View) ((Activity) context).findViewById(android.R.id.content);
+        int duration = (listener != null ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar
+                .make(view, message, duration)
+                .setBackgroundTint(getColor(R.color.colorPrimaryDark))
+                .setTextColor(getColor(R.color.colorWhite));
+        if (listener != null) {
+            snackbar.setAction(btnMsg, listener);
+        }
+        return snackbar;
+    }
+
     //Getting color
-    public int getColor(int color){
+    public int getColor(int color) {
         return ContextCompat.getColor(context, color);
     }
 
     //Getting Drawable
-    public Drawable getDrawable(int drawable){
+    public Drawable getDrawable(int drawable) {
         return ContextCompat.getDrawable(context, drawable);
     }
 
@@ -130,7 +144,7 @@ public class GlobalTools {
         fragmentTransaction.detach(fragment).attach(fragment).commit();
     }
 
-    public void popFragment(FragmentManager fragmentManager){
+    public void popFragment(FragmentManager fragmentManager) {
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
 //        fragmentTransaction.detach(fragment).attach(fragment).commit();
@@ -281,12 +295,12 @@ public class GlobalTools {
 
         "YYYY-'W'ww-u" ==== 2001-W27-3
      */
-    public String formatDate(String inPattern, String outPattern, String strDate){
+    public String formatDate(String inPattern, String outPattern, String strDate) {
 
         String strResult = "";
         SimpleDateFormat ip = new SimpleDateFormat(inPattern);
 //        DateFormat formatter = DateFormat.getDateInstance(DateFormat.FULL);
-        SimpleDateFormat op= new SimpleDateFormat(outPattern);
+        SimpleDateFormat op = new SimpleDateFormat(outPattern);
 
         try {
             //dateStr example 2020-05-27T19:30:00Z
