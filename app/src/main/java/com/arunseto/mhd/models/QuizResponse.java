@@ -4,16 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class TestResultResponse extends DefaultResponse {
+public class QuizResponse extends DefaultResponse {
     @SerializedName("data")
-    private List<TestResult> data;
+    private List<Quiz> data;
 
-    public TestResultResponse(boolean status, String message, List<TestResult> data) {
+    public QuizResponse(boolean status, String message, List<Quiz> data) {
         super(status, message);
         this.data = data;
     }
 
-    public List<TestResult> getData() {
+    public List<Quiz> getData() {
         return data;
     }
 }

@@ -3,6 +3,7 @@ package com.arunseto.mhd.tools;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.arunseto.mhd.models.Test;
 import com.arunseto.mhd.models.User;
 
 
@@ -96,5 +97,38 @@ public class Session {
         editor.apply();
     }
 
-
+//    public Test getDiagnoseSession(){
+//        SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//        return new Test(
+//                session.getInt("id_test", 0),
+//                0,
+//                session.getInt("last_quiz", 0),
+//                session.getInt("id_user", 0),
+//                null,
+//                null
+//                );
+//    }
+//
+//    public void startDiagnoseSession(Test test) {
+//        SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = session.edit();
+//        editor.putInt("id_test", test.getId_tes());
+////        editor.putInt("last_quiz", test.getLast_quiz());
+//        editor.apply();
+//    }
+//
+//    public void endDiagnoseSession(){
+//        SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = session.edit();
+//        editor.remove("id_test");
+////        editor.remove("last_quiz");
+//        editor.apply();
+//    }
+//
+//    public void updateDiagnoseSessionLastQuiz(int last_quiz){
+//        SharedPreferences session = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = session.edit();
+////        editor.putInt("last_quiz", last_quiz);
+//        editor.apply();
+//    }
 }

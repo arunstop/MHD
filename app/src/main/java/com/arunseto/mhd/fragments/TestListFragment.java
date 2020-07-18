@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arunseto.mhd.R;
-import com.arunseto.mhd.models.TestResult;
-import com.arunseto.mhd.models.TestResultResponse;
+import com.arunseto.mhd.models.Test;
+import com.arunseto.mhd.models.TestResponse;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
@@ -31,7 +31,7 @@ import retrofit2.Response;
 
 //This is the main prototype of fragmenting
 
-public class TestResultListFragment extends Fragment {
+public class TestListFragment extends Fragment {
 
     private View view;
     private LayoutInflater inflater;
@@ -53,7 +53,7 @@ public class TestResultListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_test_result_list, container, false);
+        view = inflater.inflate(R.layout.fragment_test_list, container, false);
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
@@ -77,7 +77,7 @@ public class TestResultListFragment extends Fragment {
             @Override
             public void onRefresh() {
 //                loadNotes();
-                gt.refreshFragment(getFragmentManager(), TestResultListFragment.this);
+                gt.refreshFragment(getFragmentManager(), TestListFragment.this);
             }
         });
 
@@ -88,24 +88,24 @@ public class TestResultListFragment extends Fragment {
         llTestResultList.removeAllViews();
         skvLoading.setVisibility(View.VISIBLE);
 
-        Call<TestResultResponse> call = gt.callApi().showTest(gt.getUser().getId_user());
-        call.enqueue(new Callback<TestResultResponse>() {
+        Call<TestResponse> call = gt.callApi().showTest(gt.getUser().getId_user());
+        call.enqueue(new Callback<TestResponse>() {
             @Override
-            public void onResponse(Call<TestResultResponse> call, Response<TestResultResponse> response) {
+            public void onResponse(Call<TestResponse> call, Response<TestResponse> response) {
                 if (response.isSuccessful()) {
-                    TestResultResponse result = response.body();
+                    TestResponse result = response.body();
                     if (result.isOk()) {
                         int i = 1;
-                        for (TestResult testResult : result.getData()) {
-                            View vTestResult = inflater.inflate(R.layout.template_test_result, null);
-                            TextView tvTestResultLabel = vTestResult.findViewById(R.id.tvTestResultLabel);
-                            TextView tvTestResultDate = vTestResult.findViewById(R.id.tvTestResultDate);
+                        for (Test test : result.getData()) {
+                            View vTestResult = inflater.inflate(R.layout.template_test, null);
+                            TextView tvTestLabel = vTestResult.findViewById(R.id.tvTestLabel);
+                            TextView tvTestDate = vTestResult.findViewById(R.id.tvTestDate);
 
-                            tvTestResultDate.setText("Test #" + i);
-                            tvTestResultDate.setText(gt.formatDate(
+                            tvTestLabel.setText("Test #" + i);
+                            tvTestDate.setText(gt.formatDate(
                                     "yyyy-MM-dd HH:mm:ss",
                                     "dd MMMM yyyy, HH:mm",
-                                    testResult.getDate()));
+                                    test.getDate()));
 
                             llTestResultList.addView(vTestResult);
                             i++;
@@ -116,7 +116,7 @@ public class TestResultListFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<TestResultResponse> call, Throwable t) {
+            public void onFailure(Call<TestResponse> call, Throwable t) {
                 Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });

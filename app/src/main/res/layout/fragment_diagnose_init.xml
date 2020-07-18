@@ -60,15 +60,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="12dp">
+            <TextView
+                style="@style/ButtonRound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:backgroundTint="@color/colorInfo"
+                android:drawableStart="@drawable/ic_info_24dp"
+                android:drawablePadding="12dp"
+                android:gravity="start|center_vertical"
+                android:text="Perhatian! Proses diagnosa yang akan dilakukan merupakan proses awal pendeteksian, untuk hasil yang 100% akurat mohon menemui ahli profesional (psikilog atau psikiater)"
+                android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tvDiagnoseInitLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="Geser ke kanan untuk memulai diagnosa"
+                android:gravity="center"
+                android:text="Geser ke kanan untuk memulai proses diagnosa"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -98,23 +112,42 @@
                 app:inner_text_size="16sp"
                 app:inner_text_top_padding="18dp" />
 
+
+                <Button
+                    android:id="@+id/btnNavDiagnoseExecuteStart"
+                    style="@style/ButtonRound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:drawableEnd="@drawable/ic_play_arrow_30dp"
+                    android:drawablePadding="6dp"
+                    android:gravity="center"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="12dp"
+                    android:text="Mulai Proses Diagnosa"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btnNavTestList"
+                    style="@style/ButtonRoundBordered"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:drawableEnd="@drawable/ic_chevron_right_30dp"
+                    android:drawablePadding="6dp"
+                    android:gravity="center"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="12dp"
+                    android:text="Lihat Hasil Diagnosa"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+
+
         </LinearLayout>
 
-        <Button
-            android:layout_marginTop="12dp"
-            android:id="@+id/btnNavTestList"
-            style="@style/ButtonTransparent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:drawableEnd="@drawable/ic_chevron_right_30dp"
-            android:drawablePadding="6dp"
-            android:gravity="start|center_vertical"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:text="Riwayat Diagnosa Anda"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp" />
     </RelativeLayout>
 
 

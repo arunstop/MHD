@@ -6,8 +6,9 @@ import com.arunseto.mhd.models.DefaultResponse;
 import com.arunseto.mhd.models.DisorderResponse;
 import com.arunseto.mhd.models.NoteResponse;
 import com.arunseto.mhd.models.PsychiatristResponse;
-import com.arunseto.mhd.models.SymptomResponse;
-import com.arunseto.mhd.models.TestResultResponse;
+import com.arunseto.mhd.models.QuizResponse;
+import com.arunseto.mhd.models.TestDetailResponse;
+import com.arunseto.mhd.models.TestResponse;
 import com.arunseto.mhd.models.UserResponse;
 
 import retrofit2.Call;
@@ -97,10 +98,10 @@ public interface MainAPI {
     Call<PsychiatristResponse> showPsychiatrist();
 
     @GET("symptom/show")
-    Call<SymptomResponse> showSymptom();
+    Call<QuizResponse> showSymptom();
 
     @GET("symptom/show")
-    Call<SymptomResponse> showSymptomQuiz(
+    Call<QuizResponse> loadQuiz(
             @Query("id_gejala_detail") int id_gejala_detail
     );
 
@@ -109,11 +110,22 @@ public interface MainAPI {
 
     @FormUrlEncoded
     @POST("test/add")
-    Call<TestResultResponse> addTest(
-            @Field("id_user") int id_user
+    Call<TestResponse> addTest(
+            @Field("id_user") int id_user,
+            @Field("result") int result
     );
 
     @GET("test/showFullInfo")
-    Call<TestResultResponse> showTest(@Query("id_user") Integer id_user);
+    Call<TestResponse> showTest(@Query("id_user") Integer id_user);
+
+    @FormUrlEncoded
+    @POST("test/addDetail")
+    Call<TestDetailResponse> addDetailTest(
+            @Field("id_gejala_detail") int id_gejala_detail,
+            @Field("id_tes") int id_tes,
+            @Field("choice") int choice
+    );
+
+
 
 }

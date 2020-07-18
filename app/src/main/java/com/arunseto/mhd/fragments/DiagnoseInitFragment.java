@@ -6,14 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
-import com.arunseto.mhd.models.DefaultResponse;
-import com.arunseto.mhd.models.TestResultResponse;
+import com.arunseto.mhd.models.Test;
+import com.arunseto.mhd.models.TestResponse;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
@@ -39,8 +41,10 @@ public class DiagnoseInitFragment extends Fragment {
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
-    private Button btnNavTestList;
+    private Button btnNavTestList, btnNavDiagnoseExecuteStart;
     private SwipeButton sbNavDiagnoseExecute;
+    private TextView tvDiagnoseInitLabel;
+    private Boolean startDiagnose= false;
 
 
     @Nullable
@@ -60,13 +64,29 @@ public class DiagnoseInitFragment extends Fragment {
         loadingDialog = gt.getLoadingDialog();
         confirmationDialog = gt.getConfirmationDialog();
 
-        btnNavTestList = view.findViewById(R.id.btnNavTestList);
+        tvDiagnoseInitLabel = view.findViewById(R.id.tvDiagnoseInitLabel);
         sbNavDiagnoseExecute = view.findViewById(R.id.sbNavDiagnoseExecute);
+        btnNavTestList = view.findViewById(R.id.btnNavTestList);
+        btnNavDiagnoseExecuteStart = view.findViewById(R.id.btnNavDiagnoseExecuteStart);
+
+        if (!startDiagnose) {
+            tvDiagnoseInitLabel.setVisibility(View.GONE);
+            sbNavDiagnoseExecute.setVisibility(View.GONE);
+        }else{
+            btnNavDiagnoseExecuteStart.setVisibility(View.GONE);
+        }
+
+        initActions();
+
+        return view;
+    }
+
+    public void initActions() {
 
         btnNavTestList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(), flContent, new TestResultListFragment());
+                gt.navigateFragment(getFragmentManager(), flContent, new TestListFragment());
             }
         });
 
@@ -74,35 +94,28 @@ public class DiagnoseInitFragment extends Fragment {
             @Override
             public void onStateChange(boolean active) {
                 if (active) {
-                    addTest();
+//                    addTest();
+//                    getFragmentManager().beginTransaction().
+                    gt.popFragment(getFragmentManager());
+                    gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseExecuteFragment());
+                } else {
+//                    gt.getSession().endDiagnoseSession();
+//                    String str = gt.getSession().getDiagnoseSession().getId_tes()
+//                            + "\n"
+//                            + gt.getSession().getDiagnoseSession().getId_user();
+//                    Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        return view;
-    }
-
-    public void addTest() {
-        loadingDialog.show();
-        Call<TestResultResponse> call = gt.callApi().addTest(gt.getUser().getId_user());
-        call.enqueue(new Callback<TestResultResponse>() {
+        btnNavDiagnoseExecuteStart.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<TestResultResponse> call, Response<TestResultResponse> response) {
-                if (response.isSuccessful()) {
-                    TestResultResponse result = response.body();
-                    if (result.isOk()) {
-                        gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseExecuteFragment());
-                    }
-                    loadingDialog.dismiss();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TestResultResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
-                loadingDialog.dismiss();
+            public void onClick(View view) {
+                startDiagnose=true;
+                tvDiagnoseInitLabel.setVisibility(View.VISIBLE);
+                sbNavDiagnoseExecute.setVisibility(View.VISIBLE);
+                btnNavDiagnoseExecuteStart.setVisibility(View.GONE);
             }
         });
-//        Toast.makeText(context, call.request().url()+"", Toast.LENGTH_SHORT).show();
     }
 }

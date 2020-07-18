@@ -1,8 +1,19 @@
 package com.arunseto.mhd.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.fragments.DiagnoseExecuteFragment;
 import com.arunseto.mhd.fragments.DiagnoseFragment;
 import com.arunseto.mhd.fragments.ExploreFragment;
 import com.arunseto.mhd.fragments.HomeFragment;
@@ -14,16 +25,6 @@ import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-
-import android.os.Handler;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,14 +120,16 @@ public class MainActivity extends AppCompatActivity {
 
     // back for level 2 fragment
     public void navBack(View view) {
-        super.onBackPressed();
+        onBackPressed();
     }
 
 
     @Override
     public void onBackPressed() {
         //checking if fragment has stacks or not
-        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+        final Fragment fragmentInFrame = getSupportFragmentManager().findFragmentById(R.id.flContent);
+
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0 || fragmentInFrame instanceof DiagnoseExecuteFragment) {
             //if fragment has stack 0, user will be asked to click back twice to exit
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
@@ -134,7 +137,27 @@ public class MainActivity extends AppCompatActivity {
             }
 
             this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+            if (fragmentInFrame instanceof DiagnoseExecuteFragment) {
+//                Snackbar snackbar = Snackbar
+//                        .make(
+//                                findViewById(android.R.id.content),
+//                                "Apakah anda ingin mengakhiri proses diagnosa ?\n",
+//                                Snackbar.LENGTH_LONG
+//                        );
+//                snackbar.setAction("Kembali", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        MainActivity.super.onBackPressed();
+//                    }
+//                });
+//
+//                snackbar.show();
+                Toast.makeText(this, "Tekan sekali lagi untuk kembali", Toast.LENGTH_SHORT).show();
+
+            }else{
+                Toast.makeText(this, "Tekan sekali lagi untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
+
+            }
             //snack bar
 //        Snackbar.make(findViewById(android.R.id.content), "Please click BACK again to exit", Snackbar.LENGTH_LONG).show();
 
@@ -146,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     doubleBackToExitPressedOnce = false;
                 }
             }, 3000);
-        } else {
+        }  else {
             super.onBackPressed();
         }
     }

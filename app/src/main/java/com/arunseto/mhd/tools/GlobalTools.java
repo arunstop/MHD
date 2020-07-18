@@ -119,6 +119,13 @@ public class GlobalTools {
         fragmentTransaction.detach(fragment).attach(fragment).commit();
     }
 
+    public void popFragment(FragmentManager fragmentManager){
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+//        fragmentTransaction.detach(fragment).attach(fragment).commit();
+        fragmentManager.popBackStack();
+    }
+
     //Load online Image
     public void loadImgUrl(String url, ImageView ivTarget) {
         //.diskCacheStrategy(DiskCacheStrategy.ALL is to cache the downloaded images
