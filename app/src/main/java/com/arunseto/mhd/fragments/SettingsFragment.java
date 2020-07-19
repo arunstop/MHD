@@ -54,7 +54,7 @@ public class SettingsFragment extends Fragment {
         this.inflater = inflater;
 
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
@@ -82,7 +82,7 @@ public class SettingsFragment extends Fragment {
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(),
+                gt.navigateFragment(
                         gt.getContent(),
                         new UserProfileFragment());
             }
@@ -91,7 +91,7 @@ public class SettingsFragment extends Fragment {
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(),
+                gt.navigateFragment(
                         gt.getContent(),
                         new AboutFragment());
             }
@@ -100,7 +100,7 @@ public class SettingsFragment extends Fragment {
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(),
+                gt.navigateFragment(
                         gt.getContent(),
                         new HelpFragment());
             }

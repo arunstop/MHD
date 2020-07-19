@@ -33,8 +33,8 @@ public class ConfirmationDialog extends AlertDialog {
         View layout = getLayoutInflater().inflate(R.layout.template_dialog_confirmation, null);
         // yes == log out
         // no == cancel
-        btnYes = layout.findViewById(R.id.btnYes);
-        btnNo = layout.findViewById(R.id.btnNo);
+        btnYes = layout.findViewById(R.id.btnAnswerYes);
+        btnNo = layout.findViewById(R.id.btnAnswerNo);
         tvTitle = layout.findViewById(R.id.tvTitle);
         builder.setView(layout);
 

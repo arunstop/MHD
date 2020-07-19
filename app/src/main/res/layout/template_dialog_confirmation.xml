@@ -30,7 +30,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnNo"
+                android:id="@+id/btnAnswerNo"
                 style="@style/ButtonRoundBordered"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/btnYes"
+                android:id="@+id/btnAnswerYes"
                 style="@style/ButtonRound"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

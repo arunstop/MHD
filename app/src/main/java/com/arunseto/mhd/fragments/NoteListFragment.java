@@ -65,7 +65,7 @@ public class NoteListFragment extends Fragment {
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
@@ -109,7 +109,7 @@ public class NoteListFragment extends Fragment {
             @Override
             public void onRefresh() {
 //                loadNotes();
-                gt.refreshFragment(getFragmentManager(), NoteListFragment.this);
+                gt.refreshFragment();
             }
         });
 
@@ -137,7 +137,16 @@ public class NoteListFragment extends Fragment {
 
             @Override
             public void onFailure(Call<NoteResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                gt.showSnackbar(
+                        "Terjadi kesalahan koneksi.",
+                        "RETRY",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                gt.refreshFragment();
+                            }
+                        }).show();
+                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -162,7 +171,7 @@ public class NoteListFragment extends Fragment {
             vNote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    gt.navigateFragment(getFragmentManager(), gt.getContent(), new NoteDetailFragment(note));
+                    gt.navigateFragment( gt.getContent(), new NoteDetailFragment(note));
                 }
             });
 
@@ -209,7 +218,8 @@ public class NoteListFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                gt.showSnackbar("Terjadi kesalahan koneksi.", "RETRY", null).show();
+                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }

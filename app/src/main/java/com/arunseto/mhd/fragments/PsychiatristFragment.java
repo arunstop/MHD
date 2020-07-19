@@ -54,7 +54,7 @@ public class PsychiatristFragment extends Fragment {
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
@@ -68,7 +68,7 @@ public class PsychiatristFragment extends Fragment {
             @Override
             public void onRefresh() {
 //                loadPsychiatrist();
-                gt.refreshFragment(getFragmentManager(), PsychiatristFragment.this);
+                gt.refreshFragment();
             }
         });
 
@@ -105,7 +105,16 @@ public class PsychiatristFragment extends Fragment {
 
                          @Override
                          public void onFailure(Call<PsychiatristResponse> call, Throwable t) {
-                             Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                             gt.showSnackbar(
+                                     "Terjadi kesalahan koneksi.",
+                                     "RETRY",
+                                     new View.OnClickListener() {
+                                         @Override
+                                         public void onClick(View view) {
+                                             gt.refreshFragment();
+                                         }
+                                     }).show();
+                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
                          }
                      }
         );
@@ -132,7 +141,7 @@ public class PsychiatristFragment extends Fragment {
             llPsy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    gt.navigateFragment(getFragmentManager(), gt.getContent(), new PsychiatristProfileFragment(psy));
+                    gt.navigateFragment( gt.getContent(), new PsychiatristProfileFragment(psy));
                 }
             });
 

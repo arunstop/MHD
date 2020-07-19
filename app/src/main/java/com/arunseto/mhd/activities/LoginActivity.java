@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         btnNavRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getSupportFragmentManager(), gt.getContent(), new RegisterFragment());
+                gt.navigateFragment(gt.getContent(), new RegisterFragment());
             }
         });
 

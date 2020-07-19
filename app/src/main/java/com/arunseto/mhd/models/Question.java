@@ -2,7 +2,7 @@ package com.arunseto.mhd.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Quiz {
+public class Question {
 
 
     @SerializedName("ID_GEJALA_DETAIL")
@@ -15,11 +15,24 @@ public class Quiz {
     private String symptom_name;
     @SerializedName("NAMA_PENYAKIT")
     private String disorder_name;
+    @SerializedName("PERTANYAAN")
+    private String question;
     @SerializedName("YES")
     private int yes;
     @SerializedName("NO")
     private int no;
 
+
+    public Question(int id_symptom_detail, int id_symptom, int id_disorder, String symptom_name, String disorder_name, String question, int yes, int no) {
+        this.id_symptom_detail = id_symptom_detail;
+        this.id_symptom = id_symptom;
+        this.id_disorder = id_disorder;
+        this.symptom_name = symptom_name;
+        this.disorder_name = disorder_name;
+        this.question = question;
+        this.yes = yes;
+        this.no = no;
+    }
 
     public int getId_symptom_detail() {
         return id_symptom_detail;
@@ -41,21 +54,15 @@ public class Quiz {
         return disorder_name;
     }
 
+    public String getQuestion() {
+        return question;
+    }
+
     public int getYes() {
         return yes;
     }
 
     public int getNo() {
         return no;
-    }
-
-    public Quiz(int id_symptom_detail, int id_symptom, int id_disorder, String symptom_name, String disorder_name, int yes, int no) {
-        this.id_symptom_detail = id_symptom_detail;
-        this.id_symptom = id_symptom;
-        this.id_disorder = id_disorder;
-        this.symptom_name = symptom_name;
-        this.disorder_name = disorder_name;
-        this.yes = yes;
-        this.no = no;
     }
 }

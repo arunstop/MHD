@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -31,7 +30,7 @@ import retrofit2.Response;
 
 //This is the main prototype of fragmenting
 
-public class DiagnoseListFragment extends Fragment {
+public class TestListFragment extends Fragment {
 
     private View view;
     private LayoutInflater inflater;
@@ -42,7 +41,7 @@ public class DiagnoseListFragment extends Fragment {
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
-    private SwipeButton sbNavDiagnoseExecute;
+    private SwipeButton sbNavTestExecute;
     private LinearLayout llTestResultList;
     private Button btnMore;
     private SpinKitView skvLoading;
@@ -53,11 +52,11 @@ public class DiagnoseListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_test_list, container, false);
+        view = inflater.inflate(R.layout.fragment_test_result_list, container, false);
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
@@ -71,20 +70,20 @@ public class DiagnoseListFragment extends Fragment {
         btnMore = view.findViewById(R.id.btnMore);
         srlRefresher = ((SwipeRefreshLayout) llTestResultList.getParent().getParent());
 
-        loadTest();
+        loadQuestion();
 
         srlRefresher.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 //                loadNotes();
-                gt.refreshFragment(getFragmentManager(), DiagnoseListFragment.this);
+                gt.refreshFragment();
             }
         });
 
         return view;
     }
 
-    public void loadTest() {
+    public void loadQuestion() {
         llTestResultList.removeAllViews();
         skvLoading.setVisibility(View.VISIBLE);
 
@@ -97,7 +96,7 @@ public class DiagnoseListFragment extends Fragment {
                     if (result.isOk()) {
                         int i = result.getData().size();
                         for (final Test test : result.getData()) {
-                            View vTestResult = inflater.inflate(R.layout.template_diagnose, null);
+                            View vTestResult = inflater.inflate(R.layout.template_test_result, null);
                             TextView tvTestLabel = vTestResult.findViewById(R.id.tvTestLabel);
                             TextView tvTestDate = vTestResult.findViewById(R.id.tvTestDate);
 
@@ -109,10 +108,10 @@ public class DiagnoseListFragment extends Fragment {
                             vTestResult.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseResultFragment(test.getId_tes()));
+                                    gt.navigateFragment( flContent, new TestResultFragment(test.getId_tes()));
                                 }
                             });
-                            llTestResultList.addView(vTestResult);
+                            gt.addViewAnimated(llTestResultList, vTestResult);
                             i--;
                         }
                     }
@@ -122,7 +121,16 @@ public class DiagnoseListFragment extends Fragment {
 
             @Override
             public void onFailure(Call<TestResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                gt.showSnackbar(
+                        "Terjadi kesalahan koneksi.",
+                        "RETRY",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                gt.refreshFragment();
+                            }
+                        }).show();
+                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }

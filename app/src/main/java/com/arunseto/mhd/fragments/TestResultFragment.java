@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -24,6 +23,7 @@ import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.arunseto.mhd.ui.ConfirmationDialog;
 import com.arunseto.mhd.ui.LoadingDialog;
+import com.github.ybq.android.spinkit.SpinKitView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +31,7 @@ import retrofit2.Response;
 
 //This is the main prototype of fragmenting
 
-public class DiagnoseResultFragment extends Fragment {
+public class TestResultFragment extends Fragment {
 
     private View view;
     private LayoutInflater inflater;
@@ -44,9 +44,10 @@ public class DiagnoseResultFragment extends Fragment {
     private LoadingDialog loadingDialog;
     private SwipeRefreshLayout srlRefresher;
     private int id_test;
-    private LinearLayout llTestResultDetailList, llTestResultPercentageList;
+    private LinearLayout llTestResultPercentageList, llTestQuestionList;
+    private SpinKitView skvLoadingPercentage, skvLoadingQuestion;
 
-    public DiagnoseResultFragment(int id_test) {
+    public TestResultFragment(int id_test) {
         this.id_test = id_test;
     }
 
@@ -54,11 +55,11 @@ public class DiagnoseResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_diagnose_result, container, false);
+        view = inflater.inflate(R.layout.fragment_test_result, container, false);
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
@@ -69,7 +70,9 @@ public class DiagnoseResultFragment extends Fragment {
 //        srlRefresher = ((SwipeRefreshLayout) llList.getParent().getParent());
 
         llTestResultPercentageList = view.findViewById(R.id.llTestResultPercentageList);
-        llTestResultDetailList = view.findViewById(R.id.llTestResultDetailList);
+        llTestQuestionList = view.findViewById(R.id.llTestQuestionList);
+        skvLoadingPercentage = view.findViewById(R.id.skvLoadingPercentage);
+        skvLoadingQuestion = view.findViewById(R.id.skvLoadingQuestion);
 
         llTestResultPercentageList.removeAllViews();
 
@@ -88,7 +91,7 @@ public class DiagnoseResultFragment extends Fragment {
                     if (result.isOk()) {
                         int iNo = 1;
                         for (TestResult testResult : result.getData()) {
-                            View vPercentage = getLayoutInflater().inflate(R.layout.template_diagnose_result_percentage, null);
+                            View vPercentage = getLayoutInflater().inflate(R.layout.template_test_result_percentage, null);
                             TextView tvTestResultPercentage = vPercentage.findViewById(R.id.tvTestResultPercentageLabel);
 
                             String strLabel = testResult.getDisorder_name() + " : " + testResult.getSymptom_percentage();
@@ -103,6 +106,7 @@ public class DiagnoseResultFragment extends Fragment {
                             gt.addViewAnimated(llTestResultPercentageList, vPercentage);
                             iNo++;
                         }
+                        skvLoadingPercentage.setVisibility(View.GONE);
                         loadTestDetail();
                     }
                 }
@@ -110,13 +114,22 @@ public class DiagnoseResultFragment extends Fragment {
 
             @Override
             public void onFailure(Call<TestResultResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                gt.showSnackbar(
+                        "Terjadi kesalahan koneksi.",
+                        "RETRY",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                gt.refreshFragment();
+                            }
+                        }).show();
+                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void loadTestDetail() {
-        Call<TestDetailResponse> call = gt.callApi().showTestDetail(id_test);
+        Call<TestDetailResponse> call = gt.callApi().showTestResultDetail(id_test);
         call.enqueue(new Callback<TestDetailResponse>() {
             @Override
             public void onResponse(Call<TestDetailResponse> call, Response<TestDetailResponse> response) {
@@ -125,11 +138,13 @@ public class DiagnoseResultFragment extends Fragment {
                     if (result.isOk()) {
                         int iNo = 1;
                         for (TestDetail testDetail : result.getData()) {
-                            View vDetail = getLayoutInflater().inflate(R.layout.template_diagnose_result_detail, null);
-                            TextView tvTestDetailSymptom = vDetail.findViewById(R.id.tvTestDetailSymptom);
-                            TextView tvTestDetailChoice = vDetail.findViewById(R.id.tvTestDetailChoice);
+                            View vDetail = getLayoutInflater().inflate(R.layout.template_test_result_detail, null);
+                            TextView tvTestQuestionNo = vDetail.findViewById(R.id.tvTestQuestionNo);
+                            TextView tvTestQuestion = vDetail.findViewById(R.id.tvTestQuestion);
+                            TextView tvTestDetailChoice = vDetail.findViewById(R.id.tvTestQuestionChoice);
 
-                            tvTestDetailSymptom.setText(iNo + ". " + testDetail.getSymptom_name());
+                            tvTestQuestionNo.setText(iNo+ ". ");
+                            tvTestQuestion.setText(testDetail.getQuestion());
                             if (testDetail.getChoice() == 1) {
                                 tvTestDetailChoice.setText("YA");
                                 textStyling(tvTestDetailChoice, R.color.colorSuccess, R.drawable.bg_round_corner_border_success);
@@ -139,16 +154,26 @@ public class DiagnoseResultFragment extends Fragment {
                                 textStyling(tvTestDetailChoice, R.color.colorDanger, R.drawable.bg_round_corner_border_danger);
                             }
 
-                            gt.addViewAnimated(llTestResultDetailList, vDetail);
+                            gt.addViewAnimated(llTestQuestionList, vDetail);
                             iNo++;
                         }
+                        skvLoadingQuestion.setVisibility(View.GONE);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<TestDetailResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                gt.showSnackbar(
+                        "Terjadi kesalahan koneksi.",
+                        "RETRY",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                gt.refreshFragment();
+                            }
+                        }).show();
+                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }

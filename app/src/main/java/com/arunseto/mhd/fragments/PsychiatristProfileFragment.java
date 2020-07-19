@@ -53,7 +53,7 @@ public class PsychiatristProfileFragment extends Fragment {
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
@@ -84,14 +84,14 @@ public class PsychiatristProfileFragment extends Fragment {
         btnPsyImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(), gt.getContent(), new PsychiatristProfileImgFragment(getString(R.string.img_url)));
+                gt.navigateFragment( gt.getContent(), new PsychiatristProfileImgFragment(getString(R.string.img_url)));
             }
         });
 
         ibtnPsyContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                gt.navigateFragment(getFragmentManager(), flContent, new PsychiatristProfileContactFragment());
+//                gt.navigateFragment( flContent, new PsychiatristProfileContactFragment());
                 new PsychiatristProfileContactFragment(psychiatrist).show(getFragmentManager(), "Dialog");
             }
         });

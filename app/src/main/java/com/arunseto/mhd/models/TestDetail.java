@@ -14,13 +14,16 @@ public class TestDetail {
     private int choice;
     @SerializedName("NAMA_GEJALA")
     private String symptom_name;
+    @SerializedName("PERTANYAAN")
+    private String question;
 
-    public TestDetail(int id_test_detail, int id_symptom_detail, int id_test, int choice, String symptom_name) {
+    public TestDetail(int id_test_detail, int id_symptom_detail, int id_test, int choice, String symptom_name, String question) {
         this.id_test_detail = id_test_detail;
         this.id_symptom_detail = id_symptom_detail;
         this.id_test = id_test;
         this.choice = choice;
         this.symptom_name = symptom_name;
+        this.question = question;
     }
 
     public int getId_test_detail() {
@@ -41,5 +44,9 @@ public class TestDetail {
 
     public String getSymptom_name() {
         return symptom_name;
+    }
+
+    public String getQuestion() {
+        return question;
     }
 }

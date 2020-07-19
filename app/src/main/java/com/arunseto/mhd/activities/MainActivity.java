@@ -12,11 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.arunseto.mhd.R;
-import com.arunseto.mhd.fragments.DiagnoseExecuteFragment;
 import com.arunseto.mhd.fragments.DiagnoseFragment;
 import com.arunseto.mhd.fragments.ExploreFragment;
 import com.arunseto.mhd.fragments.HomeFragment;
 import com.arunseto.mhd.fragments.SettingsFragment;
+import com.arunseto.mhd.fragments.TestQFragment;
 import com.arunseto.mhd.models.DummyListNote;
 import com.arunseto.mhd.models.Note;
 import com.arunseto.mhd.models.User;
@@ -91,25 +91,29 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
-                        gt.navigateFragmentBnv(getSupportFragmentManager(),
+                        gt.navigateFragmentBnv(
                                 gt.getContentBnv(),
-                                new HomeFragment());
+                                new HomeFragment()
+                        );
 
                         return true;
                     case R.id.navigation_diagnose:
-                        gt.navigateFragmentBnv(getSupportFragmentManager(),
+                        gt.navigateFragmentBnv(
                                 gt.getContentBnv(),
-                                new DiagnoseFragment());
+                                new DiagnoseFragment()
+                        );
                         return true;
                     case R.id.navigation_explore:
-                        gt.navigateFragmentBnv(getSupportFragmentManager(),
+                        gt.navigateFragmentBnv(
                                 gt.getContentBnv(),
-                                new ExploreFragment());
+                                new ExploreFragment()
+                        );
                         return true;
                     case R.id.navigation_settings:
-                        gt.navigateFragmentBnv(getSupportFragmentManager(),
+                        gt.navigateFragmentBnv(
                                 gt.getContentBnv(),
-                                new SettingsFragment());
+                                new SettingsFragment()
+                        );
                         return true;
                 }
                 return false;
@@ -128,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         //checking if fragment has stacks or not
         final Fragment fragmentInFrame = getSupportFragmentManager().findFragmentById(R.id.flContent);
 
-        if (getSupportFragmentManager().getBackStackEntryCount() == 0 || fragmentInFrame instanceof DiagnoseExecuteFragment) {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0 || fragmentInFrame instanceof TestQFragment) {
             //if fragment has stack 0, user will be asked to click back twice to exit
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
@@ -136,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             this.doubleBackToExitPressedOnce = true;
-            if (fragmentInFrame instanceof DiagnoseExecuteFragment) {
+            if (fragmentInFrame instanceof TestQFragment) {
 //                Snackbar snackbar = Snackbar
 //                        .make(
 //                                findViewById(android.R.id.content),

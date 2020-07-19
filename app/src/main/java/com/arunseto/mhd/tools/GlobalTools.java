@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -38,9 +39,21 @@ import java.util.Date;
 public class GlobalTools {
     private Context context;
     private int animItemCounter;
+    private Fragment fragment;
+    private FragmentActivity activity;
+    private FragmentManager fragmentManager;
 
-    public GlobalTools(Context context) {
-        this.context = context;
+    public GlobalTools(Fragment fragment) {
+        this.fragment = fragment;
+        this.context = fragment.getActivity();
+        this.fragmentManager = fragment.getFragmentManager();
+        animItemCounter = 1;
+    }
+
+    public GlobalTools(FragmentActivity activity) {
+        this.activity = activity;
+        this.context = activity;
+        this.fragmentManager = activity.getSupportFragmentManager();
         animItemCounter = 1;
     }
 
@@ -115,7 +128,7 @@ public class GlobalTools {
     }
 
     //Navigate Fragment inside Bottom Navigation View
-    public void navigateFragmentBnv(FragmentManager fragmentManager, int content, Fragment fragment) {
+    public void navigateFragmentBnv(int content, Fragment fragment) {
         //Fragment navigator for the main content
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
@@ -123,7 +136,7 @@ public class GlobalTools {
     }
 
     //Navigate Fragment inside Main Content
-    public void navigateFragment(FragmentManager fragmentManager, int content, Fragment fragment) {
+    public void navigateFragment(int content, Fragment fragment) {
         //Fragment navigator for the Bottom Navigation View content
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction()
@@ -137,14 +150,22 @@ public class GlobalTools {
     }
 
     //Refresh Fragment
-    public void refreshFragment(FragmentManager fragmentManager, Fragment fragment) {
+    public void refreshFragment() {
+        //if the context came from activity
+        //WHICH MEANS
+        //fragment is null because the fragment constructor is initialized
+        //WHICH MEANS
+        //this method will not do anything
+        if (fragment == null) {
+            return;
+        }
         //Fragment navigator for the Bottom Navigation View content
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
         fragmentTransaction.detach(fragment).attach(fragment).commit();
     }
 
-    public void popFragment(FragmentManager fragmentManager) {
+    public void popFragment() {
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
 //        fragmentTransaction.detach(fragment).attach(fragment).commit();

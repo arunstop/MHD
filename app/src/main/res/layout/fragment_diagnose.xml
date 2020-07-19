@@ -19,7 +19,7 @@
             android:id="@+id/tvToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Diagnose"
+            android:text="Test"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -37,7 +37,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/llNavDiagnoseExecute"
+                android:id="@+id/llNavTestExecute"
                 style="@style/ButtonTransparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Diagnose"
+                        android:text="Test"
                         android:textStyle="bold" />
 
                     <TextView

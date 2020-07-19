@@ -72,7 +72,7 @@ public class UserProfileFragment extends Fragment {
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
@@ -298,7 +298,7 @@ public class UserProfileFragment extends Fragment {
                         //getting button must be declared after .show()
                         //otherwise it's going to crash the app
                         session.saveUser(result.getData().get(0));
-                        getActivity().onBackPressed();
+                        gt.popFragment();
                         confirmationDialog.dismiss();
                         loadingDialog.dismiss();
                         Toast.makeText(context, result.getMessage() + "", Toast.LENGTH_SHORT).show();
@@ -310,7 +310,8 @@ public class UserProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                gt.showSnackbar("Terjadi kesalahan koneksi.", "RETRY", null).show();
+                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -326,7 +327,6 @@ public class UserProfileFragment extends Fragment {
             public void onClick(View view) {
                 loadingDialog.show();
                 execDeleteAccount();
-
             }
         });
     }
@@ -360,7 +360,8 @@ public class UserProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                gt.showSnackbar("Terjadi kesalahan koneksi.", "RETRY", null).show();
+                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
 

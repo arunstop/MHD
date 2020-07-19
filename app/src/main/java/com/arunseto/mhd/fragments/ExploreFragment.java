@@ -30,10 +30,6 @@ import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.PoppingMenu;
 import com.github.ybq.android.spinkit.SpinKitView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -64,7 +60,7 @@ public class ExploreFragment extends Fragment {
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
@@ -87,7 +83,7 @@ public class ExploreFragment extends Fragment {
             @Override
             public void onRefresh() {
 //                loadNews();
-                gt.refreshFragment(getFragmentManager(), ExploreFragment.this);
+                gt.refreshFragment();
             }
         });
 
@@ -116,13 +112,13 @@ public class ExploreFragment extends Fragment {
                     case 0:
                         if (session.getEngArticle()) {
                             session.engArticleOn(false);
-                            gt.refreshFragment(getFragmentManager(), ExploreFragment.this);
+                            gt.refreshFragment();
                         } else {
                             session.engArticleOn(true);
                         }
 
                         if (session.getEngArticle()) {
-                            gt.refreshFragment(getFragmentManager(), ExploreFragment.this);
+                            gt.refreshFragment();
                         }
                         return true;
 
@@ -156,7 +152,16 @@ public class ExploreFragment extends Fragment {
 
             @Override
             public void onFailure(Call<News> call, Throwable t) {
-                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                gt.showSnackbar(
+                        "Terjadi kesalahan koneksi.",
+                        "RETRY",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                gt.refreshFragment();
+                            }
+                        }).show();
+                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
 
         });

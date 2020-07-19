@@ -22,7 +22,7 @@ import com.ebanx.swipebtn.SwipeButton;
 
 //This is the main prototype of fragmenting
 
-public class DiagnoseInitFragment extends Fragment {
+public class TestInitFragment extends Fragment {
 
     private View view;
     private LayoutInflater inflater;
@@ -33,21 +33,21 @@ public class DiagnoseInitFragment extends Fragment {
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
-    private Button btnNavTestList, btnNavDiagnoseExecuteStart;
-    private SwipeButton sbNavDiagnoseExecute;
-    private TextView tvDiagnoseInitLabel;
-    private Boolean startDiagnose= false;
+    private Button btnNavTestList, btnNavTestExecuteStart;
+    private SwipeButton sbNavTestExecute;
+    private TextView tvTestInitLabel;
+    private Boolean startTest= false;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_diagnose_init, container, false);
+        view = inflater.inflate(R.layout.fragment_test_init, container, false);
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
@@ -56,16 +56,16 @@ public class DiagnoseInitFragment extends Fragment {
         loadingDialog = gt.getLoadingDialog();
         confirmationDialog = gt.getConfirmationDialog();
 
-        tvDiagnoseInitLabel = view.findViewById(R.id.tvDiagnoseInitLabel);
-        sbNavDiagnoseExecute = view.findViewById(R.id.sbNavDiagnoseExecute);
-        btnNavTestList = view.findViewById(R.id.btnNavTestList);
-        btnNavDiagnoseExecuteStart = view.findViewById(R.id.btnNavDiagnoseExecuteStart);
+        tvTestInitLabel = view.findViewById(R.id.tvTestInitLabel);
+        sbNavTestExecute = view.findViewById(R.id.sbNavTestExecute);
+        btnNavTestList = view.findViewById(R.id.btnNavTestResultList);
+        btnNavTestExecuteStart = view.findViewById(R.id.btnNavTestQStart);
 
-        if (!startDiagnose) {
-            tvDiagnoseInitLabel.setVisibility(View.GONE);
-            sbNavDiagnoseExecute.setVisibility(View.GONE);
+        if (!startTest) {
+            tvTestInitLabel.setVisibility(View.GONE);
+            sbNavTestExecute.setVisibility(View.GONE);
         }else{
-            btnNavDiagnoseExecuteStart.setVisibility(View.GONE);
+            btnNavTestExecuteStart.setVisibility(View.GONE);
         }
 
         initActions();
@@ -78,35 +78,35 @@ public class DiagnoseInitFragment extends Fragment {
         btnNavTestList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseListFragment());
+                gt.navigateFragment( flContent, new TestListFragment());
             }
         });
 
-        sbNavDiagnoseExecute.setOnStateChangeListener(new OnStateChangeListener() {
+        sbNavTestExecute.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
                 if (active) {
 //                    addTest();
 //                    getFragmentManager().beginTransaction().
-                    gt.popFragment(getFragmentManager());
-                    gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseExecuteFragment());
+                    gt.popFragment();
+                    gt.navigateFragment( flContent, new TestQFragment());
                 } else {
-//                    gt.getSession().endDiagnoseSession();
-//                    String str = gt.getSession().getDiagnoseSession().getId_tes()
+//                    gt.getSession().endTestSession();
+//                    String str = gt.getSession().getTestSession().getId_tes()
 //                            + "\n"
-//                            + gt.getSession().getDiagnoseSession().getId_user();
+//                            + gt.getSession().getTestSession().getId_user();
 //                    Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        btnNavDiagnoseExecuteStart.setOnClickListener(new View.OnClickListener() {
+        btnNavTestExecuteStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startDiagnose=true;
-                tvDiagnoseInitLabel.setVisibility(View.VISIBLE);
-                sbNavDiagnoseExecute.setVisibility(View.VISIBLE);
-                btnNavDiagnoseExecuteStart.setVisibility(View.GONE);
+                startTest=true;
+                tvTestInitLabel.setVisibility(View.VISIBLE);
+                sbNavTestExecute.setVisibility(View.VISIBLE);
+                btnNavTestExecuteStart.setVisibility(View.GONE);
             }
         });
     }

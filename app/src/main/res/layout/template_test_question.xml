@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvSymptomQuizNo"
+                android:id="@+id/tvQuestionNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_gradient_180"
@@ -30,7 +30,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvSymptomName"
+                android:id="@+id/tvQuestionLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnNo"
+            android:id="@+id/btnAnswerNo"
             style="@style/ButtonRound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/btnYes"
+            android:id="@+id/btnAnswerYes"
             style="@style/ButtonRound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

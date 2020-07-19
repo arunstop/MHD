@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingStart="6dp"-->
+    <!--android:paddingEnd="6dp">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tvTestQuestionNo"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:maxWidth="240dp"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:text="3"-->
+    <!--android:textSize="12sp"-->
+    <!--android:textStyle="normal" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tvTestQuestion"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="6dp"-->
+    <!--android:layout_weight="5"-->
+    <!--android:maxWidth="240dp"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:text="Apakah anda merasa bosan ? \nApakah anda merasa bosan ? "-->
+    <!--android:textColor="@color/colorBlack"-->
+    <!--android:textSize="12sp"-->
+    <!--android:textStyle="normal" />-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="3">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tvTestQuestionChoice"-->
+    <!--android:layout_width="72dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:layout_margin="6dp"-->
+    <!--android:layout_marginStart="12dp"-->
+    <!--android:background="@drawable/bg_round_corner_border"-->
+    <!--android:gravity="center"-->
+    <!--android:minWidth="72dp"-->
+    <!--android:outlineProvider="background"-->
+    <!--android:paddingStart="12dp"-->
+    <!--android:paddingEnd="12dp"-->
+    <!--android:text="CHOICE"-->
+    <!--android:textColor="@color/colorPrimary"-->
+    <!--android:textSize="12sp"-->
+    <!--android:textStyle="bold" />-->
+    <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="6dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingEnd="6dp">
+
+        <TextView
+            android:id="@+id/tvTestQuestionNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:orientation="horizontal"
+            android:text="3"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tvTestQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_toEndOf="@id/tvTestQuestionNo"
+            android:maxWidth="240dp"
+            android:orientation="horizontal"
+            android:text="Apakah anda merasa bosan ? \nApakah anda merasa bosan ? "
+            android:textColor="@color/colorBlack"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
+
+        <TextView
+            android:id="@+id/tvTestQuestionChoice"
+            android:layout_width="72dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="6dp"
+
+            android:background="@drawable/bg_round_corner_border"
+            android:gravity="center"
+            android:minWidth="72dp"
+            android:outlineProvider="background"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="CHOICE"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="240dp"
+        android:layout_height="1dp"
+        android:background="@drawable/bg_textline"
+        />
+
+</LinearLayout>

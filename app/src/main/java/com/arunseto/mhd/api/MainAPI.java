@@ -6,7 +6,7 @@ import com.arunseto.mhd.models.DefaultResponse;
 import com.arunseto.mhd.models.DisorderResponse;
 import com.arunseto.mhd.models.NoteResponse;
 import com.arunseto.mhd.models.PsychiatristResponse;
-import com.arunseto.mhd.models.QuizResponse;
+import com.arunseto.mhd.models.QuestionResponse;
 import com.arunseto.mhd.models.TestDetailResponse;
 import com.arunseto.mhd.models.TestResponse;
 import com.arunseto.mhd.models.TestResultResponse;
@@ -99,10 +99,10 @@ public interface MainAPI {
     Call<PsychiatristResponse> showPsychiatrist();
 
     @GET("symptom/show")
-    Call<QuizResponse> showSymptom();
+    Call<QuestionResponse> showSymptom();
 
     @GET("symptom/show")
-    Call<QuizResponse> loadQuiz(
+    Call<QuestionResponse> loadQuiz(
             @Query("id_gejala_detail") int id_gejala_detail
     );
 
@@ -131,13 +131,13 @@ public interface MainAPI {
             @Field("choice") int choice
     );
 
-    @GET("test/showTestResult")
+    @GET("test/showResult")
     Call<TestResultResponse> showTestResult(
             @Query("id_tes") int id_tes
     );
 
-    @GET("test/showDetail")
-    Call<TestDetailResponse> showTestDetail(
+    @GET("test/showResultDetail")
+    Call<TestDetailResponse> showTestResultDetail(
             @Query("id_tes") int id_tes
     );
 

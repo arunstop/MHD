@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
@@ -59,13 +59,13 @@ public class HomeFragment extends Fragment {
         btnNavNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(), gt.getContent(), new NoteFragment());
+                gt.navigateFragment( gt.getContent(), new NoteFragment());
             }
         });
         btnNavNoteList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(), gt.getContent(), new NoteListFragment());
+                gt.navigateFragment( gt.getContent(), new NoteListFragment());
             }
         });
 

@@ -24,7 +24,7 @@ public class DiagnoseFragment extends Fragment {
     private Context context;
     private Session session;
     private User user;
-    private LinearLayout llNavDiagnoseExecute,llNavPsychiatrist,llNavPsychiatristMap;
+    private LinearLayout llNavTestExecute,llNavPsychiatrist,llNavPsychiatristMap;
     private int flContent;
     private GlobalTools gt;
 
@@ -37,28 +37,28 @@ public class DiagnoseFragment extends Fragment {
         //getting inflater from the parameter is important to preventing a crash caused by switching between fragment too fast
         this.inflater = inflater;
 
-        gt = new GlobalTools(getActivity());
+        gt = new GlobalTools(this);
         context = gt.getContext();
         session = gt.getSession();
         user = gt.getUser();
         flContent = gt.getContent();
 
-        llNavDiagnoseExecute = view.findViewById(R.id.llNavDiagnoseExecute);
+        llNavTestExecute = view.findViewById(R.id.llNavTestExecute);
         llNavPsychiatrist = view.findViewById(R.id.llNavPsychiatrist);
         llNavPsychiatristMap = view.findViewById(R.id.llNavPsychiatristMap);
 
 
-        llNavDiagnoseExecute.setOnClickListener(new View.OnClickListener() {
+        llNavTestExecute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(), flContent, new DiagnoseInitFragment());
+                gt.navigateFragment( flContent, new TestInitFragment());
             }
         });
 
         llNavPsychiatrist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment(getFragmentManager(), flContent, new PsychiatristFragment());
+                gt.navigateFragment( flContent, new PsychiatristFragment());
             }
         });
 
