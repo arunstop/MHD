@@ -42,11 +42,13 @@ public class GlobalTools {
     private Fragment fragment;
     private FragmentActivity activity;
     private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     public GlobalTools(Fragment fragment) {
         this.fragment = fragment;
         this.context = fragment.getActivity();
         this.fragmentManager = fragment.getFragmentManager();
+        this.fragmentTransaction = fragmentManager.beginTransaction();
         animItemCounter = 1;
     }
 
@@ -54,6 +56,7 @@ public class GlobalTools {
         this.activity = activity;
         this.context = activity;
         this.fragmentManager = activity.getSupportFragmentManager();
+        this.fragmentTransaction = fragmentManager.beginTransaction();
         animItemCounter = 1;
     }
 
@@ -172,6 +175,13 @@ public class GlobalTools {
         fragmentManager.popBackStack();
     }
 
+    public void showNotFoundPage(ViewGroup vList) {
+        ViewGroup vParent = (ViewGroup) vList.getParent();
+        View vNotFound = fragment.getLayoutInflater().inflate(R.layout.template_no_data, null);
+        vParent.removeAllViews();
+        vParent.addView(vNotFound);
+    }
+
     //Load online Image
     public void loadImgUrl(String url, ImageView ivTarget) {
         //.diskCacheStrategy(DiskCacheStrategy.ALL is to cache the downloaded images
@@ -179,7 +189,7 @@ public class GlobalTools {
         if (!url.isEmpty()) {
             Glide.with(context).load(url).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
         } else {
-            Glide.with(context).load(ContextCompat.getDrawable(context, R.drawable.google_logo)).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
+            Glide.with(context).load(ContextCompat.getDrawable(context, R.drawable.ic_main_round)).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
         }
     }
 
@@ -190,12 +200,15 @@ public class GlobalTools {
         if (!url.isEmpty()) {
             Glide.with(context).load(url).centerInside().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
         } else {
-            Glide.with(context).load(ContextCompat.getDrawable(context, R.drawable.google_logo)).centerInside().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
+            Glide.with(context).load(ContextCompat.getDrawable(context, R.drawable.ic_main_round)).centerInside().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
         }
     }
 
     //Capitalize each word
     public String capEachWord(String string) {
+        if(string == null){
+            return "";
+        }
         //If there is no space, return the default string value
         String s = string.toLowerCase();
         String[] sArray = s.split(" ");

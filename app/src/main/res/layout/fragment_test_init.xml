@@ -73,7 +73,7 @@
                 android:drawableStart="@drawable/ic_info_24dp"
                 android:drawablePadding="12dp"
                 android:gravity="start|center_vertical"
-                android:text="Perhatian! Proses diagnosa yang akan dilakukan merupakan proses awal pendeteksian, untuk hasil yang 100% akurat mohon menemui ahli profesional (psikilog atau psikiater)"
+                android:text="Perhatian! Proses diagnosa yang akan dilakukan merupakan proses awal pendeteksian, untuk proses selanjutnya menemui ahli profesional (psikilog atau psikiater)"
                 android:textSize="12sp" />
 
             <TextView

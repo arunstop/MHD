@@ -2,6 +2,7 @@ package com.arunseto.mhd.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.arunseto.mhd.activities.LoginActivity;
 import com.arunseto.mhd.R;
+import com.arunseto.mhd.activities.LoginActivity;
 import com.arunseto.mhd.api.GoogleAuthClient;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
@@ -42,7 +43,7 @@ public class SettingsFragment extends Fragment {
     private ImageView ivProfilePhoto;
     private ConfirmationDialog confirmationDialog;
     private GlobalTools gt;
-    private Button btnEditProfile, btnAbout, btnHelp, btnLogout;
+    private Button btnEditProfile, btnAbout, btnHelp, btnFeedback, btnLogout;
     private LoadingDialog loadingDialog;
 
     @Nullable
@@ -67,6 +68,7 @@ public class SettingsFragment extends Fragment {
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         btnAbout = view.findViewById(R.id.btnAbout);
         btnHelp = view.findViewById(R.id.btnHelp);
+        btnFeedback = view.findViewById(R.id.btnFeedback);
         btnLogout = view.findViewById(R.id.btnLogout);
 
         String displayName = user.getFirst_name() + " " + user.getLast_name();
@@ -105,6 +107,22 @@ public class SettingsFragment extends Fragment {
                         new HelpFragment());
             }
         });
+
+        btnFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "arunstop@gmail.com", null));
+                emailIntent.putExtra(
+                        Intent.EXTRA_SUBJECT,
+                        "[MHD APP] Feedabck from " +
+                                (user.getFirst_name() + " " + user.getLast_name()).toUpperCase()
+                );
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+            }
+        });
+
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

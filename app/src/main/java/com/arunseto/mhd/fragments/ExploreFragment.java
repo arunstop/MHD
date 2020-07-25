@@ -88,9 +88,12 @@ public class ExploreFragment extends Fragment {
         });
 
         llNewsList.removeAllViews();
-        loadNews("kesehatan mental");
-        if (session.getEngArticle()) {
-            loadNews("mental health");
+        try {
+            loadNews("kesehatan mental");
+        } finally {
+            if (session.getEngArticle()) {
+                loadNews("mental health");
+            }
         }
 
 
@@ -144,6 +147,10 @@ public class ExploreFragment extends Fragment {
             public void onResponse(Call<News> call, Response<News> response) {
                 News newsResult = response.body();
                 if (response.isSuccessful()) {
+                    if (newsResult.getArticles().size() <= 0) {
+                        gt.showNotFoundPage(llNewsList);
+                        return;
+                    }
                     mapNews(newsResult.getArticles());
                 } else {
                     Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();

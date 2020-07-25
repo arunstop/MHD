@@ -98,6 +98,10 @@ public class PsychiatristFragment extends Fragment {
                              if (response.isSuccessful()) {
                                  PsychiatristResponse result = response.body();
                                  if (result.isOk()) {
+                                     if (result.getData()==null){
+                            gt.showNotFoundPage(llPsychiatristList);
+                                         return;
+                                     }
                                      mapPsychiatrist(result.getData());
                                  }
                              }
@@ -123,7 +127,7 @@ public class PsychiatristFragment extends Fragment {
 
     public void mapPsychiatrist(List<Psychiatrist> lp) {
         for (final Psychiatrist psy : lp) {
-            View vPsy = getLayoutInflater().inflate(R.layout.template_psychiatrist, null);
+            View vPsy = inflater.inflate(R.layout.template_psychiatrist, null);
             LinearLayout llPsy = vPsy.findViewById(R.id.llPsychiatrist);
             TextView tvPsyName = vPsy.findViewById(R.id.tvPsyName);
             TextView tvPsyNo = vPsy.findViewById(R.id.tvPsyNo);

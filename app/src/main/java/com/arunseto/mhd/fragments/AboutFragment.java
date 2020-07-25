@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -30,6 +31,7 @@ public class AboutFragment extends Fragment {
     private GlobalTools gt;
     private ConfirmationDialog confirmationDialog;
     private LoadingDialog loadingDialog;
+    private Button btnNavMoreInfo;
 
     @Nullable
     @Override
@@ -48,6 +50,14 @@ public class AboutFragment extends Fragment {
         loadingDialog = gt.getLoadingDialog();
         confirmationDialog = gt.getConfirmationDialog();
 
+
+        btnNavMoreInfo = view.findViewById(R.id.btnNavMoreInfo);
+        btnNavMoreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gt.navigateFragment(flContent, new MoreInfoFragment());
+            }
+        });
 
         return view;
     }

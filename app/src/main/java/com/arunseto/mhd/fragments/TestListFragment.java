@@ -96,6 +96,10 @@ public class TestListFragment extends Fragment {
                     if (result.isOk()) {
                         int i = result.getData().size();
                         for (final Test test : result.getData()) {
+                            if (result.getData()==null){
+                            gt.showNotFoundPage(llTestResultList);
+                                return;
+                            }
                             View vTestResult = inflater.inflate(R.layout.template_test_result, null);
                             TextView tvTestLabel = vTestResult.findViewById(R.id.tvTestLabel);
                             TextView tvTestDate = vTestResult.findViewById(R.id.tvTestDate);

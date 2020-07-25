@@ -91,10 +91,14 @@ public class TestResultFragment extends Fragment {
                     if (result.isOk()) {
                         int iNo = 1;
                         for (TestResult testResult : result.getData()) {
-                            View vPercentage = getLayoutInflater().inflate(R.layout.template_test_result_percentage, null);
+                            View vPercentage = inflater.inflate(R.layout.template_test_result_percentage, null);
                             TextView tvTestResultPercentage = vPercentage.findViewById(R.id.tvTestResultPercentageLabel);
 
-                            String strLabel = testResult.getDisorder_name() + " : " + testResult.getSymptom_percentage();
+                            double percentage = testResult.getSymptom_percentage();
+                            percentage = percentage*100;
+                            percentage = Math.round(percentage);
+                            percentage = percentage/100;
+                            String strLabel = testResult.getDisorder_name() + " : " + percentage +"%";
                             if (iNo == 1) {
                                 strLabel = "<b>" + strLabel + "</b>";
                                 tvTestResultPercentage.setTextSize(18);
@@ -138,7 +142,7 @@ public class TestResultFragment extends Fragment {
                     if (result.isOk()) {
                         int iNo = 1;
                         for (TestDetail testDetail : result.getData()) {
-                            View vDetail = getLayoutInflater().inflate(R.layout.template_test_result_detail, null);
+                            View vDetail = inflater.inflate(R.layout.template_test_result_detail, null);
                             TextView tvTestQuestionNo = vDetail.findViewById(R.id.tvTestQuestionNo);
                             TextView tvTestQuestion = vDetail.findViewById(R.id.tvTestQuestion);
                             TextView tvTestDetailChoice = vDetail.findViewById(R.id.tvTestQuestionChoice);

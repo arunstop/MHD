@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +19,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.MainClient;
 import com.arunseto.mhd.models.DefaultResponse;
-import com.arunseto.mhd.models.DummyListNote;
 import com.arunseto.mhd.models.Note;
 import com.arunseto.mhd.models.NoteResponse;
 import com.arunseto.mhd.models.User;
@@ -129,7 +126,11 @@ public class NoteListFragment extends Fragment {
                 if (response.isSuccessful()) {
                     NoteResponse result = response.body();
                     if (result.isOk()) {
-                        mapNews(result.getData());
+                        if (result.getData()==null){
+                            gt.showNotFoundPage(llNoteList);
+                            return;
+                        }
+                        mapNote(result.getData());
 //                        Toast.makeText(context, result.getMessage()+"", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -151,7 +152,7 @@ public class NoteListFragment extends Fragment {
         });
     }
 
-    public void mapNews(List<Note> ln) {
+    public void mapNote(List<Note> ln) {
         llNoteList.removeAllViews();
         for (final Note note : ln) {
             final View vNote = inflater.inflate(R.layout.template_note, null);

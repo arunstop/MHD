@@ -121,7 +121,7 @@ public class GlobalFragment extends Fragment {
         if (!url.isEmpty()) {
             Glide.with(context).load(url).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
         } else {
-            Glide.with(context).load(ContextCompat.getDrawable(context, R.drawable.google_logo)).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
+            Glide.with(context).load(ContextCompat.getDrawable(context, R.drawable.ic_main_round)).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
         }
     }
 
@@ -132,7 +132,7 @@ public class GlobalFragment extends Fragment {
         if (!url.isEmpty()) {
             Glide.with(context).load(url).centerInside().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
         } else {
-            Glide.with(context).load(ContextCompat.getDrawable(context, R.drawable.google_logo)).centerInside().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
+            Glide.with(context).load(ContextCompat.getDrawable(context, R.drawable.ic_main_round)).centerInside().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
         }
     }
 

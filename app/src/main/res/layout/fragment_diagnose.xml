@@ -19,7 +19,7 @@
             android:id="@+id/tvToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Test"
+            android:text="Diagnosa"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -47,9 +47,10 @@
                 android:paddingEnd="12dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_local_hospital_black_120dp" />
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_test" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -60,13 +61,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Test"
+                        android:text="Diagnosa"
+                        android:textColor="@color/colorDark"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:layout_marginTop="6dp"
+                        android:textSize="12sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Diagnosa diri anda" />
+                        android:text="Mengisi kuisioner untuk diagnosa awal tentang gangguan mental anda" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -82,9 +86,10 @@
                 android:paddingEnd="12dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_map_black_120dp" />
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_doctor" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -95,18 +100,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Daftar Psikiater"
+                        android:text="Daftar Ahli"
+                        android:textColor="@color/colorDark"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:layout_marginTop="6dp"
+                        android:textSize="12sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="deskripsi" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="deskripsi" />
+                        android:text="Untuk pertolongan selanjutnya, lihat daftar ahli yang dapat anda hubungi." />
                 </LinearLayout>
 
             </LinearLayout>
@@ -122,9 +125,10 @@
                 android:paddingEnd="12dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_map_black_120dp" />
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_gmap" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -136,17 +140,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Psikiater Terdekat"
+                        android:textColor="@color/colorDark"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:layout_marginTop="6dp"
+                        android:textSize="12sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="deskripsi" />
+                        android:text="Lihat daftar psikiater terdekat dari lokasi anda melalui aplikasi Google Map" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="deskripsi" />
                 </LinearLayout>
 
             </LinearLayout>

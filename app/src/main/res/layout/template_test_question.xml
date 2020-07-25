@@ -35,6 +35,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:minHeight="300dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:orientation="horizontal"
                 android:text="Apakah anda merasa bosan ? "
                 android:textColor="@color/colorBlack"

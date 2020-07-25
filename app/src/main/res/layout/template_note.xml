@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_textline"
     android:orientation="horizontal">
 
     <LinearLayout
-        style="@style/ButtonTransparent"
+        android:background="@drawable/bg_textline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -49,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="Website.com - 2020-09-09"
+                    android:text="2020-09-09"
                     android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>

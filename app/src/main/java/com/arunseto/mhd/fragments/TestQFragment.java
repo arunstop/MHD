@@ -119,7 +119,7 @@ public class TestQFragment extends Fragment {
                                 String strYn = "\n"
                                         + "YES : " + question.getYes() + "\n"
                                         + "NO : " + question.getNo();
-                                strQuizName = "Apakah " + question.getQuestion() + " ?";
+                                strQuizName = question.getQuestion();
                                 vfSymptomsList.addView(vQuiz);
                                 vfSymptomsList.showNext();
                                 iNo++;
