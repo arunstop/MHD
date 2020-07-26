@@ -311,7 +311,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 gt.showSnackbar("Terjadi kesalahan koneksi.", "RETRY", null).show();
-                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }

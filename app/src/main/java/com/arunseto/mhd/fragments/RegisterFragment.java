@@ -243,9 +243,12 @@ public class RegisterFragment extends Fragment {
                         session.saveUser(result.getData().get(0));
                         startActivity(new Intent(context, MainActivity.class));
                         getActivity().finish();
-                        loadingDialog.dismiss();
                         Toast.makeText(context, "Registration Success", Toast.LENGTH_SHORT).show();
+                        loadingDialog.dismiss();
                     }
+                }else{
+                    loadingDialog.dismiss();
+                    Toast.makeText(context, response.message()+"", Toast.LENGTH_SHORT).show();
                 }
             }
 

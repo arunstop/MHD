@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="210dp">
+    <ImageView
+        android:id="@+id/ivThumbnail"
+        android:src="@drawable/bg_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/tvTitle"
+        android:padding="12dp"
+        android:layout_alignParentBottom="true"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="Title of Article Title of Article Title of Article Title of Article Title of Article Title of Article Title of Article "
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorBackground"
+        android:alpha="0.7"
+        android:background="@drawable/bg_gradient_bw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

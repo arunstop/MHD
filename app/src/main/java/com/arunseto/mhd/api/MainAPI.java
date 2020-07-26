@@ -2,6 +2,7 @@ package com.arunseto.mhd.api;
 
 import androidx.annotation.Nullable;
 
+import com.arunseto.mhd.models.ArticleResponse;
 import com.arunseto.mhd.models.DefaultResponse;
 import com.arunseto.mhd.models.DisorderResponse;
 import com.arunseto.mhd.models.NoteResponse;
@@ -139,6 +140,10 @@ public interface MainAPI {
     @GET("test/showResultDetail")
     Call<TestDetailResponse> showTestResultDetail(
             @Query("id_tes") int id_tes
+    );
+
+    @GET("article/show")
+    Call<ArticleResponse> showArticle(
     );
 
 

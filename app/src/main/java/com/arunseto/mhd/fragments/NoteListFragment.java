@@ -125,12 +125,20 @@ public class NoteListFragment extends Fragment {
             public void onResponse(Call<NoteResponse> call, Response<NoteResponse> response) {
                 if (response.isSuccessful()) {
                     NoteResponse result = response.body();
-                    if (result.isOk()) {
+                    if (result.getData()==null){
+                        gt.showNotFoundPage(llNoteList);
+                        skvLoading.setVisibility(View.GONE);
+                        srlRefresher.setRefreshing(false);
+                        return;
+                    }
+                    else if (result.isOk()) {
                         if (result.getData()==null){
                             gt.showNotFoundPage(llNoteList);
                             return;
                         }
                         mapNote(result.getData());
+                        skvLoading.setVisibility(View.GONE);
+                        srlRefresher.setRefreshing(false);
 //                        Toast.makeText(context, result.getMessage()+"", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -196,8 +204,6 @@ public class NoteListFragment extends Fragment {
 
             gt.addViewAnimated(llNoteList, vNote);
         }
-        skvLoading.setVisibility(View.GONE);
-        srlRefresher.setRefreshing(false);
     }
 
     public void deleteNote(int id, final View vNote) {

@@ -93,7 +93,12 @@ public class TestListFragment extends Fragment {
             public void onResponse(Call<TestResponse> call, Response<TestResponse> response) {
                 if (response.isSuccessful()) {
                     TestResponse result = response.body();
-                    if (result.isOk()) {
+                    if (result.getData()==null){
+                        gt.showNotFoundPage(llTestResultList);
+                        skvLoading.setVisibility(View.GONE);
+                        return;
+                    }
+                    else if (result.isOk()) {
                         int i = result.getData().size();
                         for (final Test test : result.getData()) {
                             if (result.getData()==null){

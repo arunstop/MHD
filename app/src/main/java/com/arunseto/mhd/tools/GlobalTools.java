@@ -183,7 +183,7 @@ public class GlobalTools {
 
     public void showNotFoundPage(ViewGroup vList) {
         ViewGroup vParent = (ViewGroup) vList.getParent();
-        View vNotFound = fragment.getLayoutInflater().inflate(R.layout.template_no_data, null);
+        View vNotFound = fragment.getLayoutInflater().inflate(R.layout.template_not_found, null);
         vParent.removeAllViews();
         vParent.addView(vNotFound);
     }
@@ -236,6 +236,19 @@ public class GlobalTools {
                 container.addView(item);
             }
         }, animItemCounter * 100);
+        animItemCounter++;
+    }
+
+    public void addViewAnimatedPop(final ViewGroup container, final View item) {
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_pop);
+        item.startAnimation(animation);
+    //        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+    //            @Override
+    //            public void run() {
+    //
+    //            }
+    //        }, animItemCounter * 100);
+        container.addView(item);
         animItemCounter++;
     }
 
