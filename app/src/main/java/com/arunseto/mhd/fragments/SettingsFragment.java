@@ -112,7 +112,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", "arunstop@gmail.com", null));
+                        "mailto", getResources().getString(R.string.email), null));
                 emailIntent.putExtra(
                         Intent.EXTRA_SUBJECT,
                         "[MHD APP] Feedabck from " +

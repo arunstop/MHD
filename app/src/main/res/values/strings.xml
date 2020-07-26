@@ -5,7 +5,7 @@
     <string name="title_notifications">Notifications</string>
     <!--google auth client id-->
     <string name="client_id">52023918840-usq2mt0bjs6jkrncin52gno943csjasf.apps.googleusercontent.com</string>
-
+    <string name="yt_apikey">AIzaSyDQj3SuEJ-GPvJkcXK_reIB5fn3hmH0-tw</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
@@ -16,4 +16,5 @@ Karena hal itulah aplikasi ini dibuat, aplikasi ini dapat memberikan informasi t
 Diharapkan setelah pengguna mendapat hasil diagnosa pengguna dapat menghubungi ahli di bidang kesehatan mental seperti psikolog atau psikiater untuk melakukan langkah lebih lanjut.</string>
     <string name="img_url">"https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png"</string>
     <string name="title_activity_maps">Map</string>
+    <string name="email">arunstop@gmail.com</string>
 </resources>

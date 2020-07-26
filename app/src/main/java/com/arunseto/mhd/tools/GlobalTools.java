@@ -22,6 +22,8 @@ import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAuthClient;
 import com.arunseto.mhd.api.MainAPI;
 import com.arunseto.mhd.api.MainClient;
+import com.arunseto.mhd.api.YoutubeAPI;
+import com.arunseto.mhd.api.YoutubeClient;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.ui.ConfirmationDialog;
 import com.arunseto.mhd.ui.LoadingDialog;
@@ -88,6 +90,10 @@ public class GlobalTools {
     //Getting Main API
     public MainAPI callApi() {
         return MainClient.getInstance().getApi();
+    }
+
+    public YoutubeAPI callYoutubeApi() {
+        return YoutubeClient.getInstance().getApi();
     }
 
     //Getting GoogleAuthClient
