@@ -12,6 +12,7 @@ import com.arunseto.mhd.models.TestDetailResponse;
 import com.arunseto.mhd.models.TestResponse;
 import com.arunseto.mhd.models.TestResultResponse;
 import com.arunseto.mhd.models.UserResponse;
+import com.arunseto.mhd.models.VideoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -77,7 +78,7 @@ public interface MainAPI {
 
 
     @GET("note/show")
-    Call<NoteResponse> showNote(
+    Call<NoteResponse> showNotes(
             @Query("id_user") int id_user
     );
 
@@ -97,7 +98,7 @@ public interface MainAPI {
     );
 
     @GET("psychiatrist/show")
-    Call<PsychiatristResponse> showPsychiatrist();
+    Call<PsychiatristResponse> showPsychiatrists();
 
     @GET("symptom/show")
     Call<QuestionResponse> showSymptom();
@@ -120,7 +121,7 @@ public interface MainAPI {
     );
 
     @GET("test/showFullInfo")
-    Call<TestResponse> showTest(
+    Call<TestResponse> showTests(
             @Query("id_user") Integer id_user
     );
 
@@ -143,10 +144,13 @@ public interface MainAPI {
     );
 
     @GET("article/show")
-    Call<ArticleResponse> showArticle(
+    Call<ArticleResponse> showArticles(
+            @Query("limit") int limit
     );
 
-
-
-
+    @GET("video/show")
+    Call<VideoResponse> showVideos(
+            @Query("limit") int limit,
+            @Query("offset") int offset
+    );
 }

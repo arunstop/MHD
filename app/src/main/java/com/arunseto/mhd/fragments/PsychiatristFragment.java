@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -17,7 +16,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.MainClient;
-import com.arunseto.mhd.models.NoteResponse;
 import com.arunseto.mhd.models.Psychiatrist;
 import com.arunseto.mhd.models.PsychiatristResponse;
 import com.arunseto.mhd.models.User;
@@ -25,7 +23,6 @@ import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
 import com.github.ybq.android.spinkit.SpinKitView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -91,7 +88,7 @@ public class PsychiatristFragment extends Fragment {
 //        dummy.add(new Psychiatrist("Dr. Prasetiyo", "+62 822 122 561", "Jl. Melijan No 32", "08:00 - 19:00", "m"));
 //        dummy.add(new Psychiatrist("Dr. Enny Malamita", "+62 810 572 550", "Jl. Sukoharjo No 2", "08:00 - 19:00", "f"));
 
-        Call<PsychiatristResponse> call = MainClient.getInstance().getApi().showPsychiatrist();
+        Call<PsychiatristResponse> call = MainClient.getInstance().getApi().showPsychiatrists();
         call.enqueue(new Callback<PsychiatristResponse>() {
                          @Override
                          public void onResponse(Call<PsychiatristResponse> call, Response<PsychiatristResponse> response) {

@@ -30,6 +30,7 @@
 
                 <ImageView
                     android:id="@+id/ivVidThumbnail"
+                    android:focusable="true"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:src="@color/colorPrimaryDark" />

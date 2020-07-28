@@ -194,7 +194,7 @@ public class GlobalTools {
         //.diskCacheStrategy(DiskCacheStrategy.ALL is to cache the downloaded images
         //so the images can be reused in the future, by calling the same image's url
         if (!url.isEmpty()) {
-            if (circle.length!=0) {
+            if (circle.length != 0) {
                 Glide.with(context).load(url).circleCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
                 return;
             }
@@ -244,15 +244,24 @@ public class GlobalTools {
         animItemCounter++;
     }
 
-    public void addViewAnimatedPop(final ViewGroup container, final View item) {
+    //Add view with scale pop animation
+    //"bolean... instant" makes parameter instant optional
+    public void addViewAnimatedPop(final ViewGroup container, final View item, boolean... instant) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.scale_pop_in);
         item.startAnimation(animation);
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                container.addView(item);
-            }
-        }, animItemCounter * 100);
+        //if instant is true(using .length) because of the '...' thing
+        //view will be added instantly
+        if (instant.length != 0) {
+            container.addView(item);
+        } else {
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    container.addView(item);
+                }
+            }, animItemCounter * 100);
+
+        }
         animItemCounter++;
     }
 
@@ -266,41 +275,22 @@ public class GlobalTools {
                 container.removeView(item);
             }
         }, 400);
-//        final int duration = 1000;
-//        final ValueAnimator vAnim = ValueAnimator.ofInt(item.getMeasuredHeight(), -100);
-//        vAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                int val = (Integer) valueAnimator.getAnimatedValue();
-//                ViewGroup.LayoutParams layoutParams = item.getLayoutParams();
-//                layoutParams.height = val;
-//                item.setLayoutParams(layoutParams);
-//            }
-//        });
-////        vAnim.addListener(new AnimatorListenerAdapter() {
-////            @Override
-////            public void onAnimationEnd(Animator animation) {
-////                container.removeView(item);
-//////                super.onAnimationEnd(animation);
-////
-////            }
-////        });
-//        vAnim.setDuration(duration);
-//        vAnim.start();
-//
-//        //removing view with delay or 1/4 of animation duration
-//        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                container.removeView(item);
-//            }
-//        }, duration/2);
-
     }
 
     //Pop out menu
     public PoppingMenu getPoppingMenu(View anchor) {
         return new PoppingMenu(context, anchor);
+    }
+
+    //Sharing intent
+    public void showSharingIntent(String text) {
+        Intent iShare = new Intent(android.content.Intent.ACTION_SEND);
+        iShare.setType("text/plain");
+        iShare.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+        iShare.putExtra(android.content.Intent.EXTRA_TEXT, text);
+
+        //casting context to activity
+        ((Activity) context).startActivity(Intent.createChooser(iShare, "Share via..."));
     }
 
     //Getting current Date and time
@@ -316,16 +306,6 @@ public class GlobalTools {
         String currentDate = DateFormat.getDateInstance(dateFormat).format(calendar.getTime());
 
         return currentDate;
-    }
-
-    //Sharing intent
-    public void showSharingIntent(String text) {
-        Intent iShare = new Intent(android.content.Intent.ACTION_SEND);
-        iShare.setType("text/plain");
-        iShare.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
-        iShare.putExtra(android.content.Intent.EXTRA_TEXT, text);
-
-        ((Activity) context).startActivity(Intent.createChooser(iShare, "Share via..."));
     }
 
     //DateFormatter
@@ -371,5 +351,56 @@ public class GlobalTools {
         }
         return strResult;
     }
+
+//    //Calculate date
+//    public String calculateDate(String strDate, String format) {
+//        //yyyy-MM-dd'T'HH:mm:ss'Z'
+//
+//        String strResult = "";
+//        try {
+//            String promisedFormat = "yyyy-MM-dd HH:mm:ss";
+//            strDate = formatDate(
+//                    "yyyy-MM-dd'T'HH:mm:ss'Z'",
+//                    promisedFormat,
+//                    strDate
+//            );
+//            SimpleDateFormat sdf = new SimpleDateFormat(promisedFormat);
+//
+//
+//
+//            Date date = sdf.parse(strDate);
+//            Date dateNow = sdf.parse(getCurrentTime());
+//
+//            DecimalFormat crunchifyFormatter = new DecimalFormat("###,###");
+//
+//            // getTime() returns the number of milliseconds since January 1, 1970, 00:00:00 GMT represented by this Date object
+//            long diff = dateNow.getTime() - date.getTime();
+//
+//            int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
+//            System.out.println("difference between days: " + diffDays);
+//
+//            int diffhours = (int) (diff / (60 * 60 * 1000));
+//            System.out.println("difference between hours: " + crunchifyFormatter.format(diffhours));
+//
+//            int diffmin = (int) (diff / (60 * 1000));
+//            System.out.println("difference between minutues: " + crunchifyFormatter.format(diffmin));
+//
+//            int diffsec = (int) (diff / (1000));
+//            System.out.println("difference between seconds: " + crunchifyFormatter.format(diffsec));
+//
+//            System.out.println("difference between milliseconds: " + crunchifyFormatter.format(diff));
+//
+//            if (diffDays<30){
+//
+//            }else{
+//                return((diffDays%30)+" bulan yang lalu");
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return(strResult);
+//
+//    }
 
 }

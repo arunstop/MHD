@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +26,11 @@ import com.arunseto.mhd.R;
 import com.arunseto.mhd.models.Article;
 import com.arunseto.mhd.models.ArticleResponse;
 import com.arunseto.mhd.models.User;
-import com.arunseto.mhd.models.ytmodels.Item;
-import com.arunseto.mhd.models.ytmodels.Snippet;
-import com.arunseto.mhd.models.ytmodels.YoutubeResponse;
+import com.arunseto.mhd.models.Video;
+import com.arunseto.mhd.models.VideoResponse;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.List;
@@ -55,6 +57,8 @@ public class HomeFragment extends Fragment {
     private ViewPager vpArticle;
     private DotsIndicator dotsIndicator;
     private LinearLayout llVideoList;
+    private int offset = 0;
+    private SpinKitView skvLoadingArticle, skvLoadingVideo;
 
     @Nullable
     @Override
@@ -75,9 +79,13 @@ public class HomeFragment extends Fragment {
         tvEmail = view.findViewById(R.id.tvEmail);
         btnNavNote = view.findViewById(R.id.btnNavNote);
         btnNavNoteList = view.findViewById(R.id.btnNavNoteList);
+
         hsvVidContainer = view.findViewById(R.id.hsvVidContainer);
+        skvLoadingArticle = view.findViewById(R.id.skvLoadingArticle);
         vpArticle = view.findViewById(R.id.vpArticle);
         dotsIndicator = view.findViewById(R.id.dotsIndicator);
+
+        skvLoadingVideo = view.findViewById(R.id.skvLoadingVideo);
         llVideoList = view.findViewById(R.id.llVideoList);
 
         gt.loadImgUrl(getString(R.string.dummy_img_url), ivProfilePhoto);
@@ -102,61 +110,84 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        loadVids(10, "");
         loadArticles();
-
+        loadVids(10);
 
         return view;
     }
 
-
-    public void loadVids(final int maxResults, final String nextPageToken) {
-        Call<YoutubeResponse> call = gt.callYoutubeApi().showVideos("mental health", maxResults, nextPageToken);
-        call.enqueue(new Callback<YoutubeResponse>() {
+    public void loadArticles() {
+        skvLoadingArticle.setVisibility(View.VISIBLE);
+        Call<ArticleResponse> call = gt.callApi().showArticles(4);
+        call.enqueue(new Callback<ArticleResponse>() {
             @Override
-            public void onResponse(Call<YoutubeResponse> call, Response<YoutubeResponse> response) {
-                final YoutubeResponse result = response.body();
+            public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
+                ArticleResponse result = response.body();
+                vpArticle.setAdapter(paArticle(result));
+                vpArticle.setPageTransformer(false, ptArticle());
+                dotsIndicator.setViewPager(vpArticle);
+                skvLoadingArticle.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ArticleResponse> call, Throwable t) {
+                Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void loadVids(final int limit) {
+        //showing first 10 data at first
+        // limit = limit of output data
+        // offset = index start of data selection
+        skvLoadingVideo.setVisibility(View.VISIBLE);
+        Call<VideoResponse> call = gt.callApi().showVideos(limit, offset);
+        call.enqueue(new Callback<VideoResponse>() {
+            @Override
+            public void onResponse(Call<VideoResponse> call, Response<VideoResponse> response) {
+                final VideoResponse result = response.body();
 
                 if (result == null) {
-//                    gt.showNotFoundPage(llVideoList);
-                    for (int i = 1; i <= 10; i++) {
-                        View vVideo = inflater.inflate(R.layout.template_video, null);
-                        gt.addViewAnimatedPop(llVideoList, vVideo);
-                        vVideo.requestFocus(View.FOCUS_RIGHT);
-                    }
-//                    return;
+                    gt.showNotFoundPage(llVideoList);
+//                    for (int i = 1; i <= 10; i++) {
+//                        View vVideo = inflater.inflate(R.layout.template_video, null);
+//                        gt.addViewAnimatedPop(llVideoList, vVideo);
+//                        vVideo.requestFocus(View.FOCUS_RIGHT);
+//                    }
+                    return;
                 }
 
-                for (Item item : result.getItems()) {
+                for (final Video video : result.getData()) {
                     View vVideo = inflater.inflate(R.layout.template_video, null);
                     vVideo.setFocusable(true);
                     ImageView ivVidThumbnail = vVideo.findViewById(R.id.ivVidThumbnail);
                     TextView tvVidTitle = vVideo.findViewById(R.id.tvVidTitle);
                     TextView tvVidChannel = vVideo.findViewById(R.id.tvVidChannel);
                     TextView tvVidDate = vVideo.findViewById(R.id.tvVidDate);
-//                    Toast.makeText(context, item.getSnippet().getTitle() + "", Toast.LENGTH_SHORT).show();
 
-                    final String vidUrl = "https://www.youtube.com/watch?v=" + item.getId().getVideoId();
-                    Snippet sVideo = item.getSnippet();
+                    String strOutputDate = gt.formatDate(
+                            "yyyy-MM-dd'T'HH:mm:ss'Z'",
+                            "EEEE, dd MMMM yyyy, HH:mm",
+                            video.getPublished_at());
 
-                    gt.loadImgUrl(sVideo.getThumbnails().getMedium().getUrl() + "", ivVidThumbnail);
-                    tvVidTitle.setText(item.getSnippet().getTitle());
-                    tvVidChannel.setText(sVideo.getChannelTitle());
-                    tvVidDate.setText(sVideo.getPublishedAt());
+                    gt.loadImgUrl(video.getThumbnail() + "", ivVidThumbnail);
+                    tvVidTitle.setText(video.getTitle());
+                    tvVidChannel.setText(video.getChannel());
+                    tvVidDate.setText(strOutputDate);
 
                     vVideo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Intent iYoutubeVid = new Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse(vidUrl)
+                                    Uri.parse(video.getUrl())
                             );
                             startActivity(iYoutubeVid);
                         }
                     });
 
                     gt.addViewAnimatedPop(llVideoList, vVideo);
-                    vVideo.requestFocus();
+//                    ivVidThumbnail.requestFocus();
                 }
 
                 final View vMore = inflater.inflate(R.layout.template_more, null);
@@ -165,7 +196,7 @@ public class HomeFragment extends Fragment {
                 vMore.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (countMore == 2) {
+                        if (countMore == 3) {
                             Intent iYoutubeSearch = new Intent(
                                     Intent.ACTION_VIEW,
                                     Uri.parse("https://www.youtube.com/results?search_query=kesehatan+mental")
@@ -173,8 +204,9 @@ public class HomeFragment extends Fragment {
                             startActivity(iYoutubeSearch);
                             return;
                         }
-//                        gt.removeViewAnimated(llVideoList, vMore);
-                        loadVids(5, result.getNextPageToken());
+                        gt.removeViewAnimated(llVideoList, vMore);
+                        int newLimit = 5;
+                        loadVids(newLimit);
 //                        for (int i = 1; i <= 5; i++) {
 //                            View vVideo = inflater.inflate(R.layout.template_video, null);
 //                            gt.addViewAnimatedPop(llVideoList, vVideo);
@@ -182,41 +214,25 @@ public class HomeFragment extends Fragment {
                         countMore++;
                     }
                 });
-
+                skvLoadingVideo.setVisibility(View.GONE);
             }
 
             @Override
-            public void onFailure(Call<YoutubeResponse> call, Throwable t) {
+            public void onFailure(Call<VideoResponse> call, Throwable t) {
                 Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
 
-//        if (!nextPageToken.isEmpty()) {
-//            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    hsvVidContainer.fullScroll(View.FOCUS_RIGHT);
-//                }
-//            }, maxResults * 300);
-//        }
-    }
-
-    public void loadArticles() {
-        Call<ArticleResponse> call = gt.callApi().showArticle();
-        call.enqueue(new Callback<ArticleResponse>() {
-            @Override
-            public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
-                ArticleResponse result = response.body();
-                vpArticle.setAdapter(paArticle(result));
-                vpArticle.setPageTransformer(false, ptArticle());
-                dotsIndicator.setViewPager(vpArticle);
-            }
-
-            @Override
-            public void onFailure(Call<ArticleResponse> call, Throwable t) {
-
-            }
-        });
+        if (offset != 0) {
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    hsvVidContainer.fullScroll(View.FOCUS_RIGHT);
+                }
+            }, offset * 200);
+        }
+        offset += limit;
+//        Toast.makeText(context, hsvVidContainer.getWidth()+"\n"+hsvVidContainer.get(), Toast.LENGTH_SHORT).show();
     }
 
     //Adapter for articles
@@ -255,7 +271,7 @@ public class HomeFragment extends Fragment {
 //                        Toast.makeText(context, "KEKWKWKW", Toast.LENGTH_SHORT).show();
                     }
                 });
-                container.addView(vArticle, 0);
+                gt.addViewAnimatedPop(container, vArticle,true);
                 return vArticle;
             }
 

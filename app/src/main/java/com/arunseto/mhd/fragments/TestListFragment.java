@@ -87,7 +87,7 @@ public class TestListFragment extends Fragment {
         llTestResultList.removeAllViews();
         skvLoading.setVisibility(View.VISIBLE);
 
-        Call<TestResponse> call = gt.callApi().showTest(gt.getUser().getId_user());
+        Call<TestResponse> call = gt.callApi().showTests(gt.getUser().getId_user());
         call.enqueue(new Callback<TestResponse>() {
             @Override
             public void onResponse(Call<TestResponse> call, Response<TestResponse> response) {

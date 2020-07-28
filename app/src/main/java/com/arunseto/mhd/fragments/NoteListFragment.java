@@ -119,7 +119,7 @@ public class NoteListFragment extends Fragment {
 
     public void loadNotes() {
         skvLoading.setVisibility(View.VISIBLE);
-        Call<NoteResponse> call = MainClient.getInstance().getApi().showNote(user.getId_user());
+        Call<NoteResponse> call = MainClient.getInstance().getApi().showNotes(user.getId_user());
         call.enqueue(new Callback<NoteResponse>() {
             @Override
             public void onResponse(Call<NoteResponse> call, Response<NoteResponse> response) {
@@ -132,10 +132,10 @@ public class NoteListFragment extends Fragment {
                         return;
                     }
                     else if (result.isOk()) {
-                        if (result.getData()==null){
-                            gt.showNotFoundPage(llNoteList);
-                            return;
-                        }
+//                        if (result.getData()==null){
+//                            gt.showNotFoundPage(llNoteList);
+//                            return;
+//                        }
                         mapNote(result.getData());
                         skvLoading.setVisibility(View.GONE);
                         srlRefresher.setRefreshing(false);
