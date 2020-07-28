@@ -14,6 +14,8 @@ public class Article {
     private String isi;
     @SerializedName("IMG_URL")
     private String img_url;
+    @SerializedName("CREATED_AT")
+    private String created_at;
 
     public Article(String id_artikel, String id_user, String judul, String isi, String img_url) {
         this.id_artikel = id_artikel;
@@ -41,5 +43,9 @@ public class Article {
 
     public String getImg_url() {
         return img_url;
+    }
+
+    public String getCreated_at() {
+        return created_at;
     }
 }

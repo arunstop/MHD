@@ -58,13 +58,13 @@
 
         <ViewFlipper
             android:layout_centerInParent="true"
-            android:id="@+id/llSymptomsList"
+            android:id="@+id/vfSymptomsList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:inAnimation="@anim/slide_left_in"
+            android:inAnimation="@anim/scale_pop_in"
             android:orientation="vertical"
-            android:outAnimation="@anim/slide_right_out"
+            android:outAnimation="@anim/scale_pop_out"
             android:padding="12dp">
 
 

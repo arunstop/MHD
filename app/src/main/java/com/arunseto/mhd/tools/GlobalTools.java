@@ -189,10 +189,15 @@ public class GlobalTools {
     }
 
     //Load online Image
-    public void loadImgUrl(String url, ImageView ivTarget) {
+    //"bolean... circle" makes parameter circle optional
+    public void loadImgUrl(String url, ImageView ivTarget, boolean... circle) {
         //.diskCacheStrategy(DiskCacheStrategy.ALL is to cache the downloaded images
         //so the images can be reused in the future, by calling the same image's url
         if (!url.isEmpty()) {
+            if (circle.length!=0) {
+                Glide.with(context).load(url).circleCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
+                return;
+            }
             Glide.with(context).load(url).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
         } else {
             Glide.with(context).load(ContextCompat.getDrawable(context, R.drawable.ic_main_round)).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivTarget);
@@ -212,7 +217,7 @@ public class GlobalTools {
 
     //Capitalize each word
     public String capEachWord(String string) {
-        if(string == null){
+        if (string == null) {
             return "";
         }
         //If there is no space, return the default string value
@@ -240,15 +245,14 @@ public class GlobalTools {
     }
 
     public void addViewAnimatedPop(final ViewGroup container, final View item) {
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_pop);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.scale_pop_in);
         item.startAnimation(animation);
-    //        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-    //            @Override
-    //            public void run() {
-    //
-    //            }
-    //        }, animItemCounter * 100);
-        container.addView(item);
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                container.addView(item);
+            }
+        }, animItemCounter * 100);
         animItemCounter++;
     }
 

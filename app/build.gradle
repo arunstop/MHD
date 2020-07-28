@@ -54,4 +54,7 @@ dependencies {
 
     //Android image slider
     implementation 'com.github.smarteist:autoimageslider:1.3.9'
+
+    //Material View Pager Dots Indicator
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 }

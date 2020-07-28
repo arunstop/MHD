@@ -16,13 +16,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_gradient_180"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvQuestionNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_gradient_180"
+                android:background="@color/colorDark"
                 android:gravity="center"
                 android:padding="6dp"
                 android:text="1"
@@ -35,29 +36,30 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:minHeight="300dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
                 android:orientation="horizontal"
-                android:text="Apakah anda merasa bosan ? "
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="Apakah anda merasa bosan ?"
+                android:textColor="@color/colorBackground"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimarySoft"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp" />
 
-            <Button
-                android:id="@+id/btnPrevious"
-                style="@style/ButtonBack"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_chevron_left_24dp"
-                android:text="Kembali"
-                android:textColor="@color/colorPrimary" />
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnPrevious"
+                    style="@style/ButtonBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/ic_chevron_left_24dp"
+                    android:text="Kembali"
+                    android:textColor="@color/colorBackground" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

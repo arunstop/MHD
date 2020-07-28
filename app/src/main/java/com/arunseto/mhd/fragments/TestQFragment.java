@@ -77,7 +77,7 @@ public class TestQFragment extends Fragment {
 
         tdList = new ArrayList<>();
 
-        vfSymptomsList = view.findViewById(R.id.llSymptomsList);
+        vfSymptomsList = view.findViewById(R.id.vfSymptomsList);
         skvLoading = view.findViewById(R.id.skvLoading);
 //        append = view.findViewById(R.id.append);
 
@@ -107,8 +107,6 @@ public class TestQFragment extends Fragment {
                             Button btnNo = vQuiz.findViewById(R.id.btnAnswerNo);
                             Button btnPrevious = vQuiz.findViewById(R.id.btnPrevious);
 //
-
-
                             String strQuizNo = "Pertanyaan ke - "
                                     + iNo //question number
                                     + "";

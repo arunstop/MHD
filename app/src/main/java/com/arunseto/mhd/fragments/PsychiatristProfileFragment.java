@@ -77,14 +77,14 @@ public class PsychiatristProfileFragment extends Fragment {
         tvPsyExtra.setText(psychiatrist.getDesc());
 
         if (psychiatrist.getPhotoUrl().equals("f")) {
-            gt.loadImgUrl(getString(R.string.img_url), ivPsyImg);
+            gt.loadImgUrl(getString(R.string.dummy_img_url), ivPsyImg);
         } else {
             ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_jrr));
         }
         btnPsyImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment( gt.getContent(), new PsychiatristProfileImgFragment(getString(R.string.img_url)));
+                gt.navigateFragment( gt.getContent(), new PsychiatristProfileImgFragment(getString(R.string.dummy_img_url)));
             }
         });
 

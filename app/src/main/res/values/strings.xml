@@ -14,7 +14,7 @@ Gangguan mental merupakan penyakit/gangguan kesehatan yang masih tidak banyak di
 Gangguan ini dapat menyebabkan hal-hal seperti stress atau yang paling fatal adalah kematian yang dilakukan karena bunuh diri dan banyak penderita gangguan mental tidak menyadari jika mereka mengaliminya.\n\n
 Karena hal itulah aplikasi ini dibuat, aplikasi ini dapat memberikan informasi tentang betapa pentingnya kesehatan mental dan dapat melakukan diagnosa awal gangguan mental.\n\n
 Diharapkan setelah pengguna mendapat hasil diagnosa pengguna dapat menghubungi ahli di bidang kesehatan mental seperti psikolog atau psikiater untuk melakukan langkah lebih lanjut.</string>
-    <string name="img_url">"https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png"</string>
+    <string name="dummy_img_url">"https://w7.pngwing.com/pngs/543/934/png-transparent-google-app-logo-google-logo-g-suite-google-text-logo-circle.png"</string>
     <string name="title_activity_maps">Map</string>
     <string name="email">arunstop@gmail.com</string>
 </resources>
