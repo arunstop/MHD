@@ -88,7 +88,10 @@ public class HomeFragment extends Fragment {
         skvLoadingVideo = view.findViewById(R.id.skvLoadingVideo);
         llVideoList = view.findViewById(R.id.llVideoList);
 
-        gt.loadImgUrl(getString(R.string.dummy_img_url), ivProfilePhoto);
+        if (!user.getPhoto_url().isEmpty()) {
+//            Glide.with(context).load(user.getPhoto_url()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivProfilePhoto);
+            gt.loadImgUrl(user.getPhoto_url(), ivProfilePhoto);
+        }
 
         String greeting = "Halo! "
                 + gt.capEachWord(user.getFirst_name().toUpperCase()

@@ -67,7 +67,8 @@ public interface MainAPI {
             @Field("no_telp") String no_telp,
             @Field("sex") int sex,
             @Field("birth_date") String birth_date,
-            @Field("city") String city
+            @Field("city") String city,
+            @Field("photo_url") String photo_url
     );
 
     @FormUrlEncoded

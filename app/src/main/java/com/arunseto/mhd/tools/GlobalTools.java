@@ -20,6 +20,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAuthClient;
+import com.arunseto.mhd.api.ImgurAPI;
+import com.arunseto.mhd.api.ImgurClient;
 import com.arunseto.mhd.api.MainAPI;
 import com.arunseto.mhd.api.MainClient;
 import com.arunseto.mhd.api.YoutubeAPI;
@@ -92,8 +94,14 @@ public class GlobalTools {
         return MainClient.getInstance().getApi();
     }
 
+    //Getting Youtube API
     public YoutubeAPI callYoutubeApi() {
         return YoutubeClient.getInstance().getApi();
+    }
+
+    //Getting Main API
+    public ImgurAPI callImgurApi() {
+        return ImgurClient.getInstance().getApi();
     }
 
     //Getting GoogleAuthClient
@@ -172,6 +180,22 @@ public class GlobalTools {
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
         fragmentTransaction.detach(fragment).attach(fragment).commit();
+    }
+
+    //Refresh Fragment
+    public void refreshTargetedFragment(Fragment fTarget) {
+        //if the context came from activity
+        //WHICH MEANS
+        //fragment is null because the fragment constructor is initialized
+        //WHICH MEANS
+        //this method will not do anything
+        if (fTarget == null) {
+            return;
+        }
+        //Fragment navigator for the Bottom Navigation View content
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        fragmentTransaction.detach(fTarget).attach(fTarget).commit();
     }
 
     public void popFragment() {

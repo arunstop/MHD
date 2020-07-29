@@ -3,7 +3,14 @@ package com.arunseto.mhd.fragments;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,19 +18,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.loader.content.CursorLoader;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.activities.LoginActivity;
 import com.arunseto.mhd.api.GoogleAuthClient;
 import com.arunseto.mhd.api.MainClient;
 import com.arunseto.mhd.models.DefaultResponse;
+import com.arunseto.mhd.models.ImgurResponse;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.models.UserResponse;
 import com.arunseto.mhd.tools.GlobalTools;
@@ -33,21 +44,29 @@ import com.arunseto.mhd.ui.LoadingDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 //This is the main prototype of fragmenting
 
 public class UserProfileFragment extends Fragment {
 
+    //image properties
+    private static final int PERMISSION_REQUEST_CODE = 1;
     private View view;
     private LayoutInflater inflater;
-
     private Context context;
     private Session session;
     private User user;
@@ -57,12 +76,19 @@ public class UserProfileFragment extends Fragment {
     private GoogleAuthClient googleAuthClient;
     private LoadingDialog loadingDialog;
     private TextView tvEmail;
+    private ImageView ivProfilePhoto;
     private EditText etFirstName, etLastName, etPassword, etPhone, etPasswordConfirm, etBirthDate, etCity;
-    private Button btnMale, btnFemale, btnUpdateProfile, btnDeleteAccount;
-    private String firstName, lastName, email, password, phone, passwordConfirm, birthDate="", city;
+    private Button btnMale, btnFemale, btnUpdateProfile, btnDeleteAccount, btnEditPhoto;
+    private String firstName, lastName, email, password, phone, passwordConfirm, birthDate = "", city;
     private int sexO;
     private Calendar calendar;
-
+    //image properties
+    private Bitmap bSelectedImg;
+    private String NEW_IMG_URL = "";
+    //IMGUR CLIENT KEY
+    private String CLIENT_ID = "70bd9800f118bdf";
+    private String AUTHORIZATION_HEADER = "Client-ID " + CLIENT_ID;
+    private MultipartBody.Part IMG_BODY;
 
     @Nullable
     @Override
@@ -82,6 +108,8 @@ public class UserProfileFragment extends Fragment {
         loadingDialog = gt.getLoadingDialog();
         confirmationDialog = gt.getConfirmationDialog();
 
+        ivProfilePhoto = view.findViewById(R.id.ivProfilePhoto);
+        btnEditPhoto = view.findViewById(R.id.btnEditPhoto);
         etFirstName = view.findViewById(R.id.etFirstName);
         etLastName = view.findViewById(R.id.etLastName);
         tvEmail = view.findViewById(R.id.tvEmail);
@@ -95,8 +123,23 @@ public class UserProfileFragment extends Fragment {
         btnUpdateProfile = view.findViewById(R.id.btnUpdateProfile);
         btnDeleteAccount = view.findViewById(R.id.btnDeleteAccount);
 
-        calendar = Calendar.getInstance();
 
+        //checking os version
+        checkVersion();
+
+        if (!user.getPhoto_url().isEmpty()) {
+//            Glide.with(context).load(user.getPhoto_url()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivProfilePhoto);
+            gt.loadImgUrl(user.getPhoto_url(), ivProfilePhoto);
+        }
+
+        btnEditPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                browsePictures();
+            }
+        });
+
+        calendar = Calendar.getInstance();
 
         setDatePicker();
         sexOpt();
@@ -115,6 +158,7 @@ public class UserProfileFragment extends Fragment {
                 initDeleteAccount();
             }
         });
+        Log.d("imgur", "KEKW");
 
         return view;
     }
@@ -164,8 +208,8 @@ public class UserProfileFragment extends Fragment {
                         dayOfMonth);
                 //Format from calendar.getTime() example:
                 //Fri Jun 26 08:06:50 GMT+07:00 2020
-                birthDate = gt.formatDate("EEE MMM dd HH:mm:ss z yyyy","yyyy-MM-dd",calendar.getTime().toString());
-                String strDateForEt = gt.formatDate("yyyy-MM-dd","dd-MM-yyyy",birthDate);
+                birthDate = gt.formatDate("EEE MMM dd HH:mm:ss z yyyy", "yyyy-MM-dd", calendar.getTime().toString());
+                String strDateForEt = gt.formatDate("yyyy-MM-dd", "dd-MM-yyyy", birthDate);
                 etBirthDate.setText(strDateForEt);
 
             }
@@ -218,7 +262,95 @@ public class UserProfileFragment extends Fragment {
         String[] bDate = user.getBirth_date().split("-");
         etBirthDate.setText(bDate[2] + "-" + bDate[1] + "-" + bDate[0]);
 
+    }
 
+    public void checkVersion() {
+        //if OS version is below Marshmellow
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkPermission()) {
+//                Toast.makeText(context, "GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                requestPermission(); // Code for permission
+            }
+        } else {
+
+            // Code for Below 23 API Oriented Device
+            // Do next code
+        }
+    }
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(context, android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(context, "Permission granted", Toast.LENGTH_SHORT).show();
+                    Log.e("value", "Permission Granted, Now you can use local drive .");
+                    browsePictures();
+                } else {
+                    Toast.makeText(context, "Permission not granted, turn it on manually in settings", Toast.LENGTH_SHORT).show();
+                    Log.e("value", "Permission Denied, You cannot use local drive .");
+                }
+                break;
+        }
+    }
+
+    public void browsePictures() {
+        Intent iBrows = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(iBrows, 100);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null && resultCode == RESULT_OK && requestCode == 100) {
+            try {
+                Uri pathImg = data.getData();
+                //get image
+                bSelectedImg = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), pathImg);
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                bSelectedImg.compress(Bitmap.CompressFormat.JPEG, 0, out);
+                Bitmap decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(out.toByteArray()));
+                ivProfilePhoto.setImageBitmap(decoded);
+                //get filename/path
+                File fileImg = new File(getRealPathFromURI(pathImg));
+                //creating request body for file
+                RequestBody finalImage = RequestBody.create(MediaType.parse("image/*"), fileImg);
+                //sending image as body to imgur API
+                IMG_BODY = MultipartBody.Part.createFormData("image", fileImg.getName(), finalImage);
+
+            } catch (IOException e) {
+                Toast.makeText(context, e.getMessage() + "", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+//            Toast.makeText(context, "KEKEKEKE", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(context, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
     }
 
     public void initUpdateProfile() {
@@ -272,12 +404,41 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 loadingDialog.show();
-                execUpdateProfile();
+                if (bSelectedImg == null) {
+                    execUpdateProfile();
+                } else {
+                    Call<ImgurResponse> callUpload = gt.callImgurApi().uploadImg(AUTHORIZATION_HEADER, IMG_BODY);
+                    callUpload.enqueue(new Callback<ImgurResponse>() {
+                        @Override
+                        public void onResponse(Call<ImgurResponse> call, Response<ImgurResponse> response) {
+
+//                        Log.e("imgur", t.getMessage());
+//                        try {
+//                            String str = response.body().getString("status");
+//                            Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        Toast.makeText(context, response.+"", Toast.LENGTH_SHORT).show();
+                            NEW_IMG_URL = response.body().getData().getLink();
+                            execUpdateProfile();
+//                        etFirstName.setText(NEW_IMG_URL);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<ImgurResponse> call, Throwable t) {
+                            Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                }
             }
         });
     }
 
     public void execUpdateProfile() {
+
         Call<UserResponse> call = MainClient.getInstance().getApi().updateUser(
                 user.getId_user(),
                 email,
@@ -287,7 +448,9 @@ public class UserProfileFragment extends Fragment {
                 phone,
                 sexO,
                 birthDate,
-                city
+                city,
+                (NEW_IMG_URL == null ? user.getPhoto_url() : NEW_IMG_URL)
+
         );
         call.enqueue(new Callback<UserResponse>() {
             @Override
@@ -295,10 +458,13 @@ public class UserProfileFragment extends Fragment {
                 if (response.isSuccessful()) {
                     final UserResponse result = response.body();
                     if (result.isOk()) {
-                        //getting button must be declared after .show()
-                        //otherwise it's going to crash the app
+
+                        //saving session
                         session.saveUser(result.getData().get(0));
+                        //go back
                         gt.popFragment();
+
+                        //dissmiss the dialogs
                         confirmationDialog.dismiss();
                         loadingDialog.dismiss();
                         Toast.makeText(context, result.getMessage() + "", Toast.LENGTH_SHORT).show();
@@ -366,6 +532,4 @@ public class UserProfileFragment extends Fragment {
         });
 
     }
-
-
 }

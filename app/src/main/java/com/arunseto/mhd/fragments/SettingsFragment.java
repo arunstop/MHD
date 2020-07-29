@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.Task;
 
 public class SettingsFragment extends Fragment {
 
+    //storage permission properties
     private GoogleSignInClient googleSignInClient;
     private View view;
     private LayoutInflater inflater;
@@ -80,7 +81,6 @@ public class SettingsFragment extends Fragment {
             gt.loadImgUrl(user.getPhoto_url(), ivProfilePhoto);
         }
 
-
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,7 +123,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +131,19 @@ public class SettingsFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!user.getPhoto_url().isEmpty()) {
+//            Glide.with(context).load(user.getPhoto_url()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(ivProfilePhoto);
+            gt.loadImgUrl(user.getPhoto_url(), ivProfilePhoto);
+        }
+    }
+
+    public void refresh() {
+        gt.refreshFragment();
     }
 
     public void initLogout() {
@@ -160,6 +172,7 @@ public class SettingsFragment extends Fragment {
         });
 
     }
+
 
     private void execLogout() {
         /*
