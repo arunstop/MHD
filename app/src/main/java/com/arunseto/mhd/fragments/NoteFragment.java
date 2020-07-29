@@ -19,8 +19,8 @@ import com.arunseto.mhd.models.DummyListNote;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
-import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+import com.arunseto.mhd.ui.LoadingDialog;
 
 import java.text.DateFormat;
 

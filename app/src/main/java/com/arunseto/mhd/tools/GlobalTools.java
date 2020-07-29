@@ -317,20 +317,7 @@ public class GlobalTools {
         ((Activity) context).startActivity(Intent.createChooser(iShare, "Share via..."));
     }
 
-    //Getting current Date and time
-    public String getCurrentTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date dateNow = new Date();
-        return formatter.format(dateNow);
-    }
 
-    //Getting current date(optional)
-    public String getCurrentDate(int dateFormat) {
-        Calendar calendar = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance(dateFormat).format(calendar.getTime());
-
-        return currentDate;
-    }
 
     //DateFormatter
     /* FORMAT PATTERNS
@@ -374,6 +361,21 @@ public class GlobalTools {
             e.printStackTrace();
         }
         return strResult;
+    }
+
+    //Getting current Date and time
+    public String getCurrentTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateNow = new Date();
+        return formatter.format(dateNow);
+    }
+
+    //Getting current date(optional)
+    public String getCurrentDate(int dateFormat) {
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(dateFormat).format(calendar.getTime());
+
+        return currentDate;
     }
 
 //    //Calculate date

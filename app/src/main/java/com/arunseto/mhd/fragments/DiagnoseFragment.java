@@ -24,7 +24,7 @@ public class DiagnoseFragment extends Fragment {
     private Context context;
     private Session session;
     private User user;
-    private LinearLayout llNavTestExecute,llNavPsychiatrist,llNavPsychiatristMap;
+    private LinearLayout llNavTestExecute, llNavPsychiatrist, llNavPsychiatristMap;
     private int flContent;
     private GlobalTools gt;
 
@@ -51,14 +51,14 @@ public class DiagnoseFragment extends Fragment {
         llNavTestExecute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment( flContent, new TestInitFragment());
+                gt.navigateFragment(flContent, new TestInitFragment());
             }
         });
 
         llNavPsychiatrist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment( flContent, new PsychiatristFragment());
+                gt.navigateFragment(flContent, new PsychiatristFragment());
             }
         });
 

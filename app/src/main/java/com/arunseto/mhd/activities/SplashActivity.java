@@ -1,11 +1,11 @@
 package com.arunseto.mhd.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.models.User;

@@ -15,8 +15,8 @@ import com.arunseto.mhd.models.Note;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
-import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+import com.arunseto.mhd.ui.LoadingDialog;
 
 //This is the main prototype of fragmenting
 

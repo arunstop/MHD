@@ -93,16 +93,15 @@ public class TestListFragment extends Fragment {
             public void onResponse(Call<TestResponse> call, Response<TestResponse> response) {
                 if (response.isSuccessful()) {
                     TestResponse result = response.body();
-                    if (result.getData()==null){
+                    if (result.getData() == null) {
                         gt.showNotFoundPage(llTestResultList);
                         skvLoading.setVisibility(View.GONE);
                         return;
-                    }
-                    else if (result.isOk()) {
+                    } else if (result.isOk()) {
                         int i = result.getData().size();
                         for (final Test test : result.getData()) {
-                            if (result.getData()==null){
-                            gt.showNotFoundPage(llTestResultList);
+                            if (result.getData() == null) {
+                                gt.showNotFoundPage(llTestResultList);
                                 return;
                             }
                             View vTestResult = inflater.inflate(R.layout.template_test_result, null);
@@ -117,7 +116,7 @@ public class TestListFragment extends Fragment {
                             vTestResult.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    gt.navigateFragment( flContent, new TestResultFragment(test.getId_tes()));
+                                    gt.navigateFragment(flContent, new TestResultFragment(test.getId_tes()));
                                 }
                             });
                             gt.addViewAnimated(llTestResultList, vTestResult);

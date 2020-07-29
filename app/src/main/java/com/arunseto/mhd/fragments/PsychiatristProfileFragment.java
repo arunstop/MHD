@@ -21,8 +21,8 @@ import com.arunseto.mhd.models.Psychiatrist;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
-import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+import com.arunseto.mhd.ui.LoadingDialog;
 
 
 public class PsychiatristProfileFragment extends Fragment {
@@ -84,7 +84,7 @@ public class PsychiatristProfileFragment extends Fragment {
         btnPsyImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment( gt.getContent(), new PsychiatristProfileImgFragment(getString(R.string.dummy_img_url)));
+                gt.navigateFragment(gt.getContent(), new PsychiatristProfileImgFragment(getString(R.string.dummy_img_url)));
             }
         });
 

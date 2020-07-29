@@ -205,7 +205,7 @@ public class TestQFragment extends Fragment {
     }
 
     public void pushDetail(int id_symptom_detail, int choice) {
-        tdList.add(new TestDetail(0, id_symptom_detail, 0, choice, "",""));
+        tdList.add(new TestDetail(0, id_symptom_detail, 0, choice, "", ""));
     }
 
     public void addTest(final int id_disorder_result) {

@@ -48,6 +48,24 @@ public interface MainAPI {
     );
 
     @FormUrlEncoded
+    @POST("user/authGoogle")
+    Call<UserResponse> loginGoogle(
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("first_name") String first_name,
+            @Field("last_name") String last_name,
+            @Field("no_telp") String no_telp,
+            @Field("sex") int sex,
+            @Field("birth_date") String birth_date,
+            @Field("city") String city,
+            @Field("photo_url") String photo_url,
+            @Field("role") int role,
+            @Field("last_login") String last_login,
+            @Field("type_login") int type_login,
+            @Field("created_at") String created_at
+    );
+
+    @FormUrlEncoded
     @POST("user/auth")
     Call<UserResponse> loginUser(
             @Field("email") String email,

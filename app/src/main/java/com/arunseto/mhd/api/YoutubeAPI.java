@@ -12,7 +12,7 @@ public interface YoutubeAPI {
 //    AIzaSyDQj3SuEJ-GPvJkcXK_reIB5fn3hmH0-tw
     String key = "AIzaSyDQj3SuEJ-GPvJkcXK_reIB5fn3hmH0-tw";
 
-    @GET("search.json?key="+key+"&safeSearch=strict&part=snippet&safeSearch=strict")
+    @GET("search.json?key=" + key + "&safeSearch=strict&part=snippet&safeSearch=strict")
 //    @GET("search?key="+key+"&safeSearch=strict&part=snippet&safeSearch=strict")
     Call<YoutubeResponse> showVideos(@Query("q") String q,
                                      @Query("maxResults") int maxResults,

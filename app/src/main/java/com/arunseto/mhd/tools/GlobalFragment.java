@@ -31,11 +31,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class GlobalFragment extends Fragment {
+    private static GlobalFragment mInstance;
     private Context context;
     private Activity fragmentActivity;
     private int animItemCounter;
-
-    private static GlobalFragment mInstance;
 
 
     public GlobalFragment(Activity fragmentActivity) {

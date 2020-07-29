@@ -36,7 +36,7 @@ public class TestInitFragment extends Fragment {
     private Button btnNavTestList, btnNavTestExecuteStart;
     private SwipeButton sbNavTestExecute;
     private TextView tvTestInitLabel;
-    private Boolean startTest= false;
+    private Boolean startTest = false;
 
 
     @Nullable
@@ -64,7 +64,7 @@ public class TestInitFragment extends Fragment {
         if (!startTest) {
             tvTestInitLabel.setVisibility(View.GONE);
             sbNavTestExecute.setVisibility(View.GONE);
-        }else{
+        } else {
             btnNavTestExecuteStart.setVisibility(View.GONE);
         }
 
@@ -78,7 +78,7 @@ public class TestInitFragment extends Fragment {
         btnNavTestList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gt.navigateFragment( flContent, new TestListFragment());
+                gt.navigateFragment(flContent, new TestListFragment());
             }
         });
 
@@ -89,7 +89,7 @@ public class TestInitFragment extends Fragment {
 //                    addTest();
 //                    getFragmentManager().beginTransaction().
                     gt.popFragment();
-                    gt.navigateFragment( flContent, new TestQFragment());
+                    gt.navigateFragment(flContent, new TestQFragment());
                 } else {
 //                    gt.getSession().endTestSession();
 //                    String str = gt.getSession().getTestSession().getId_tes()
@@ -103,7 +103,7 @@ public class TestInitFragment extends Fragment {
         btnNavTestExecuteStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startTest=true;
+                startTest = true;
                 tvTestInitLabel.setVisibility(View.VISIBLE);
                 sbNavTestExecute.setVisibility(View.VISIBLE);
                 btnNavTestExecuteStart.setVisibility(View.GONE);

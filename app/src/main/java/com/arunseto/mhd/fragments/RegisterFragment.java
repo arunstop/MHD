@@ -19,15 +19,13 @@ import androidx.fragment.app.Fragment;
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.activities.MainActivity;
 import com.arunseto.mhd.api.MainClient;
-import com.arunseto.mhd.models.DefaultResponse;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.models.UserResponse;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
-import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+import com.arunseto.mhd.ui.LoadingDialog;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import retrofit2.Call;
@@ -50,7 +48,7 @@ public class RegisterFragment extends Fragment {
     private LoadingDialog loadingDialog;
     private EditText etFirstName, etLastName, etEmail, etPassword, etPhone, etPasswordConfirm, etBirthDate;
     private Button btnMale, btnFemale, btnRegister;
-    private String firstName, lastName, email, password, phone, passwordConfirm, birthDate="";
+    private String firstName, lastName, email, password, phone, passwordConfirm, birthDate = "";
     private int sexO;
     private Calendar calendar;
 
@@ -140,8 +138,8 @@ public class RegisterFragment extends Fragment {
                         year,
                         monthOfYear,
                         dayOfMonth);
-                birthDate = gt.formatDate("EEE MMM dd HH:mm:ss z yyyy","yyyy-MM-dd",calendar.getTime().toString());
-                String strDateForEt = gt.formatDate("yyyy-MM-dd","dd-MM-yyyy",birthDate);
+                birthDate = gt.formatDate("EEE MMM dd HH:mm:ss z yyyy", "yyyy-MM-dd", calendar.getTime().toString());
+                String strDateForEt = gt.formatDate("yyyy-MM-dd", "dd-MM-yyyy", birthDate);
                 etBirthDate.setText(strDateForEt);
 
             }
@@ -229,7 +227,7 @@ public class RegisterFragment extends Fragment {
                         birthDate,
                         "",
                         "",
-                        1,
+                        0,
                         gt.getCurrentTime(),
                         1,
                         gt.getCurrentTime()
@@ -246,9 +244,9 @@ public class RegisterFragment extends Fragment {
                         Toast.makeText(context, "Registration Success", Toast.LENGTH_SHORT).show();
                         loadingDialog.dismiss();
                     }
-                }else{
+                } else {
                     loadingDialog.dismiss();
-                    Toast.makeText(context, response.message()+"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, response.message() + "", Toast.LENGTH_SHORT).show();
                 }
             }
 

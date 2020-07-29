@@ -14,6 +14,14 @@ public class TestResult {
     @SerializedName("PERSENTASE_GEJALA")
     private double symptom_percentage;
 
+    public TestResult(int id_test, int id_disorder, String disorder_name, int symptom_total, double symptom_percentage) {
+        this.id_test = id_test;
+        this.id_disorder = id_disorder;
+        this.disorder_name = disorder_name;
+        this.symptom_total = symptom_total;
+        this.symptom_percentage = symptom_percentage;
+    }
+
     public int getId_test() {
         return id_test;
     }
@@ -32,13 +40,5 @@ public class TestResult {
 
     public double getSymptom_percentage() {
         return symptom_percentage;
-    }
-
-    public TestResult(int id_test, int id_disorder, String disorder_name, int symptom_total, double symptom_percentage) {
-        this.id_test = id_test;
-        this.id_disorder = id_disorder;
-        this.disorder_name = disorder_name;
-        this.symptom_total = symptom_total;
-        this.symptom_percentage = symptom_percentage;
     }
 }

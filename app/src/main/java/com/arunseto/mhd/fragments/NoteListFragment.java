@@ -24,8 +24,8 @@ import com.arunseto.mhd.models.NoteResponse;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.arunseto.mhd.tools.Session;
-import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.ConfirmationDialog;
+import com.arunseto.mhd.ui.LoadingDialog;
 import com.arunseto.mhd.ui.PoppingMenu;
 import com.github.ybq.android.spinkit.SpinKitView;
 
@@ -125,13 +125,12 @@ public class NoteListFragment extends Fragment {
             public void onResponse(Call<NoteResponse> call, Response<NoteResponse> response) {
                 if (response.isSuccessful()) {
                     NoteResponse result = response.body();
-                    if (result.getData()==null){
+                    if (result.getData() == null) {
                         gt.showNotFoundPage(llNoteList);
                         skvLoading.setVisibility(View.GONE);
                         srlRefresher.setRefreshing(false);
                         return;
-                    }
-                    else if (result.isOk()) {
+                    } else if (result.isOk()) {
 //                        if (result.getData()==null){
 //                            gt.showNotFoundPage(llNoteList);
 //                            return;
@@ -180,7 +179,7 @@ public class NoteListFragment extends Fragment {
             vNote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    gt.navigateFragment( gt.getContent(), new NoteDetailFragment(note));
+                    gt.navigateFragment(gt.getContent(), new NoteDetailFragment(note));
                 }
             });
 

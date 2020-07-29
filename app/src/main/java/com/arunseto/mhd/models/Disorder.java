@@ -6,23 +6,23 @@ public class Disorder {
 
 
     @SerializedName("ID_PENYAKIT")
-    private Integer  ID_PENYAKIT;
+    private Integer ID_PENYAKIT;
     @SerializedName("NAMA_PENYAKIT")
     private String NAMA_PENYAKIT;
     @SerializedName("INFORMASI")
     private String INFORMASI;
     @SerializedName("CREATED_AT")
     private String CREATED_AT;
-    private int count=0;
+    private int count = 0;
 
-    public Disorder(Integer  ID_PENYAKIT, String NAMA_PENYAKIT, String INFORMASI, String CREATED_AT) {
+    public Disorder(Integer ID_PENYAKIT, String NAMA_PENYAKIT, String INFORMASI, String CREATED_AT) {
         this.ID_PENYAKIT = ID_PENYAKIT;
         this.NAMA_PENYAKIT = NAMA_PENYAKIT;
         this.INFORMASI = INFORMASI;
         this.CREATED_AT = CREATED_AT;
     }
 
-    public Integer  getID_PENYAKIT() {
+    public Integer getID_PENYAKIT() {
         return ID_PENYAKIT;
     }
 

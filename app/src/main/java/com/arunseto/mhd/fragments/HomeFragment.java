@@ -274,7 +274,7 @@ public class HomeFragment extends Fragment {
 //                        Toast.makeText(context, "KEKWKWKW", Toast.LENGTH_SHORT).show();
                     }
                 });
-                gt.addViewAnimatedPop(container, vArticle,true);
+                gt.addViewAnimatedPop(container, vArticle, true);
                 return vArticle;
             }
 

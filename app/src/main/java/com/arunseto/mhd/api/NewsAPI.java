@@ -1,12 +1,9 @@
 package com.arunseto.mhd.api;
 
 import com.arunseto.mhd.models.News;
-import com.arunseto.mhd.models.NewsArticle;
-import com.arunseto.mhd.models.User;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NewsAPI {

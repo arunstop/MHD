@@ -95,10 +95,10 @@ public class TestResultFragment extends Fragment {
                             TextView tvTestResultPercentage = vPercentage.findViewById(R.id.tvTestResultPercentageLabel);
 
                             double percentage = testResult.getSymptom_percentage();
-                            percentage = percentage*100;
+                            percentage = percentage * 100;
                             percentage = Math.round(percentage);
-                            percentage = percentage/100;
-                            String strLabel = testResult.getDisorder_name() + " : " + percentage +"%";
+                            percentage = percentage / 100;
+                            String strLabel = testResult.getDisorder_name() + " : " + percentage + "%";
                             if (iNo == 1) {
                                 strLabel = "<b>" + strLabel + "</b>";
                                 tvTestResultPercentage.setTextSize(18);
@@ -147,7 +147,7 @@ public class TestResultFragment extends Fragment {
                             TextView tvTestQuestion = vDetail.findViewById(R.id.tvTestQuestion);
                             TextView tvTestDetailChoice = vDetail.findViewById(R.id.tvTestQuestionChoice);
 
-                            tvTestQuestionNo.setText(iNo+ ". ");
+                            tvTestQuestionNo.setText(iNo + ". ");
                             tvTestQuestion.setText(testDetail.getQuestion());
                             if (testDetail.getChoice() == 1) {
                                 tvTestDetailChoice.setText("YA");

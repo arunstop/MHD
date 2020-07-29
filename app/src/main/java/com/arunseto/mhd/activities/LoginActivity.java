@@ -1,7 +1,5 @@
 package com.arunseto.mhd.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.api.GoogleAuthClient;
@@ -27,8 +27,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -139,50 +137,35 @@ public class LoginActivity extends AppCompatActivity {
         Call<UserResponse> call = MainClient.getInstance().getApi().loginUser(email,
                 password, currentTime, 1);
         call.enqueue(new Callback<UserResponse>() {
-                         @Override
-                         public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                             if (response.isSuccessful()) {
-                                 UserResponse result = response.body();
-                                 if (result.isOk()) {
-                                     List<User> lu = result.getData();
-                                     session.saveUser(lu.get(0));
-//                    etEmail.setText(new Gson().toJson(response.body())+"");
-//                    String s = "";
-//                        s+= user.getId_user()+"\n";
-//                        s+= user.getEmail()+"\n";
-//                        s+= user.getPassword()+"\n";
-//                        s+= user.getNo_telp()+"\n";
-//                        s+= user.getFirst_name()+"\n";
-//                        s+= user.getLast_name()+"\n";
-//                        s+= user.getLast_login()+"\n";
-//                        s+= user.getType_login()+"\n";
-//                        s+= user.getRole()+"\n";
-//                        s+= user.getCreated_at()+"\n";
-//                        s+= user.getPhoto_url()+"\n";
-                                     //                    Toast.makeText(LoginActivity.this, s+"", Toast.LENGTH_SHORT).show();
-                                     startActivity(new Intent(context, MainActivity.class));
-                                     finish();
-                                     loadingDialog.dismiss();
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful()) {
+                    UserResponse result = response.body();
+                    if (result.isOk()) {
+                        List<User> lu = result.getData();
+                        session.saveUser(lu.get(0));
+                        startActivity(new Intent(context, MainActivity.class));
+                        finish();
+                        loadingDialog.dismiss();
 //                                     Toast.makeText(LoginActivity.this, "Login " + result.getMessage(), Toast.LENGTH_SHORT).show();
-                                 } else {
-                                     Toast.makeText(LoginActivity.this, "" + result.getMessage(), Toast.LENGTH_SHORT).show();
-                                 }
-                                 loadingDialog.dismiss();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "" + result.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    loadingDialog.dismiss();
 
-                             } else {
-                                 Toast.makeText(context, response.message() + " Error", Toast.LENGTH_SHORT).show();
-                                 loadingDialog.dismiss();
-                             }
-                         }
+                } else {
+                    Toast.makeText(context, response.message() + " Error", Toast.LENGTH_SHORT).show();
+                    loadingDialog.dismiss();
+                }
+            }
 
-                         @Override
-                         public void onFailure(Call<UserResponse> call, Throwable t) {
-                             Toast.makeText(context, t.getMessage() + " Error", Toast.LENGTH_SHORT).show();
-                             loadingDialog.dismiss();
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                Toast.makeText(context, t.getMessage() + " Error", Toast.LENGTH_SHORT).show();
+                loadingDialog.dismiss();
 
-                         }
-                     }
-        );
+            }
+        });
     }
 
     // google login
@@ -203,26 +186,45 @@ public class LoginActivity extends AppCompatActivity {
                         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                         GoogleSignInAccount account = task.getResult(ApiException.class);
 
-//                        Toast.makeText(context, account.getGivenName()+"", Toast.LENGTH_SHORT).show();
-                        session.saveUser(
-                                new User(0,
-                                        account.getEmail(),
-                                        "",
-                                        account.getGivenName(),
-                                        account.getFamilyName(),
-                                        "",
-                                        0,
-                                        "",
-                                        "",
-                                        account.getPhotoUrl().toString(),
-                                        1,
-                                        "",
-                                        2,
-                                        gt.getCurrentTime()
-                                )
+                        String dateNow = gt.formatDate("yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", gt.getCurrentTime());
+                        Call<UserResponse> call = gt.callApi().loginGoogle(
+                                account.getEmail(),
+                                "google",
+                                account.getGivenName(),
+                                account.getFamilyName(),
+                                "0",
+                                1,
+                                dateNow,
+                                "",
+                                account.getPhotoUrl().toString(),
+                                0,
+                                gt.getCurrentTime(),
+                                2,
+                                gt.getCurrentTime()
                         );
-                        startActivity(new Intent(context, MainActivity.class));
-                        finish();
+                        call.enqueue(new Callback<UserResponse>() {
+                            @Override
+                            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                                if (response.isSuccessful()) {
+                                    UserResponse result = response.body();
+                                    if (result.isOk()) {
+                                        session.saveUser(result.getData().get(0));
+                                        startActivity(new Intent(context, MainActivity.class));
+                                        finish();
+                                    }
+                                } else {
+                                    Toast.makeText(LoginActivity.this, response.message() + "", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<UserResponse> call, Throwable t) {
+                                Toast.makeText(LoginActivity.this,
+                                        "Login Failed :\n" + t.getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                     } catch (ApiException e) {
                         // The ApiException status code indicates the detailed failure reason.
                         Log.w("Google LoginActivity", "signInResult:failed code=" + e.getStatusCode());

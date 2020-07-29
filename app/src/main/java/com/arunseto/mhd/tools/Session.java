@@ -3,7 +3,6 @@ package com.arunseto.mhd.tools;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.arunseto.mhd.models.Test;
 import com.arunseto.mhd.models.User;
 
 

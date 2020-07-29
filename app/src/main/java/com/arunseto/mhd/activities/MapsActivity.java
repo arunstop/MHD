@@ -1,11 +1,5 @@
 package com.arunseto.mhd.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -17,29 +11,30 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+
 import com.arunseto.mhd.R;
 import com.arunseto.mhd.fragments.AboutFragment;
 import com.arunseto.mhd.fragments.ExpertListMapFragment;
-import com.arunseto.mhd.fragments.PsychiatristProfileContactFragment;
 import com.arunseto.mhd.models.User;
 import com.arunseto.mhd.tools.GlobalTools;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.location.LocationListener;
-
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MapsActivity extends FragmentActivity
         implements
@@ -80,7 +75,7 @@ public class MapsActivity extends FragmentActivity
         btnExpertShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ExpertListMapFragment elmFragment =  new ExpertListMapFragment();
+                ExpertListMapFragment elmFragment = new ExpertListMapFragment();
                 elmFragment.show(getSupportFragmentManager(), "Dialog");
             }
         });
@@ -220,7 +215,7 @@ public class MapsActivity extends FragmentActivity
 
     @Override
     public void getExpertLocation(LatLng latLng) {
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34, 151),15));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34, 151), 15));
         llExpertList.setVisibility(View.VISIBLE);
         getSupportFragmentManager().beginTransaction().add(R.id.llExpertList, new AboutFragment()).commit();
 

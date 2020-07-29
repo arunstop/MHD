@@ -95,8 +95,8 @@ public class PsychiatristFragment extends Fragment {
                              if (response.isSuccessful()) {
                                  PsychiatristResponse result = response.body();
                                  if (result.isOk()) {
-                                     if (result.getData()==null){
-                            gt.showNotFoundPage(llPsychiatristList);
+                                     if (result.getData() == null) {
+                                         gt.showNotFoundPage(llPsychiatristList);
                                          return;
                                      }
                                      mapPsychiatrist(result.getData());
@@ -115,7 +115,7 @@ public class PsychiatristFragment extends Fragment {
                                              gt.refreshFragment();
                                          }
                                      }).show();
-                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
+                             //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
                          }
                      }
         );
@@ -142,7 +142,7 @@ public class PsychiatristFragment extends Fragment {
             llPsy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    gt.navigateFragment( gt.getContent(), new PsychiatristProfileFragment(psy));
+                    gt.navigateFragment(gt.getContent(), new PsychiatristProfileFragment(psy));
                 }
             });
 

@@ -14,6 +14,14 @@ public class Test {
     @SerializedName("NAMA_PENYAKIT")
     private String disorder_name;
 
+    public Test(int id_tes, int result, int id_user, String date, String disorder_name) {
+        this.id_tes = id_tes;
+        this.result = result;
+        this.id_user = id_user;
+        this.date = date;
+        this.disorder_name = disorder_name;
+    }
+
     public int getId_tes() {
         return id_tes;
     }
@@ -32,13 +40,5 @@ public class Test {
 
     public String getDisorder_name() {
         return disorder_name;
-    }
-
-    public Test(int id_tes, int result, int id_user, String date, String disorder_name) {
-        this.id_tes = id_tes;
-        this.result = result;
-        this.id_user = id_user;
-        this.date = date;
-        this.disorder_name = disorder_name;
     }
 }
