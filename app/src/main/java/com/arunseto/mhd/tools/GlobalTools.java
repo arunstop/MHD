@@ -318,7 +318,6 @@ public class GlobalTools {
     }
 
 
-
     //DateFormatter
     /* FORMAT PATTERNS
        "yyyy.MM.dd G 'at' HH:mm:ss z" ==== 2001.07.04 AD at 12:08:56 PDT

@@ -57,10 +57,10 @@
         android:layout_height="match_parent">
 
         <ViewFlipper
-            android:layout_centerInParent="true"
             android:id="@+id/vfSymptomsList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:gravity="center"
             android:inAnimation="@anim/scale_pop_in"
             android:orientation="vertical"
@@ -77,10 +77,10 @@
             android:orientation="vertical">
 
             <!--<TextView-->
-                <!--android:id="@+id/append"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="INSERT INTO\n" />-->
+            <!--android:id="@+id/append"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="INSERT INTO\n" />-->
             <!--<Button-->
             <!--android:id="@+id/btnNo"-->
             <!--style="@style/ButtonRound"-->

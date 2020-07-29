@@ -115,7 +115,7 @@ public class SettingsFragment extends Fragment {
                         "mailto", getResources().getString(R.string.email), null));
                 emailIntent.putExtra(
                         Intent.EXTRA_SUBJECT,
-                        "[MHD APP] Feedabck from " +
+                        "[MHD APP] Feedback from " +
                                 (user.getFirst_name() + " " + user.getLast_name()).toUpperCase()
                 );
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "");

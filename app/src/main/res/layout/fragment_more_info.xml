@@ -39,15 +39,15 @@
                 android:textStyle="bold" />
 
             <!--<Button-->
-                <!--android:id="@+id/btnMore"-->
-                <!--style="@style/ButtonBack"-->
-                <!--android:layout_width="24dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginEnd="12dp"-->
-                <!--android:drawableStart="@drawable/ic_more_vert_black_24dp"-->
-                <!--android:gravity="end" />-->
+            <!--android:id="@+id/btnMore"-->
+            <!--style="@style/ButtonBack"-->
+            <!--android:layout_width="24dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginEnd="12dp"-->
+            <!--android:drawableStart="@drawable/ic_more_vert_black_24dp"-->
+            <!--android:gravity="end" />-->
         </RelativeLayout>
     </Toolbar>
 
@@ -185,6 +185,7 @@
                 android:layout_height="1dp"
                 android:layout_margin="12dp"
                 android:background="@drawable/bg_textline" />
+
             <LinearLayout
                 android:id="@+id/llImgur"
                 style="@style/ButtonTransparent"
@@ -401,7 +402,6 @@
                 android:layout_height="1dp"
                 android:layout_margin="12dp"
                 android:background="@drawable/bg_textline" />
-
 
 
         </LinearLayout>

@@ -49,15 +49,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    app:cardBackgroundColor="@color/transparent"
                     app:cardCornerRadius="60dp">
 
                     <ImageView
                         android:id="@+id/ivProfilePhoto"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:scaleType="centerCrop"
                         android:backgroundTint="@color/colorWhite"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/google_logo" />
                 </androidx.cardview.widget.CardView>
 

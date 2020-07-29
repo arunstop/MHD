@@ -4,11 +4,7 @@
         <shape android:shape="rectangle">
             <corners android:radius="150dp" />
             <solid android:color="@color/colorPrimary" />
-            <gradient
-                android:angle="180"
-                android:startColor="@color/colorPrimaryDark"
-                android:endColor="@color/colorPrimary"
-                android:type="linear" />
+            <gradient android:angle="180" android:endColor="@color/colorPrimary" android:startColor="@color/colorPrimaryDark" android:type="linear" />
         </shape>
     </item>
 </selector>

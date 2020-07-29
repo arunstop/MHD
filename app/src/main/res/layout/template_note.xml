@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ButtonTransparent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/ButtonTransparent"
     android:orientation="horizontal">
 
     <LinearLayout
-        android:background="@drawable/bg_textline"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_textline">
 
         <LinearLayout
             android:layout_width="match_parent"

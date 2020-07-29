@@ -9,7 +9,7 @@
         android:toXScale="0.3"
         android:toYScale="0.3" />
     <alpha
+        android:duration="@android:integer/config_mediumAnimTime"
         android:fromAlpha="1.0"
-        android:toAlpha="0.0"
-        android:duration="@android:integer/config_mediumAnimTime" />
+        android:toAlpha="0.0" />
 </set>

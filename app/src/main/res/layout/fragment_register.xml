@@ -85,7 +85,7 @@
                         style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_mail_24dp"
+                        android:drawableStart="@drawable/ic_person_24dp"
                         android:hint="Nama Depan"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -101,7 +101,7 @@
                         style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_mail_24dp"
+                        android:drawableStart="@drawable/ic_person_24dp"
                         android:hint="Nama Belakang"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -146,7 +146,7 @@
                         style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_lock_24dp"
+                        android:drawableStart="@drawable/ic_vpn_key_24dp"
                         android:hint="Confirm Password"
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -161,7 +161,7 @@
                         style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_lock_24dp"
+                        android:drawableStart="@drawable/ic_phone_24dp"
                         android:hint="Phone Number"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -226,7 +226,7 @@
                         style="@style/EditTextBasic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_lock_24dp"
+                        android:drawableStart="@drawable/ic_date_24dp"
                         android:focusable="false"
                         android:hint="Tanggal Lahir"
                         android:inputType="date" />
