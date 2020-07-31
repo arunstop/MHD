@@ -1,14 +1,7 @@
 <resources>
     <string name="app_name">MHD</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <!--google auth client id-->
-    <string name="client_id">52023918840-usq2mt0bjs6jkrncin52gno943csjasf.apps.googleusercontent.com</string>
-    <string name="yt_apikey">AIzaSyDQj3SuEJ-GPvJkcXK_reIB5fn3hmH0-tw</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="lipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="about">MHD adalah aplikasi yang fungsi utamanya untuk melakukan diagnosa awal gangguan mental (khususnya untuk mahasiswa).\n\n
 Gangguan mental merupakan penyakit/gangguan kesehatan yang masih tidak banyak diketahui oleh masyarakat umum, namun gangguan ini sangat berbahaya bagi menusia karena bagian tubuh yang terkena gangguan mental adalah otak.\n\n
 Gangguan ini dapat menyebabkan hal-hal seperti stress atau yang paling fatal adalah kematian yang dilakukan karena bunuh diri dan banyak penderita gangguan mental tidak menyadari jika mereka mengaliminya.\n\n

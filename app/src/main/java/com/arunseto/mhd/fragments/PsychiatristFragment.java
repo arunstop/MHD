@@ -78,16 +78,6 @@ public class PsychiatristFragment extends Fragment {
         skvLoading.setVisibility(View.VISIBLE);
         llPsychiatristList.removeAllViews();
 
-//        List<Psychiatrist> dummy = new ArrayList<>();
-//        dummy.add(new Psychiatrist("Dr. Muna Sihombing", "+62 823 999 890", "Jl. Mawar No 1, Malang", "08:00 - 19:00", "f"));
-//        dummy.add(new Psychiatrist("Dr. Mariyo Kirk", "+62 822 123 642", "Jl. Kasih No 2, Batu", "08:00 - 19:00", "m"));
-//        dummy.add(new Psychiatrist("Dr. Billy Suharja", "+62 811 656 576", "Jl. Ibu No 23, Malang", "08:00 - 19:00", "m"));
-//        dummy.add(new Psychiatrist("Dr. Mustafa Allemania", "+62 823 789 279", "Jl. Yogurt No 6", "08:00 - 19:00", "m"));
-//        dummy.add(new Psychiatrist("Dr. Ma'aruf Mancagit", "+62 811 222 712", "Jl. Setia No 7", "08:00 - 19:00", "m"));
-//        dummy.add(new Psychiatrist("Dr. Durma Durmajana", "+62 823 157 228", "Jl. Melati No 12", "08:00 - 19:00", "f"));
-//        dummy.add(new Psychiatrist("Dr. Prasetiyo", "+62 822 122 561", "Jl. Melijan No 32", "08:00 - 19:00", "m"));
-//        dummy.add(new Psychiatrist("Dr. Enny Malamita", "+62 810 572 550", "Jl. Sukoharjo No 2", "08:00 - 19:00", "f"));
-
         Call<PsychiatristResponse> call = MainClient.getInstance().getApi().showPsychiatrists();
         call.enqueue(new Callback<PsychiatristResponse>() {
                          @Override
@@ -136,6 +126,10 @@ public class PsychiatristFragment extends Fragment {
                 ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_femdoc));
             } else {
                 ivPsyImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.dummy_jrr));
+            }
+
+                if (!psy.getPhotoUrl().isEmpty()&&psy.getPhotoUrl().contains(".")) {
+                gt.loadImgUrl(user.getPhoto_url(), ivPsyImg);
             }
 
 

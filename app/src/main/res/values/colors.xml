@@ -13,16 +13,10 @@
     <color name="colorBackground">#fafafa</color>
     <color name="colorDarkBackground">#aaaaaa</color>
     <color name="colorDark">#2C2C2C</color>
-    <color name="colorDarkTransparent">#99000000</color>
     <color name="colorInfo">#17a2b8</color>
-    <color name="colorInfoLighter">#99B8BD</color>
     <color name="colorDanger">#d75072</color>
-    <color name="colorDangerLighter">#E6C4CC</color>
-    <color name="colorWarning">#FCA424</color>
-    <color name="colorWarningLighter">#FADDB7</color>
     <color name="colorSuccess">#30c44f</color>
     <color name="transparent">#00000000</color>
-    <color name="colorGray">#aaaaaa</color>
     <color name="colorGrayLight">#DEDEDE</color>
     <!--<color name="colorAccent">#D81B60</color>-->
 </resources>
