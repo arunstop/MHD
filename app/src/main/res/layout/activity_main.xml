@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:orientation="vertical"
-    tools:context=".activities.MainActivity">
+    tools:context="id.ac.stiki.doleno.mhd.activities.MainActivity">
 
     <FrameLayout
         android:id="@+id/flContent"

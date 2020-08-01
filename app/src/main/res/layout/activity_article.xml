@@ -8,7 +8,7 @@
     android:background="@color/colorBackground"
     android:clickable="true"
     android:orientation="vertical"
-    tools:context=".activities.MainActivity">
+    tools:context="id.ac.stiki.doleno.mhd.activities.MainActivity">
 
     <Toolbar
         android:layout_width="match_parent"

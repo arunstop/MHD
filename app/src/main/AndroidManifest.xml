@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="com.arunseto.mhd">
+    package="id.ac.stiki.doleno.mhd">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -39,11 +39,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activities.MapsActivity"
+            android:name="id.ac.stiki.doleno.mhd.activities.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".activities.ArticleActivity" />
+        <activity android:name="id.ac.stiki.doleno.mhd.activities.ArticleActivity" />
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="id.ac.stiki.doleno.mhd.activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,7 +52,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="id.ac.stiki.doleno.mhd.activities.LoginActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -60,7 +60,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name="id.ac.stiki.doleno.mhd.activities.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name">
             <intent-filter>

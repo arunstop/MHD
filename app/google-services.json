@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:52023918840:android:c8c8c8a5438c6db24f3b0d",
+        "mobilesdk_app_id": "1:52023918840:android:1e009e4bcbe662584f3b0d",
         "android_client_info": {
-          "package_name": "com.arunseto.mhd"
+          "package_name": "id.ac.stiki.doleno.mhd"
         }
       },
       "oauth_client": [
         {
-          "client_id": "52023918840-kilcn82huij3g6045qklrf1opbfj9e09.apps.googleusercontent.com",
+          "client_id": "52023918840-6lrc5i90ouvcbggreeq6n857ekp9ka6r.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.arunseto.mhd",
+            "package_name": "id.ac.stiki.doleno.mhd",
             "certificate_hash": "58c5689c0345c73eb2cd92a22ec95938efc2ff67"
           }
         },
@@ -36,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "52023918840-kt56h116smnt1kd54j7t2ibcbqf92mq9.apps.googleusercontent.com",
+              "client_id": "52023918840-usq2mt0bjs6jkrncin52gno943csjasf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

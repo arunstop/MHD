@@ -7,7 +7,7 @@
     android:background="@drawable/bg_gradient"
     android:clickable="true"
     android:gravity="center"
-    tools:context=".activities.LoginActivity">
+    tools:context="id.ac.stiki.doleno.mhd.activities.LoginActivity">
 
     <FrameLayout
         android:id="@+id/flContent"
