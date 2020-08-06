@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "52023918840-kri6gj6nuhs9m42pnqbrf8sk3irj5jev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.ac.stiki.doleno.mhd",
+            "certificate_hash": "2a494917f38651dc24f10e8fce6a757f9e68e393"
+          }
+        },
+        {
+          "client_id": "52023918840-0k53vfct2abo7e6cb8pqteui5edff7br.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.ac.stiki.doleno.mhd",
+            "certificate_hash": "941d46a93895272186453545bb8f6b8f0d0944b5"
+          }
+        },
+        {
           "client_id": "52023918840-6lrc5i90ouvcbggreeq6n857ekp9ka6r.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

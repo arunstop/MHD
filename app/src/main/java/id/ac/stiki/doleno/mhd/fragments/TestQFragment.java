@@ -83,9 +83,11 @@ public class TestQFragment extends Fragment {
         vfSymptomsList = view.findViewById(R.id.vfSymptomsList);
         skvLoading = view.findViewById(R.id.skvLoading);
 
+
         vfSymptomsList.removeAllViews();
-//        loadQuiz(1, 0, 1);
         loadQuizAll();
+
+
 
         return view;
     }
@@ -116,7 +118,7 @@ public class TestQFragment extends Fragment {
     }
 
     public void loadQuiz(final int idSymptomDetail, final int idSymptom, @Nullable final Integer choice) {
-        Question question = mapQ.get(idSymptomDetail);
+        final Question question = mapQ.get(idSymptomDetail);
         skvLoading.setVisibility(View.VISIBLE);
         View vQuiz = inflater.inflate(R.layout.template_test_question, null);
         TextView tvQuizNo = vQuiz.findViewById(R.id.tvQuestionNo);
@@ -124,7 +126,17 @@ public class TestQFragment extends Fragment {
         Button btnYes = vQuiz.findViewById(R.id.btnAnswerYes);
         Button btnNo = vQuiz.findViewById(R.id.btnAnswerNo);
         Button btnPrevious = vQuiz.findViewById(R.id.btnPrevious);
-//
+        Button btnDone = vQuiz.findViewById(R.id.btnDone);
+        if (tdList.size()<=0){
+            btnDone.setVisibility(View.GONE);
+        }
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addTest(question.getId_disorder());
+            }
+        });
+
         String strQuizNo = "Pertanyaan ke - "
                 + iNo //question number
                 + "";
@@ -132,9 +144,6 @@ public class TestQFragment extends Fragment {
 
         String strQuizName;
         if (question.getId_symptom() != idSymptom) {
-            String strYn = "\n"
-                    + "YES : " + question.getYes() + "\n"
-                    + "NO : " + question.getNo();
             strQuizName = question.getQuestion();
             vfSymptomsList.addView(vQuiz);
             vfSymptomsList.showNext();
@@ -284,37 +293,4 @@ public class TestQFragment extends Fragment {
             }
         });
     }
-
-
-    public void btnBehaviour(final Button btnYes, final Button btnNo) {
-        btnYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnSexChecked(btnYes);
-                btnSexUnchecked(btnNo);
-            }
-        });
-        btnNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnSexChecked(btnNo);
-                btnSexUnchecked(btnYes);
-            }
-        });
-    }
-
-    //If the button clicked the background and text color wil be changed
-    public void btnSexChecked(Button button) {
-        button.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorPrimary));
-        button.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
-    }
-
-    //If the other button clicked by the function above,
-    //the background and text color wil be changed as well
-    public void btnSexUnchecked(Button button) {
-        button.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.colorBackground));
-        button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
-
-    }
-
 }

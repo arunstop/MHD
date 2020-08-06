@@ -98,5 +98,16 @@
             android:textSize="12sp" />
 
     </LinearLayout>
+    <Button
+        android:id="@+id/btnDone"
+        style="@style/ButtonTransparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:minWidth="72dp"
+        android:outlineProvider="background"
+        android:text="SELESAI"
+        android:textSize="16sp" />
 
 </LinearLayout>
