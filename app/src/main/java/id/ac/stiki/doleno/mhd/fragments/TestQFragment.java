@@ -7,12 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.github.ybq.android.spinkit.SpinKitView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import id.ac.stiki.doleno.mhd.R;
 import id.ac.stiki.doleno.mhd.models.Question;
@@ -26,11 +33,6 @@ import id.ac.stiki.doleno.mhd.tools.GlobalTools;
 import id.ac.stiki.doleno.mhd.tools.Session;
 import id.ac.stiki.doleno.mhd.ui.ConfirmationDialog;
 import id.ac.stiki.doleno.mhd.ui.LoadingDialog;
-import com.github.ybq.android.spinkit.SpinKitView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,7 +57,7 @@ public class TestQFragment extends Fragment {
     private TextView append;
     private List<TestDetail> tdList;
     private int iNo = 1;
-
+    private HashMap<Integer, Question> mapQ;
 
     @Nullable
     @Override
@@ -76,69 +78,32 @@ public class TestQFragment extends Fragment {
 //        srlRefresher = ((SwipeRefreshLayout) llList.getParent().getParent());
 
         tdList = new ArrayList<>();
+        mapQ = new HashMap<>();
 
         vfSymptomsList = view.findViewById(R.id.vfSymptomsList);
         skvLoading = view.findViewById(R.id.skvLoading);
-//        append = view.findViewById(R.id.append);
-
 
         vfSymptomsList.removeAllViews();
-        loadQuiz(1, 0, 1);
+//        loadQuiz(1, 0, 1);
+        loadQuizAll();
 
         return view;
     }
 
-    public void loadQuiz(final int idSymptomDetail, final int idSymptom, @Nullable final Integer choice) {
-        skvLoading.setVisibility(View.VISIBLE);
-
-        Call<QuestionResponse> call = gt.callApi().loadQuiz(idSymptomDetail);
+    public void loadQuizAll() {
+        Call<QuestionResponse> call = gt.callApi().loadQuizAll();
         call.enqueue(new Callback<QuestionResponse>() {
             @Override
             public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {
-
                 if (response.isSuccessful()) {
                     QuestionResponse result = response.body();
                     if (result.isOk()) {
-                        for (final Question question : result.getData()) {
-                            View vQuiz = inflater.inflate(R.layout.template_test_question, null);
-                            TextView tvQuizNo = vQuiz.findViewById(R.id.tvQuestionNo);
-                            TextView tvQuizName = vQuiz.findViewById(R.id.tvQuestionLabel);
-                            Button btnYes = vQuiz.findViewById(R.id.btnAnswerYes);
-                            Button btnNo = vQuiz.findViewById(R.id.btnAnswerNo);
-                            Button btnPrevious = vQuiz.findViewById(R.id.btnPrevious);
-//
-                            String strQuizNo = "Pertanyaan ke - "
-                                    + iNo //question number
-                                    + "";
-                            tvQuizNo.setText(strQuizNo);
-
-                            String strQuizName;
-                            if (question.getId_symptom() != idSymptom) {
-                                String strYn = "\n"
-                                        + "YES : " + question.getYes() + "\n"
-                                        + "NO : " + question.getNo();
-                                strQuizName = question.getQuestion();
-                                vfSymptomsList.addView(vQuiz);
-                                vfSymptomsList.showNext();
-                                iNo++;
-                            } else {
-                                loadQuiz(question.getYes(), question.getId_symptom(), choice);
-                                pushDetail(
-                                        question.getId_symptom_detail(),
-                                        choice
-                                );
-                                strQuizName = "sama " + question.getSymptom_name() + " ?";
-                            }
-
-                            tvQuizName.setText(strQuizName);
-                            if (tdList.size() == 0) {
-                                btnPrevious.setVisibility(View.INVISIBLE);
-                            }
-                            setButtonOption(question, vfSymptomsList.getChildCount(), vQuiz, btnYes, btnNo, btnPrevious);
-
-
-                            skvLoading.setVisibility(View.GONE);
+                        List<Question> lq = result.getData();
+                        for (Question q : lq) {
+                            mapQ.put(q.getId_symptom_detail(), q);
                         }
+                        loadQuiz(mapQ.get(1).getId_symptom_detail(), 0, 1);
+//                        Toast.makeText(context, mapQ.size() + "", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -146,9 +111,51 @@ public class TestQFragment extends Fragment {
             @Override
             public void onFailure(Call<QuestionResponse> call, Throwable t) {
                 gt.showSnackbar("Terjadi kesalahan koneksi.", "RETRY", null).show();
-                //Toast.makeText(context, t.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void loadQuiz(final int idSymptomDetail, final int idSymptom, @Nullable final Integer choice) {
+        Question question = mapQ.get(idSymptomDetail);
+        skvLoading.setVisibility(View.VISIBLE);
+        View vQuiz = inflater.inflate(R.layout.template_test_question, null);
+        TextView tvQuizNo = vQuiz.findViewById(R.id.tvQuestionNo);
+        TextView tvQuizName = vQuiz.findViewById(R.id.tvQuestionLabel);
+        Button btnYes = vQuiz.findViewById(R.id.btnAnswerYes);
+        Button btnNo = vQuiz.findViewById(R.id.btnAnswerNo);
+        Button btnPrevious = vQuiz.findViewById(R.id.btnPrevious);
+//
+        String strQuizNo = "Pertanyaan ke - "
+                + iNo //question number
+                + "";
+        tvQuizNo.setText(strQuizNo);
+
+        String strQuizName;
+        if (question.getId_symptom() != idSymptom) {
+            String strYn = "\n"
+                    + "YES : " + question.getYes() + "\n"
+                    + "NO : " + question.getNo();
+            strQuizName = question.getQuestion();
+            vfSymptomsList.addView(vQuiz);
+            vfSymptomsList.showNext();
+            iNo++;
+        } else {
+            loadQuiz(question.getYes(), question.getId_symptom(), choice);
+            pushDetail(
+                    question.getId_symptom_detail(),
+                    choice
+            );
+            strQuizName = "sama " + question.getSymptom_name() + " ?";
+        }
+
+        tvQuizName.setText(strQuizName);
+        if (tdList.size() == 0) {
+            btnPrevious.setVisibility(View.INVISIBLE);
+        }
+        setButtonOption(question, vfSymptomsList.getChildCount(), vQuiz, btnYes, btnNo, btnPrevious);
+
+
+        skvLoading.setVisibility(View.GONE);
     }
 
     public void setButtonOption(final Question question, final int index, final View vSymptom, Button btnYes, Button btnNo, Button btnPrevious) {

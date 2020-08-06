@@ -126,6 +126,9 @@ public interface MainAPI {
     Call<QuestionResponse> loadQuiz(
             @Query("id_gejala_detail") int id_gejala_detail
     );
+    @GET("symptom/show")
+    Call<QuestionResponse> loadQuizAll();
+
 
     @GET("disorder/show")
     Call<DisorderResponse> showDisorder(

@@ -63,6 +63,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginBottom="18dp"
                             android:text="Isi form berikut untuk masuk"
                             android:textStyle="bold" />
 
@@ -73,7 +74,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_round_corner_border"
                             android:drawableStart="@drawable/ic_mail_24dp"
-                            android:gravity=""
+                            android:gravity="center_vertical"
                             android:hint="Email"
                             android:inputType="textEmailAddress" />
 
@@ -84,6 +85,7 @@
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_lock_24dp"
                             android:hint="Password"
+                            android:gravity="center_vertical"
                             android:inputType="textPassword" />
 
                         <Button
